@@ -1,5 +1,5 @@
 # Historia Clínica de Teruel - Proyecto Software
----
+
 Planificación v1.0 con TeamGant
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/image.png)
