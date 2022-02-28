@@ -7,3 +7,4 @@
 
 - ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
 - ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut`
+- ![](https://via.placeholder.com/15/E11584/000000?text=+) `Tareas realizadas por Pablo Doñate`
