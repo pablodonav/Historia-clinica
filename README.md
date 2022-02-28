@@ -1,9 +1,9 @@
 # Historia Clínica de Teruel - Proyecto Software
 
- :calendar: Planificación v1.0 con TeamGant
+ :calendar: Planificación v1.0 con TeamGant (Pablo Doñate y Adnana Dragut)
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0-teamgantt.png)
-Pablo Doñate y Adnana Dragut <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a></p>
+<p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a></p>
 
  :recycle: Leyenda de colores:
  ---
