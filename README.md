@@ -3,7 +3,7 @@
 Planificación v1.0 con TeamGant
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0.png)
-<p align="right">Realizado con [TeamGantt](https://prod.teamgantt.com)</p>
+<p align="right">Realizado con  <a href="https://prod.teamgantt.com">TeamGantt</a></p>
                                            
 Planificación v1.0 con GanttProject
 ---
