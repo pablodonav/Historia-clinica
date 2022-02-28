@@ -9,3 +9,4 @@
 - ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut`
 - ![](https://via.placeholder.com/15/A50B5E/000000?text=+) `Tareas realizadas por Pablo Doñate`
 - ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut`
+- ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate`
