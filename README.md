@@ -1,4 +1,4 @@
-# ProyectoSoftware21-22
+# Historia Clínica de Teruel - Proyecto Software
 ---
 Planificación v1.0 con TeamGant
 ---
