@@ -5,4 +5,4 @@
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0-teamgantt.png)
 <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a></p>
 
-- ![](https://via.placeholder.com/15/E4AEFA/000000?text=+) `ee`
+- ![](https://via.placeholder.com/15/E4AEFA/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
