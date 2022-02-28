@@ -4,7 +4,8 @@
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0-teamgantt.png)
 <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a></p>
-
+---
+Leyenda de colores:
 - ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
 - ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut`
 - ![](https://via.placeholder.com/15/A50B5E/000000?text=+) `Tareas realizadas por Pablo Doñate`
