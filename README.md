@@ -3,7 +3,12 @@
  :calendar: Planificación v1.0 con TeamGant (Pablo Doñate y Adnana Dragut)
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0-teamgantt.png)
-<p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 01/03/2022</p>
+<p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 28/02/2022</p>
+
+ :calendar: Planificación v2.0 con TeamGant (Pablo Doñate y Adnana Dragut)
+---
+![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv2.0-teamgantt.png)
+<p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 02/03/2022</p>
 
  :recycle: Leyenda de colores:
  ---
