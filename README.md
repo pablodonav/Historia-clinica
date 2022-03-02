@@ -1,5 +1,13 @@
 # Historia Clínica de Teruel - Proyecto Software
 
+:recycle: Leyenda de colores:
+ ---
+- ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
+- ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut`
+- ![](https://via.placeholder.com/15/A50B5E/000000?text=+) `Tareas realizadas por Pablo Doñate`
+- ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut`
+- ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate`
+
  :calendar: Planificación v1.0 con TeamGant (Pablo Doñate y Adnana Dragut)
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv1.0-teamgantt.png)
@@ -9,11 +17,3 @@
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/planificacionv2.0-teamgantt.png)
 <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 02/03/2022</p>
-
- :recycle: Leyenda de colores:
- ---
-- ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
-- ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut`
-- ![](https://via.placeholder.com/15/A50B5E/000000?text=+) `Tareas realizadas por Pablo Doñate`
-- ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut`
-- ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate`
