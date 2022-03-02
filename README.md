@@ -1,4 +1,4 @@
-# Historia Clínica de Teruel - Proyecto Software (Pablo Doñate y Adnana Dragut)
+# Historia Clínica de Teruel - PSW (Pablo Doñate y Adnana Dragut)
 
 :recycle: Leyenda de colores:
  ---
