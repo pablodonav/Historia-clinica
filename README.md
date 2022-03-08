@@ -18,7 +18,7 @@
 <p> La planificación ha sido elaborada mediante dos herramientas, <a href="https://prod.teamgantt.com">TeamGantt</a> y <a href="https://github.com">GitHub</a>.
  </p><p>
  En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este.</a>
- La planificación realizada con TeamGantt es la siguiente:
+ <p>La planificación realizada con TeamGantt es la siguiente:</p>
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv2.0.png)
 <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 02/03/2022.</p>
 
