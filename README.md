@@ -13,6 +13,8 @@
 - ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut.`
 - ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate.`
 
+:calendar: ##Planificación
+
  :calendar: Planificación v2.0 con TeamGant
 ---
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv2.0.png)
