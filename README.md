@@ -25,7 +25,7 @@ La planificación actualizada realizada con TeamGantt es la siguiente:<br>
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv2.0.png)
 <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 02/03/2022.</p>
 
-<details open>
+<details closed>
     <summary> <b> Versiones anteriores de la planificación </b> </summary>
     <ul>
       <h5> Planificación v1.0 </h5>
