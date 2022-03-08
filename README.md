@@ -1,5 +1,8 @@
 # Historia Clínica de Teruel - PSW
 
+:mag_right: Análisis de requisitos:
+<p> Se puede consultar <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Analisis/documento-analisis.pdf> aquí. </a></p>
+
 :recycle: Leyenda de colores:
  ---
 - ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut`
