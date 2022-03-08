@@ -2,7 +2,7 @@
 
 :mag_right: Análisis de requisitos:
  ---
-<p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí accederás al mismo. </a> </p>
+<p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> accederás al mismo. </p>
 
 :recycle: Leyenda de colores:
  ---
