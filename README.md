@@ -16,6 +16,7 @@
  :calendar: Planificación v2.0 con TeamGant
 ---
 <p> La planificación ha sido elaborada mediante dos herramientas, <a href="https://prod.teamgantt.com">TeamGantt</a> y <a href="https://github.com">GitHub</a>.
+ </p><p>
  En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este.</a>
  La planificación realizada con TeamGantt es la siguiente:
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv2.0.png)
