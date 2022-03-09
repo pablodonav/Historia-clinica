@@ -3,7 +3,7 @@
 :mag_right: Análisis de requisitos:
  ---
 <p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> se accederá al mismo.</p>
-<p> Realizado por Pablo Doñate y Adnana Dragut a fecha de 04/03/2022.</p>
+<p align="right"> Realizado por Pablo Doñate y Adnana Dragut a fecha de 04/03/2022.</p>
 
 :recycle: Leyenda de colores:
  ---
