@@ -19,7 +19,7 @@ La planificación actualizada realizada con Excel es la siguiente:<br>
 ##### Planificación v3.0
 
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.0.png)
-<p align="right">Realizado con <a href="https://prod.teamgantt.com">Excel</a> a fecha de 15/03/2022.</p>
+<p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 15/03/2022.</p>
 
 Leyenda de colores:
 
