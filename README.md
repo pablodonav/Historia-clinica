@@ -1,14 +1,5 @@
 # Historia Clínica de Teruel - PSW
 
-<details closed>
-    <summary> <b> Documentación </b> </summary>
-    <ul>
-      <h5> Planificación v1.0 </h5>
-      <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv1.0.png">
-      <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 28/02/2022.</p>
-    </ul> 
-</details>
-
 :mag_right: Análisis de requisitos:
  ---
 <p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> se accederá al mismo.</p>
