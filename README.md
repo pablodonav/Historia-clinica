@@ -10,16 +10,16 @@
 <p> El prototipado de la aplicación se puede encontrar pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/HMS_Prototype_v1.pdf"> aquí</a>, donde se accederá al mismo.</p>
 <p align="right"> Realizado por Adnana Dragut a fecha de 12/03/2022.</p>
 
-:recycle: Leyenda de colores:
- ---
+ :calendar: Planificación
+---
+
+Leyenda de colores:
+
 - ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut.`
 - ![](https://via.placeholder.com/15/FF1694/000000?text=+) `Tareas realizadas por Adnana Dragut.`
 - ![](https://via.placeholder.com/15/A50B5E/000000?text=+) `Tareas realizadas por Pablo Doñate.`
 - ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut.`
 - ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate.`
-
- :calendar: Planificación
----
 
 La planificación ha sido elaborada mediante dos herramientas, <a href="https://prod.teamgantt.com">TeamGantt</a> y <a href="https://github.com">GitHub</a>.<br />
 En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este</a>.<br />
