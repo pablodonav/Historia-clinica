@@ -5,6 +5,11 @@
 <p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> se accederá al mismo.</p>
 <p align="right"> Realizado por Pablo Doñate y Adnana Dragut a fecha de 04/03/2022.</p>
 
+:computer: Prototipado de la aplicación:
+ ---
+<p> El prototipado de la aplicación se puede encontrar pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a>, donde se accederá al mismo.</p>
+<p align="right"> Realizado por Adnana Dragut a fecha de 12/03/2022.</p>
+
 :recycle: Leyenda de colores:
  ---
 - ![](https://via.placeholder.com/15/DF8FFF/000000?text=+) `Tareas realizadas por Pablo Doñate y Adnana Dragut.`
