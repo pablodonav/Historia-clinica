@@ -21,6 +21,7 @@ Leyenda de colores:
 - ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut.`
 - ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate.`
 
+
 La planificación ha sido elaborada mediante dos herramientas, <a href="https://prod.teamgantt.com">TeamGantt</a> y <a href="https://github.com">GitHub</a>.<br />
 En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este</a>.<br />
 
