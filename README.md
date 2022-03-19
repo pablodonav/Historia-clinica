@@ -7,7 +7,7 @@
 
 :computer: Diseño de la aplicación:
  ---
-<p> El documento de diseño, que contiene los diagramas de clases, algunos diagramas de actividades, un diagrama de despliegue, y el prototipado de la aplicación, puede encontrarse <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-diseño.pdf"> aquí.</p>
+<p> El documento de diseño, que contiene los diagramas de clases, algunos diagramas de actividades, un diagrama de despliegue, y el prototipado de la aplicación, puede encontrarse <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-diseño.pdf"> aquí </a>.</p>
 <p align="right"> Realizado por Adnana Dragut a fecha de 19/03/2022.</p>
 
  :calendar: Planificación
