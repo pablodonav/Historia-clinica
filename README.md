@@ -7,8 +7,8 @@
 
 :computer: Prototipado de la aplicación:
  ---
-<p> El prototipado de la aplicación se puede encontrar pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/HMS_Prototype_v1.pdf"> aquí</a>, donde se accederá al mismo.</p>
-<p align="right"> Realizado por Adnana Dragut a fecha de 12/03/2022.</p>
+<p> El prototipado de la aplicación se puede encontrar pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/HMS_Prototype_v2.pdf"> aquí</a>, donde se accederá al mismo.</p>
+<p align="right"> Realizado por Adnana Dragut a fecha de 19/03/2022.</p>
 
  :calendar: Planificación
 ---
