@@ -15,7 +15,7 @@
 La planificación ha sido elaborada mediante tres herramientas, <a href="https://prod.teamgantt.com">TeamGantt</a>, <a href="https://github.com">GitHub</a> y <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Microsoft Excel</a>. <br />
 En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este</a>.<br />
 
-La planificación actualizada realizada con Excel es la siguiente, aunque pinchando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.0.png"> aquí</a> se podrá visualizar con más detalle.<br>
+La planificación actualizada realizada con Excel es la siguiente, aunque pinchando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png"> aquí</a> se podrá visualizar con más detalle.<br>
 ##### Planificación v3.1
 
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png)
