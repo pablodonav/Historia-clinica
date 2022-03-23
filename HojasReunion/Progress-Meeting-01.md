@@ -30,8 +30,8 @@
         de las distintas fases del análisis de riesgos.
         
   2. Actualización de la planificación
-    Debido a demoras en las actividades definidas en la primera versión de la planificación, ambos miembros han participado en la replanificación de las 
+    <p>Debido a demoras en las actividades definidas en la primera versión de la planificación, ambos miembros han participado en la replanificación de las 
     actividades principales.
     
   3. Otros (Ruegos y preguntas)
-    Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
+    <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
