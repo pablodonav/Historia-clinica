@@ -16,10 +16,10 @@ La planificación ha sido elaborada mediante tres herramientas, <a href="https:/
 En enlace para acceder a la planificación basada en un proyecto de GitHub es <a href="https://github.com/users/pablodonav/projects/1">este</a>.<br />
 
 La planificación actualizada realizada con Excel es la siguiente, aunque pinchando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png"> aquí</a> se podrá visualizar con más detalle.<br>
-##### Planificación v3.1
+##### Planificación v3.2
 
 ![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png)
-<p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 19/03/2022.</p>
+<p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 29/03/2022.</p>
 
 Leyenda de colores:
 
@@ -32,6 +32,9 @@ Leyenda de colores:
 <details closed>
     <summary> <b> Versiones anteriores de la planificación </b> </summary>
     <ul>
+      <h5> Planificación v3.1 </h5>
+      <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png">
+      <p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 19/03/2022.</p>
       <h5> Planificación v3.0 </h5>
       <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.0.png">
       <p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 15/03/2022.</p>
