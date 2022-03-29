@@ -18,7 +18,7 @@ En enlace para acceder a la planificación basada en un proyecto de GitHub es <a
 La planificación actualizada realizada con Excel es la siguiente, aunque pinchando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png"> aquí</a> se podrá visualizar con más detalle.<br>
 ##### Planificación v3.2
 
-![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.1.png)
+![Planificación](https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.2.png)
 <p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 29/03/2022.</p>
 
 Leyenda de colores:
