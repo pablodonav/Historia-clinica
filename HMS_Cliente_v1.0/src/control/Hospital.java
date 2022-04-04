@@ -10,6 +10,7 @@ package control;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 import vista.LoginVista;
+import vista.WelcomeVista;
 
 /**
  * Clase que recibe los eventos de vista y llama a los métodos 
@@ -22,6 +23,7 @@ public class Hospital implements OyenteVista{
     
     private Comms comms = null;
     private LoginVista loginVista;
+    private WelcomeVista welcomeVista;
     private ProxySanitario pxSanitario = null;
     
     /**
@@ -31,7 +33,9 @@ public class Hospital implements OyenteVista{
     public Hospital() {
         this.comms = new Comms();
         this.pxSanitario = new ProxySanitario();
-        this.loginVista = new LoginVista(this, pxSanitario);
+        //this.welcomeVista = new WelcomeVista(this, comms, pxSanitario);
+        this.loginVista = new LoginVista(this, pxSanitario, "1");
+        
         //comms.conectar();
     }
     

@@ -7,6 +7,7 @@
 package modelo.clasesProxys;
 
 import control.Config;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -32,6 +33,8 @@ public class Comms implements OyenteServidor{
     private String idConexion;
     
     private Config configuracion;
+    
+    public static String PROPIEDAD_CONECTADO = "Conectar"; 
     
 
     /**
@@ -103,6 +106,22 @@ public class Comms implements OyenteServidor{
     }
 
     /**
+     *  Añade nuevo observador de las mesas.
+     * 
+     */     
+    public void nuevoObservador(PropertyChangeListener observador) {
+        this.observadores.addPropertyChangeListener(observador);
+    } 
+    
+    /**
+     *  Eliminar observador de las mesas.
+     * 
+     */     
+    public void eliminarObservador(PropertyChangeListener observador) {
+        this.observadores.removePropertyChangeListener(observador);
+    } 
+    
+    /**
      * Recibe solicitud del servidor de nuevo idConexion.
      * 
      * @param resultados
@@ -110,7 +129,7 @@ public class Comms implements OyenteServidor{
      * @throws IOException 
      */
     private boolean solicitudServidorNuevoIdConexion(
-            List<String> resultados) throws IOException {
+            String propiedad, List<String> resultados) throws IOException {
         idConexion = resultados.get(0);
         if (idConexion == null) {
             return false;
@@ -118,8 +137,7 @@ public class Comms implements OyenteServidor{
     
         conectado = true; 
     
-        System.out.println(idConexion);
-        
+        observadores.firePropertyChange(propiedad, null, idConexion);  
         return true;
     }
     
@@ -140,7 +158,7 @@ public class Comms implements OyenteServidor{
       
         switch(solicitud) {
             case NUEVO_ID_CONEXION:
-                return solicitudServidorNuevoIdConexion(resultados);
+                return solicitudServidorNuevoIdConexion(PROPIEDAD_CONECTADO, resultados);
             default:
                 return false;
         }   

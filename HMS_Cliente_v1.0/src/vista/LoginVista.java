@@ -10,6 +10,9 @@ package vista;
 import com.google.gson.Gson;
 import control.Hospital;
 import control.OyenteVista;
+import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.UsuarioDTO;
 import modelo.clasesProxys.ProxySanitario;
@@ -21,34 +24,41 @@ import org.apache.commons.codec.digest.DigestUtils;
  * los componentes y los eventos de la pantalla Login.
  * 
  */
-public class LoginVista extends javax.swing.JFrame {
+public class LoginVista extends javax.swing.JFrame{
     private ProxyUsuario pxUsuario = null;
     private ProxySanitario pxSanitario = null;
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
+    private static final String EMAIL_PATTERN = "^(.+)@(.+)\\.[a-z]{2,}$";
+    private String idConexion = null;
+
     
     /* Mensajes de Error */
     private String ERROR_LOGIN = 
             "No se ha podido iniciar sesión en el sistema.\n" + 
             "Vuelva a introducir las credenciales.";
-    private String ERROR_SINTAXIS_CREDENCIALES =  
-            "Sintaxis de correo electrónico y/o contraseña errónea.\n" +
+    private String ERROR_SINTAXIS_EMAIL =  
+            "Sintaxis de correo electrónico errónea.\n" +
             "Vuelva a introducir las credenciales.";
     
     /**
      * Crea e inicializa los componentes de LoginVista.
      */
-    public LoginVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario) {
+    public LoginVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
         this.pxUsuario = new ProxyUsuario();
         this.pxSanitario = _pxSanitario;
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
+        this.idConexion = _idConexion;
 
         initComponents();
         this.setVisible(true); // habilita la vista
         setResizable(false);  // deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
+        b_Login.setEnabled(false);
+        b_connecter.setText("Connected with id " + idConexion);
+        b_connecter.setBackground(Color.green);
     }
     
     /**
@@ -62,6 +72,8 @@ public class LoginVista extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         panel_principal = new javax.swing.JPanel();
         panel_izqd = new javax.swing.JPanel();
         hospital_icon = new javax.swing.JLabel();
@@ -76,6 +88,7 @@ public class LoginVista extends javax.swing.JFrame {
         asterisco_label_email = new javax.swing.JLabel();
         asterisco_label_pwd = new javax.swing.JLabel();
         campo_obligatorio_label = new javax.swing.JLabel();
+        b_connecter = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -103,6 +116,8 @@ public class LoginVista extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jScrollPane1.setViewportView(jEditorPane1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setBackground(new java.awt.Color(51, 255, 204));
@@ -129,7 +144,7 @@ public class LoginVista extends javax.swing.JFrame {
         panel_izqdLayout.setHorizontalGroup(
             panel_izqdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_izqdLayout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
+                .addGap(0, 48, Short.MAX_VALUE)
                 .addGroup(panel_izqdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(system_label)
                     .addComponent(management_label)
@@ -160,11 +175,24 @@ public class LoginVista extends javax.swing.JFrame {
         pwd_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         pwd_label.setText("Contraseña");
 
+        correoSanitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                correoSanitarioKeyTyped(evt);
+            }
+        });
+
+        pwdSanitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pwdSanitarioKeyTyped(evt);
+            }
+        });
+
         b_Login.setBackground(new java.awt.Color(204, 204, 204));
         b_Login.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         b_Login.setForeground(new java.awt.Color(0, 153, 153));
         b_Login.setText("Login");
         b_Login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Login.setFocusable(false);
         b_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_LoginActionPerformed(evt);
@@ -183,40 +211,53 @@ public class LoginVista extends javax.swing.JFrame {
         campo_obligatorio_label.setForeground(new java.awt.Color(255, 51, 0));
         campo_obligatorio_label.setText("* Campos obligatorios");
 
+        b_connecter.setBackground(new java.awt.Color(204, 204, 204));
+        b_connecter.setText("   ");
+        b_connecter.setBorder(null);
+        b_connecter.setFocusable(false);
+        b_connecter.setSelected(true);
+
         javax.swing.GroupLayout panel_principalLayout = new javax.swing.GroupLayout(panel_principal);
         panel_principal.setLayout(panel_principalLayout);
         panel_principalLayout.setHorizontalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(panel_izqd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(asterisco_label_email)
-                            .addComponent(asterisco_label_pwd))
-                        .addGap(1, 1, 1)
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addComponent(pwd_label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pwdSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(correoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(asterisco_label_email)
+                                    .addComponent(asterisco_label_pwd))
+                                .addGap(1, 1, 1)
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addComponent(pwd_label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(pwdSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(correoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 51, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(b_Login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(b_Login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                        .addComponent(b_connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         panel_principalLayout.setVerticalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_izqd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel_principalLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addComponent(b_connecter)
+                .addGap(66, 66, 66)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email_label)
                     .addComponent(correoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,7 +287,7 @@ public class LoginVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+        
     /**
      * Escribe mensaje con diálogo modal.
      * 
@@ -266,12 +307,10 @@ public class LoginVista extends javax.swing.JFrame {
      * @param pwd
      * @return boolean
      */
-    private boolean sintaxisCredencialesCorrecta(String email, String pwd){
-        if (email != null && ! email.isEmpty() && ! email.isBlank() && 
-            pwd != null && ! pwd.isBlank() && ! pwd.isEmpty()){
-            return true;
-        }
-        return false;
+    private boolean sintaxisCorreoCorrecta(String email){
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
     
     /**
@@ -290,9 +329,9 @@ public class LoginVista extends javax.swing.JFrame {
         
         email = correoSanitario.getText();
         pwd = String.valueOf(pwdSanitario.getPassword());
-        
-        if (! sintaxisCredencialesCorrecta(email, pwd)){
-            mensajeDialogo(ERROR_SINTAXIS_CREDENCIALES);
+                
+        if (! sintaxisCorreoCorrecta(email)){
+            mensajeDialogo(ERROR_SINTAXIS_EMAIL);
             return;
         } else{         
             /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
@@ -319,18 +358,38 @@ public class LoginVista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_b_LoginActionPerformed
 
+    private void changed(){
+        if (correoSanitario.getText().isBlank() || 
+                String.valueOf(pwdSanitario.getPassword()).isBlank()){
+            b_Login.setEnabled(false);
+        }
+        else {
+            b_Login.setEnabled(true);
+        }
+    }
+    
+    private void correoSanitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoSanitarioKeyTyped
+        changed();
+    }//GEN-LAST:event_correoSanitarioKeyTyped
+
+    private void pwdSanitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdSanitarioKeyTyped
+        changed();
+    }//GEN-LAST:event_pwdSanitarioKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel asterisco_label_email;
     private javax.swing.JLabel asterisco_label_pwd;
     private javax.swing.JButton b_Login;
+    private javax.swing.JButton b_connecter;
     private javax.swing.JLabel campo_obligatorio_label;
     private javax.swing.JTextField correoSanitario;
     private javax.swing.JLabel email_label;
     private javax.swing.JLabel hospital_icon;
     private javax.swing.JLabel hospital_label;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel management_label;
     private javax.swing.JPanel panel_izqd;
     private javax.swing.JPanel panel_principal;

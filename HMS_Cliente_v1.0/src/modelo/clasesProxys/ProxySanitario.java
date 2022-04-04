@@ -21,30 +21,7 @@ import java.util.List;
  */
 public class ProxySanitario extends Comms{
     public static String PROPIEDAD_DAR_ALTA_SANITARIO = "Dar Alta Sanitario"; 
-    
-    /**
-     * Crea ProxySanitario.
-     * 
-     */
-    public ProxySanitario() {
-    }
-    
-    /**
-     *  Añade nuevo observador de las mesas.
-     * 
-     */     
-    public void nuevoObservador(PropertyChangeListener observador) {
-        this.observadores.addPropertyChangeListener(observador);
-    } 
-    
-    /**
-     *  Eliminar observador de las mesas.
-     * 
-     */     
-    public void eliminarObservador(PropertyChangeListener observador) {
-        this.observadores.removePropertyChangeListener(observador);
-    } 
-    
+            
     public void darAltaSanitario(String _jsonSanitario) throws Exception{
         System.out.println(conectado);
         if (! conectado){
