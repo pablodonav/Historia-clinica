@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.ProxySanitario;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -412,8 +413,12 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         email = email_input_field.getText();
         pwd = String.valueOf(pwd_input_field.getPassword());
         puestoTrabajo = String.valueOf(puesto_comboBox.getSelectedItem());
+        
+        /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
+        String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
+        System.out.println(encriptMD5_pwd);
                 
-        sanitario = new SanitarioDTO(nombre, apellido1, apellido2, dni, Integer.parseInt(telefono), email, pwd, puestoTrabajo);
+        sanitario = new SanitarioDTO(nombre, apellido1, apellido2, dni, Integer.parseInt(telefono), email, encriptMD5_pwd, puestoTrabajo);
         sanitarioJsonToSend = sanitario.toJson();
         System.out.println("1" + sanitarioJsonToSend);
 
@@ -472,6 +477,5 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JTextField telefono_input_field;
     private javax.swing.JLabel telefono_label;
     // End of variables declaration//GEN-END:variables
-
 
 }

@@ -32,7 +32,7 @@ public class Hospital implements OyenteVista{
         this.comms = new Comms();
         this.pxSanitario = new ProxySanitario();
         this.loginVista = new LoginVista(this, pxSanitario);
-        comms.conectar();
+        //comms.conectar();
     }
     
     /**

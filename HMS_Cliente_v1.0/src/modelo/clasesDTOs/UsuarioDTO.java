@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 public class UsuarioDTO {
     protected String correoElectronico;
     protected String contraseña;
-    protected boolean admin;
+    private boolean admin;
 
     /**
      * Crea un Usuario

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import modelo.clasesDTOs.UsuarioDTO;
 import modelo.clasesProxys.ProxySanitario;
 import modelo.clasesProxys.ProxyUsuario;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -294,14 +295,18 @@ public class LoginVista extends javax.swing.JFrame {
             mensajeDialogo(ERROR_SINTAXIS_CREDENCIALES);
             return;
         } else{         
-            usuario = new UsuarioDTO(email, pwd);
+            /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
+            String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
+            System.out.println(encriptMD5_pwd);
+            
+            usuario = new UsuarioDTO(email, encriptMD5_pwd);
             usuarioJsonSended = usuario.toJson();
 
             try {
                 usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
                 usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
                 setVisible(false); 
-
+                
                 if (usuario.isAdmin()){
                     new MenuAdminVista(oyenteVista, pxSanitario).setVisible(true);
                 } else{
