@@ -40,6 +40,8 @@ public class LoginVista extends javax.swing.JFrame{
     private String ERROR_SINTAXIS_EMAIL =  
             "Sintaxis de correo electrónico errónea.\n" +
             "Vuelva a introducir las credenciales.";
+    private String ERROR_VERIFICACIÓN_USUARIO = 
+        "El usuario no existe en el sistema.\n";
     
     /**
      * Crea e inicializa los componentes de LoginVista.
@@ -343,14 +345,20 @@ public class LoginVista extends javax.swing.JFrame{
 
             try {
                 usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
-                usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
-                setVisible(false); 
                 
-                if (usuario.isAdmin()){
-                    new MenuAdminVista(oyenteVista, pxSanitario).setVisible(true);
+                if(usuarioJsonReceived != null){
+                    usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
+                    this.dispose();
+                
+                    if (usuario.isAdmin()){
+                        new MenuAdminVista(oyenteVista, pxSanitario);
+                    } else{
+
+                    }
                 } else{
-                    
+                    mensajeDialogo(ERROR_VERIFICACIÓN_USUARIO);
                 }
+
             } catch (Exception ex) {
                 mensajeDialogo(ERROR_LOGIN);
                 ex.printStackTrace();

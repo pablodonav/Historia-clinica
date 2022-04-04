@@ -24,7 +24,8 @@ public enum PrimitivaComunicacion {
     OK("ok"),
     NOK("nok"),
     VERIFICAR_USUARIO("check_user"),
-    DAR_ALTA_SANITARIO("new_health_worker");
+    DAR_ALTA_SANITARIO("new_health_worker"),
+    USUARIO_NO_ENCONTRADO("not_found_user");
     
     private String simbolo;
 

@@ -47,13 +47,14 @@ public class Hospital implements OyenteVista{
         switch(evento) {  
             case DAR_ALTA_SANITARIO:
                 try {
-                    pxSanitario.darAltaSanitario((String)obj);
+                    pxSanitario.darAltaSanitarioTest((String)obj);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 break;
 
             case SALIR:
+                loginVista.mensajeDialogo("Prueba");
                 System.exit(0);
                 break;
 

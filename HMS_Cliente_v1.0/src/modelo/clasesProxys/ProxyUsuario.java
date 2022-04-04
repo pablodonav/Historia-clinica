@@ -51,7 +51,9 @@ public class ProxyUsuario extends Comms{
                                                                   _jsonUsuario,
                                                                   resultados);
         
-        if (resultados.isEmpty() || respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString()) ||
+                respuesta.equals(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString())){
             return null;
         } else {
             return resultados.get(0);

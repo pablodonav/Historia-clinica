@@ -44,6 +44,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         pxSanitario.nuevoObservador(this);
                 
         initComponents();
+        this.setVisible(true); // habilita la vista
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
@@ -184,6 +185,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         b_Cancelar.setForeground(new java.awt.Color(0, 153, 153));
         b_Cancelar.setText("Cancelar");
         b_Cancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Cancelar.setFocusable(false);
         b_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_CancelarActionPerformed(evt);
@@ -195,6 +197,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         b_Guardar.setForeground(new java.awt.Color(0, 153, 153));
         b_Guardar.setText("Guardar");
         b_Guardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Guardar.setFocusable(false);
         b_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_GuardarActionPerformed(evt);
@@ -389,7 +392,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     } 
     
     private void b_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_CancelarActionPerformed
-        setVisible(false);
+        this.dispose();
         menuAdminVista.setVisible(true);
     }//GEN-LAST:event_b_CancelarActionPerformed
    
@@ -432,7 +435,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             pxSanitario.eliminarObservador(this);
             String sanitarioJsonToReceive = (String)evt.getNewValue();
             mensajeDialogo("Se ha dado de alta un nuevo sanitario.", JOptionPane.INFORMATION_MESSAGE);
-            setVisible(false);
+            this.dispose();
             SanitarioDTO sanitarioDTO = gson.fromJson(
                 sanitarioJsonToReceive, SanitarioDTO.class);
             System.out.println(sanitarioDTO.toString());

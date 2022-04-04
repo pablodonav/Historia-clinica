@@ -28,6 +28,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         this.pxSanitario = _pxSanitario;
         
         initComponents();
+        this.setVisible(true); // habilita la vista
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
@@ -110,6 +111,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         b_NuevoSanitario.setText("Nuevo Sanitario");
         b_NuevoSanitario.setActionCommand("   Nuevo Sanitario");
         b_NuevoSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_NuevoSanitario.setFocusable(false);
         b_NuevoSanitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_NuevoSanitarioActionPerformed(evt);
@@ -123,6 +125,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         b_EditarSanitario.setText("Editar Sanitario");
         b_EditarSanitario.setActionCommand("   Nuevo Sanitario");
         b_EditarSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_EditarSanitario.setFocusable(false);
         b_EditarSanitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_EditarSanitarioActionPerformed(evt);
@@ -136,6 +139,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         b_Salir.setText("Salir");
         b_Salir.setActionCommand("   Nuevo Sanitario");
         b_Salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Salir.setFocusable(false);
         b_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_SalirActionPerformed(evt);
@@ -197,8 +201,8 @@ public class MenuAdminVista extends javax.swing.JFrame {
      * @param evt 
      */
     private void b_NuevoSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoSanitarioActionPerformed
-        setVisible(false);
-        new NuevoSanitarioVista(this, oyenteVista, pxSanitario).setVisible(true);
+        this.dispose();
+        new NuevoSanitarioVista(this, oyenteVista, pxSanitario);
     }//GEN-LAST:event_b_NuevoSanitarioActionPerformed
 
     /**
