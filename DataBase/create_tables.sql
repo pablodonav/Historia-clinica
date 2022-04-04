@@ -78,6 +78,7 @@ CREATE TABLE SANITARIO (
    	apellido1 VARCHAR(255) NOT NULL,
 	apellido2 VARCHAR(255) NOT NULL,
 	telefono INT NOT NULL,
+    	puesto_trabajo VARCHAR(255) NOT NULL,
     
     FOREIGN KEY (dni)
 	REFERENCES USUARIO(dni)
