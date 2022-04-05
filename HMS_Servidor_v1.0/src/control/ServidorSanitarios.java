@@ -185,11 +185,7 @@ public class ServidorSanitarios extends Thread {
         ConexionPushHospital conexionPushHospital = 
                 conexionesPushSanitarios.get(_idConexion);
     
-        if (conexionPushHospital != null) {
-            return conexionPushHospital;
-        }
-    
-        return null;
+        return conexionPushHospital;
     }
     
     /**
@@ -274,8 +270,8 @@ public class ServidorSanitarios extends Thread {
                 _primitivaComunicacion, 
                 TIEMPO_ESPERA_CLIENTE, 
                 _parametros);        
-      }
-  }
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -284,6 +280,5 @@ public class ServidorSanitarios extends Thread {
     public static void main(String[] args) throws SQLException {
         ServidorSanitarios servidorSanitarios = new ServidorSanitarios();
     }
-    
 }
 

@@ -30,6 +30,7 @@ public class ServidorHospital implements Runnable {
         "Closed hospital connection"; 
     private static String FORMATO_FECHA_CONEXION = 
         "kk:mm:ss EEE d MMM yy";
+    private static String SOLICITUD = "Request:";
     
     private ServidorSanitarios servidorSanitarios;
     private Socket socket;
@@ -93,6 +94,19 @@ public class ServidorHospital implements Runnable {
     }
     
     /**
+     * Muestra el identificador de conexión de cada sanitario conectado.
+     * 
+     */
+    private void mostrarIdConexion(
+            PrimitivaComunicacion _primitivaComunicacion, 
+            String _identificador)throws IOException {        
+        
+        System.out.println(SOLICITUD + " " + 
+            _primitivaComunicacion.toString() + " " + 
+            _identificador);
+    }
+    
+    /**
      *  Conecta hospital push.
      * 
      */    
@@ -102,6 +116,9 @@ public class ServidorHospital implements Runnable {
         CountDownLatch cierreConexion = new CountDownLatch(1);
         String idConexion = 
             servidorSanitarios.generarIdConexionPushHospital();
+        
+        mostrarIdConexion(PrimitivaComunicacion.CONECTAR_PUSH, 
+            idConexion);
         
         ConexionPushHospital conexionPushHospital = 
            new ConexionPushHospital(idConexion, socket, 
@@ -129,11 +146,19 @@ public class ServidorHospital implements Runnable {
      * 
      */    
     private void desconectarPushHospital() throws IOException {
-        String idConexion = entrada.readLine();                     
-
+        String idConexion = entrada.readLine();    
+        
+        ConexionPushHospital conexionPushHospital = 
+               servidorSanitarios.obtenerConexionPushHospital(
+                    idConexion);
+        
         if (servidorSanitarios.eliminarConexionPushHospital(
                 idConexion)) {
             salida.println(PrimitivaComunicacion.OK);
+        
+            System.out.println(SOLICITUD + " " +
+                PrimitivaComunicacion.DESCONECTAR_PUSH + " " +
+                conexionPushHospital.toString());
         } else {
             salida.println(PrimitivaComunicacion.NOK);
         }
