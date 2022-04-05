@@ -1,0 +1,115 @@
+/**
+ * SanitarioDAOImpl.java
+ * Pablo Doñate Navarro
+ * v1.0 02/04/2022.
+ */
+package modelo.clasesDAO;
+
+import modelo.clasesDTOs.UsuarioDTO;
+import java.util.List;
+import java.sql.*;
+
+/**
+ * Clase que contiene las funciones necesarias
+ *  para realizas las operaciones CRUD de un usuario
+ * 
+ */
+public class UsuarioDAOImpl implements UsuarioDAO {
+    private PreparedStatement stmt_add;
+    private PreparedStatement stmt_del;
+    private PreparedStatement stmt_upd;
+    private PreparedStatement stmt_getAll;
+    private PreparedStatement stmt_getUs;
+    private PreparedStatement stmt_getAdm;
+
+    private static final String INSERT = "INSERT INTO USUARIO(dni, correo, contraseña) VALUES(?, ?, ?)";
+    private static final String DELETE = "DELETE FROM USUARIO WHERE dni=?";
+    private static final String UPDATE = "UPDATE USUARIO SET %s WHERE dni=\"%s\"";
+    private static final String FIND_ALL = "SELECT * FROM USUARIO";
+    private static final String FIND_USUARIO = "SELECT * FROM USUARIO WHERE dni=? AND correo=? AND contraseña=?";
+    private static final String FIND_ADMIN = "SELECT * FROM ADMINISTRADOR WHERE dni=?";
+    
+    private Connection connection;
+
+    /**
+     *  Crea un UsuarioDAOImpl, donde define la estructura
+     *  de sus operaciones.
+     *
+     * @param _conn
+     * @throws java.sql.SQLException
+     */
+    public UsuarioDAOImpl(Connection _conn) throws SQLException {
+        this.connection = _conn;
+        this.stmt_add = _conn.prepareStatement(INSERT);
+        this.stmt_del = _conn.prepareStatement(DELETE);
+        this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
+        this.stmt_getUs = _conn.prepareStatement(FIND_USUARIO);
+        this.stmt_getAdm = _conn.prepareStatement(FIND_ADMIN);
+    }
+
+    @Override
+    public boolean addUsuario(UsuarioDTO _usuario) throws SQLException {
+        stmt_add.setString(1, _usuario.getDni());
+        stmt_add.setString(2, _usuario.getEmail());
+        stmt_add.setString(3, _usuario.getContraseña());
+
+        return stmt_add.executeUpdate() > 0;
+    }
+    
+    @Override
+    public UsuarioDTO checkUser(UsuarioDTO _usuario) throws SQLException {
+        UsuarioDTO usuarioEncontrado = null;
+        int cuenta = 0;
+        
+        stmt_getUs.setString(1, _usuario.getDni());
+        stmt_getUs.setString(2, _usuario.getEmail());
+        stmt_getUs.setString(3, _usuario.getContraseña());
+        
+        ResultSet rs = stmt_getUs.executeQuery();
+        if (rs.next()) {
+            cuenta = rs.getInt(1);
+        }
+        rs.close();
+        
+        if (cuenta > 0) {
+            // Se ha encontrado un usuario con esas credenciales.
+            //Se va a verificar si es un usuario administrador.
+            cuenta = 0;
+            usuarioEncontrado = _usuario;
+            usuarioEncontrado.setAdmin(false);
+            stmt_getAdm.setString(1, _usuario.getDni());
+            rs = stmt_getAdm.executeQuery();
+            if (rs.next()) {
+                cuenta = rs.getInt(1);
+            }
+            rs.close();
+            
+            if (cuenta > 0) {
+                //Se ha verificado que el usuario es admin.
+                _usuario.setAdmin(true);
+            }
+        }
+        
+        return usuarioEncontrado;
+    }
+
+    @Override
+    public boolean deleteUsuario(String _dni) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateUsuario(UsuarioDTO _usuario) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public UsuarioDTO getUsuario(String _dni) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<UsuarioDTO> getUsuarios() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
