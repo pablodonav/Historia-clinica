@@ -1,5 +1,3 @@
-81dc9bdb52d04dc20036dbd8313ed055
-
 # Historia Clínica de Teruel - PSW
 
 :mag_right: Análisis de requisitos:
