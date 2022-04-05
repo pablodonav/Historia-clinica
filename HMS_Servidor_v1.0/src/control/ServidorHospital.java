@@ -141,8 +141,10 @@ public class ServidorHospital implements Runnable {
     } 
     
     /**
-     *  Da de alta un nuevo sanitario.
-     *
+     * Da de alta un nuevo sanitario.
+     * 
+     * @throws IOException
+     * @throws SQLException 
      */
     private void darAltaSanitario() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
@@ -159,6 +161,12 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();
     }
     
+    /**
+     * Verifica si el login de un usuario es correcto.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void verificarUsuario() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         UsuarioDTO usuarioRes;
@@ -167,10 +175,12 @@ public class ServidorHospital implements Runnable {
         UsuarioDTO usuario = gson.fromJson(usuarioJSON, UsuarioDTO.class);
         
         usuarioRes = servidorSanitarios.verificarUsuario(usuario);
-        if (usuario != null) {
-            salida.println(usuario);
+        
+        if (usuarioRes != null) {
+            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString());
+            salida.println(usuario.toJson());
         } else {
-            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO);
+            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
         }
         
         cerrarConexion();

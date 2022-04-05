@@ -67,14 +67,6 @@ public class ServidorSanitarios extends Thread {
         leerConfiguracion();
         database = DataBaseControl.getInstance();
         
-        UsuarioDTO usuario1 = new UsuarioDTO("180","a@gmail.com","123");
-        UsuarioDTO usuario2 = new UsuarioDTO("183","a@gmail.com","1234");
-        UsuarioDTO usuario3 = new UsuarioDTO("184","p@gmail.com","1234");
-        
-        verificarUsuario(usuario1);
-        verificarUsuario(usuario2);
-        verificarUsuario(usuario3);
-        
         conexionesPushSanitarios = new ConcurrentHashMap<>();
         envioTestPeriodicosConexionesPushSanitarios();
         start();
