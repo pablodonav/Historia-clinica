@@ -63,7 +63,7 @@ public class ServidorSanitarios extends Thread {
      * 
      * @throws java.sql.SQLException
      */   
-    public ServidorSanitarios() throws SQLException, IOException {
+    public ServidorSanitarios() throws SQLException {
         leerConfiguracion();
         database = DataBaseControl.getInstance();
         
@@ -135,7 +135,7 @@ public class ServidorSanitarios extends Thread {
      * 
      */   
     @Override
-     public void run() { 
+    public void run() { 
         System.out.println(VERSION);  
         try {
             ExecutorService poolThreads = 
@@ -147,7 +147,7 @@ public class ServidorSanitarios extends Thread {
             while(true) {
                 System.out.println(ESPERANDO_SOLICITUD_SANITARIO);  
                 Socket socket = serverSocket.accept();
-                System.out.println("Sanitario conectado");
+
                 poolThreads.execute(
                     new ServidorHospital(this, socket));
             }      
@@ -169,7 +169,31 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Nueva conexión push hospital.
+     * Devuelve el numero de conexión.
+     * 
+     */
+    synchronized String obtenerIdConexion() { 
+        return String.valueOf(numConexion);
+    }
+    
+    /**
+     *  Obtiene conexión push hospital por id conexión.
+     * 
+     */
+    ConexionPushHospital obtenerConexionPushHospital (
+            String _idConexion) {
+        ConexionPushHospital conexionPushHospital = 
+                conexionesPushSanitarios.get(_idConexion);
+    
+        if (conexionPushHospital != null) {
+            return conexionPushHospital;
+        }
+    
+        return null;
+    }
+    
+    /**
+     * Nueva conexión push hospital.
      * 
      * @param _conexionPushHospital
      */   
@@ -257,7 +281,7 @@ public class ServidorSanitarios extends Thread {
      * @param args the command line arguments
      * @throws java.sql.SQLException
      */
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException {
         ServidorSanitarios servidorSanitarios = new ServidorSanitarios();
     }
     
