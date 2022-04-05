@@ -17,7 +17,6 @@ public class SanitarioDTO extends UsuarioDTO{
     private String nombre;
     private String apellido1;
     private String apellido2;
-    private String dni;
     private int telefono;
     private String puestoTrabajo;
 
@@ -27,7 +26,6 @@ public class SanitarioDTO extends UsuarioDTO{
      * @param _nombre
      * @param _apellido1
      * @param _apellido2
-     * @param _dni
      * @param _telefono
      * @param _correoElectronico
      * @param _contraseña
@@ -36,11 +34,10 @@ public class SanitarioDTO extends UsuarioDTO{
     public SanitarioDTO(String _nombre, String _apellido1, String _apellido2, 
             String _dni, int _telefono, String _correoElectronico, 
             String _contraseña, String _puestoTrabajo) {
-        super(_correoElectronico, _contraseña);
+        super(_dni, _correoElectronico, _contraseña);
         this.nombre = _nombre;
         this.apellido1 = _apellido1;
         this.apellido2 = _apellido2;
-        this.dni = _dni;
         this.telefono = _telefono;
         this.puestoTrabajo = _puestoTrabajo;
     }
@@ -97,24 +94,6 @@ public class SanitarioDTO extends UsuarioDTO{
      */
     public void setApellido2(String _apellido2) {
         this.apellido2 = _apellido2;
-    }
-
-    /**
-     * Obtiene el dni del sanitario
-     * 
-     * @return String
-     */
-    public String getDni() {
-        return dni;
-    }
-
-    /**
-     * Asigna el dni del sanitario
-     * 
-     * @param _dni
-     */
-    public void setDni(String _dni) {
-        this.dni = _dni;
     }
 
     /**

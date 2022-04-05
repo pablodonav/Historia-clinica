@@ -96,6 +96,7 @@ public class Comms implements OyenteServidor{
      * 
      */     
     public void desconectar() throws Exception {  
+        System.out.println(conectado);
         if ( ! conectado) {
             return;
         }

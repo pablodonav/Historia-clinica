@@ -54,7 +54,7 @@ public class LoginVista extends javax.swing.JFrame{
         this.idConexion = _idConexion;
 
         initComponents();
-        this.setVisible(true); // habilita la vista
+        //this.setVisible(true); // habilita la vista
         setResizable(false);  // deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
@@ -338,14 +338,13 @@ public class LoginVista extends javax.swing.JFrame{
         } else{         
             /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
             String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
-            System.out.println(encriptMD5_pwd);
             
-            usuario = new UsuarioDTO(email, encriptMD5_pwd);
+            usuario = new UsuarioDTO("180", email, encriptMD5_pwd);
             usuarioJsonSended = usuario.toJson();
 
             try {
-                usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
-                
+                usuarioJsonReceived = pxUsuario.verificarUsuario(usuarioJsonSended); 
+                System.out.println("Recibir:" + usuarioJsonReceived);
                 if(usuarioJsonReceived != null){
                     usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
                     this.dispose();
@@ -353,7 +352,7 @@ public class LoginVista extends javax.swing.JFrame{
                     if (usuario.isAdmin()){
                         new MenuAdminVista(oyenteVista, pxSanitario);
                     } else{
-
+                        System.out.println("Es Sanitario");
                     }
                 } else{
                     mensajeDialogo(ERROR_VERIFICACIÓN_USUARIO);

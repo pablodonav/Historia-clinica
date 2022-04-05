@@ -44,13 +44,13 @@ public class ProxyUsuario extends Comms{
             return null;
         }
         
-        System.out.println(conectado);
+        System.out.println(_jsonUsuario);
         List<String> resultados =  new ArrayList<>();
         PrimitivaComunicacion respuesta = cliente.enviarSolicitud(PrimitivaComunicacion.VERIFICAR_USUARIO, 
                                                                   tiempoEsperaServidor,
                                                                   _jsonUsuario,
                                                                   resultados);
-        
+        System.out.println(respuesta);
         if (resultados.isEmpty() || 
                 respuesta.equals(PrimitivaComunicacion.NOK.toString()) ||
                 respuesta.equals(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString())){

@@ -13,6 +13,7 @@ import com.google.gson.Gson;
  * 
  */
 public class UsuarioDTO {
+    protected String dni;
     protected String correoElectronico;
     protected String contraseña;
     private boolean admin;
@@ -23,7 +24,8 @@ public class UsuarioDTO {
      * @param _correoElectronico
      * @param _contraseña
      */
-    public UsuarioDTO(String _correoElectronico, String _contraseña) {
+    public UsuarioDTO(String _dni, String _correoElectronico, String _contraseña) {
+        this.dni = _dni;
         this.correoElectronico = _correoElectronico;
         this.contraseña = _contraseña;
     }

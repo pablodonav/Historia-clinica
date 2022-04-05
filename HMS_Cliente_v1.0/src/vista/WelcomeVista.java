@@ -25,11 +25,10 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     /**
      * Creates new form WelcomeVista
      */
-    public WelcomeVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario, String _idConexion) {
+    public WelcomeVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario) {
         this.comms = _comms;
         this.pxSanitario = _pxSanitario;
         this.oyenteVista = _oyenteVista;
-        this.idConexion = _idConexion;
         
         comms.nuevoObservador(this);
         initComponents();
