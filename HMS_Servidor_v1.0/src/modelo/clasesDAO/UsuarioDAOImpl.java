@@ -8,6 +8,8 @@ package modelo.clasesDAO;
 import modelo.clasesDTOs.UsuarioDTO;
 import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Clase que contiene las funciones necesarias
@@ -48,6 +50,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         this.stmt_getAdm = _conn.prepareStatement(FIND_ADMIN);
     }
 
+    /**
+     * Añade un nuevo usuario a la DB.
+     * 
+     * @param _usuario
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean addUsuario(UsuarioDTO _usuario) throws SQLException {
         stmt_add.setString(1, _usuario.getDni());
@@ -57,6 +66,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return stmt_add.executeUpdate() > 0;
     }
     
+    /**
+     * Comprueba si existe un usuario de la DB.
+     * 
+     * @param _usuario
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public UsuarioDTO checkUser(UsuarioDTO _usuario) throws SQLException {
         UsuarioDTO usuarioEncontrado = null;
@@ -99,9 +115,37 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Modifica un ususario existente de la DB.
+     * 
+     * @param _usuario
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean updateUsuario(UsuarioDTO _usuario) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<String> atributos = Arrays.asList("dni", "correo", "contraseña");
+        List<String> modified_param = new ArrayList<String>();
+
+        for (String atributo : atributos) {
+            if (("correo".equals(atributo)) && (_usuario.getEmail() != null)) {
+                modified_param.add(String.format("%s=\"%s\"", atributo, _usuario.getEmail()));
+            }
+            if (("contraseña".equals(atributo)) && (_usuario.getContraseña() != null)) {
+                modified_param.add(String.format("%s=\"%s\"", atributo, _usuario.getContraseña()));
+            }
+        }
+
+        String param = String.join(", ", modified_param);
+        String sql = String.format(UPDATE, param, _usuario.getDni());
+
+        this.stmt_upd = connection.prepareStatement(sql);
+
+        if (stmt_upd.executeUpdate() > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

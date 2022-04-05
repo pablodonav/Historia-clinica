@@ -247,6 +247,16 @@ public class ServidorSanitarios extends Thread {
         return true;
     }
     
+    /**
+     * Método que verifica si un usuario existe.
+     * Si no existe, devolverá null.
+     * Si existe, devolverá el usuario.
+     * 
+     * @param _usuario
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     synchronized UsuarioDTO verificarUsuario(UsuarioDTO _usuario) throws IOException, SQLException {
         UsuarioDTO usuario;
         if ((usuario = database.verificarUsuario(_usuario)) == null) {
@@ -254,6 +264,29 @@ public class ServidorSanitarios extends Thread {
         }
         
         return usuario;
+    }
+    
+    /**
+     * Método que modifica los atributos de un sanitario.
+     * Notificará a todos los sanitarios del cambio, y
+     * devolverá true en caso de haberse realizado
+     * la modificación.
+     * 
+     * @param _sanitario
+     * @return
+     * @throws SQLException
+     * @throws IOException 
+     */
+    synchronized boolean editarSanitario(SanitarioDTO _sanitario) 
+            throws SQLException, IOException {
+        if ( ! database.editarSanitario(_sanitario)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.EDITAR_SANITARIO, 
+                String.valueOf(_sanitario.toJson()));
+        
+        return true;
     }
     
     /**

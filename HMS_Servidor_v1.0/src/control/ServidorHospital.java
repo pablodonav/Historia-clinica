@@ -86,6 +86,10 @@ public class ServidorHospital implements Runnable {
                 case VERIFICAR_USUARIO:
                     verificarUsuario();
                     break;
+                    
+                case EDITAR_SANITARIO:
+                    editarSanitario();
+                    break;
             }  
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
             System.out.println(ERROR_CONEXION_HOSPITAL +
@@ -207,6 +211,29 @@ public class ServidorHospital implements Runnable {
         } else {
             salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
         }
+        
+        cerrarConexion();
+    }
+    
+    /**
+     * Recibe el sanitario a modificar, y realiza los cambios.
+     * Si no se han podido modificar, notificará con un NOK.
+     * En caso contrario, le mandará OK.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void editarSanitario() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String sanitarioJSON = entrada.readLine();
+        SanitarioDTO sanitario = gson.fromJson(sanitarioJSON, SanitarioDTO.class);
+        
+        if (servidorSanitarios.editarSanitario(sanitario)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        salida.println(respuesta);
         
         cerrarConexion();
     }

@@ -99,12 +99,40 @@ public class DataBaseControl {
         return sanImpl.addSanitario(_sanitario);
     }
     
+    /**
+     * Método que verifica si existe un usuario en la DB.
+     * Devuelve el usuario devuelto por la base de datos.
+     * 
+     * @param _usuario
+     * @return
+     * @throws SQLException 
+     */
     public UsuarioDTO verificarUsuario(UsuarioDTO _usuario) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
         return usImpl.checkUser(_usuario);
+    }
+    
+    /**
+     * Método que modifica un sanitario existente.
+     * 
+     * @param _sanitario
+     * @return
+     * @throws SQLException 
+     */
+    public boolean editarSanitario(SanitarioDTO _sanitario) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
         
+        UsuarioDTO usuario = new UsuarioDTO(_sanitario.getDni(), _sanitario.getEmail(), _sanitario.getContraseña());
+        
+        if (usImpl.updateUsuario(usuario)) {
+            return sanImpl.updateSanitario(_sanitario);
+        }
+        
+        return false;
     }
 }

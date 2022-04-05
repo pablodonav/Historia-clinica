@@ -23,7 +23,8 @@ public enum PrimitivaComunicacion {
     DAR_ALTA_SANITARIO("new_health_worker"),
     NUEVO_ID_CONEXION("new_id_conection"),
     VERIFICAR_USUARIO("check_user"),
-    USUARIO_NO_ENCONTRADO("not_found_user");
+    USUARIO_NO_ENCONTRADO("not_found_user"),
+    EDITAR_SANITARIO("edit_health_worker");
     
     private String simbolo;
 
