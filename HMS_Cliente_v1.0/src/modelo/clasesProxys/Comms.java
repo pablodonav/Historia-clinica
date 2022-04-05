@@ -10,7 +10,6 @@ import control.Config;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -66,17 +65,17 @@ public class Comms implements OyenteServidor{
                 ConexionPushHospital cliente
                         = new ConexionPushHospital(URLservidor, puertoServidor);
 
-                System.out.println(URLservidor);
                 while (true) {
                     try {
                         cliente.enviarSolicitudLongPolling(
                                 PrimitivaComunicacion.CONECTAR_PUSH,
                                 tiempoEsperaLargaEncuesta,
-                                new String(),
+                                null,
                                 oyenteServidor);
                     } catch (Exception e) {
                         conectado = false;
-                        e.printStackTrace();
+                        observadores.firePropertyChange(
+                            PROPIEDAD_CONECTADO, null, null);
 
                         // Volvemos a intentar conexión pasado un tiempo
                         try {
@@ -96,11 +95,10 @@ public class Comms implements OyenteServidor{
      * 
      */     
     public void desconectar() throws Exception {  
-        System.out.println(conectado);
         if ( ! conectado) {
             return;
-        }
-        
+        }        
+        configuracion.save();
         cliente.enviarSolicitud(PrimitivaComunicacion.DESCONECTAR_PUSH, 
             tiempoEsperaServidor, 
             idConexion);
@@ -130,15 +128,16 @@ public class Comms implements OyenteServidor{
      * @throws IOException 
      */
     private boolean solicitudServidorNuevoIdConexion(
-            String propiedad, List<String> resultados) throws IOException {
+            List<String> resultados) throws IOException {
         idConexion = resultados.get(0);
+        
         if (idConexion == null) {
             return false;
         }
     
         conectado = true; 
     
-        observadores.firePropertyChange(propiedad, null, idConexion);  
+        observadores.firePropertyChange(PROPIEDAD_CONECTADO, null, idConexion);  
         return true;
     }
     
@@ -159,7 +158,7 @@ public class Comms implements OyenteServidor{
       
         switch(solicitud) {
             case NUEVO_ID_CONEXION:
-                return solicitudServidorNuevoIdConexion(PROPIEDAD_CONECTADO, resultados);
+                return solicitudServidorNuevoIdConexion(resultados);
             default:
                 return false;
         }   

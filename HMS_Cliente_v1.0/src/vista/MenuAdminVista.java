@@ -7,7 +7,6 @@
 package vista;
 
 import control.OyenteVista;
-import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 
 /**
@@ -19,7 +18,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private ProxySanitario pxSanitario;
     
-    
     /**
      * Crea e inicializa los componentes de MenuAdminVista.
      */
@@ -28,7 +26,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
         this.pxSanitario = _pxSanitario;
         
         initComponents();
-        this.setVisible(true); // habilita la vista
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
@@ -54,6 +51,11 @@ public class MenuAdminVista extends javax.swing.JFrame {
         b_Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panel_principal.setBackground(new java.awt.Color(255, 255, 255));
         panel_principal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -201,8 +203,8 @@ public class MenuAdminVista extends javax.swing.JFrame {
      * @param evt 
      */
     private void b_NuevoSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoSanitarioActionPerformed
-        this.dispose();
-        new NuevoSanitarioVista(this, oyenteVista, pxSanitario);
+        this.setVisible(false);
+        new NuevoSanitarioVista(this, oyenteVista, pxSanitario).setVisible(true);
     }//GEN-LAST:event_b_NuevoSanitarioActionPerformed
 
     /**
@@ -213,6 +215,11 @@ public class MenuAdminVista extends javax.swing.JFrame {
     private void b_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_SalirActionPerformed
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_b_SalirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
+    }//GEN-LAST:event_formWindowClosing
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

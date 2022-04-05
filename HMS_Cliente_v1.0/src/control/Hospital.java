@@ -7,8 +7,6 @@
 
 package control;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 import vista.LoginVista;
@@ -36,7 +34,6 @@ public class Hospital implements OyenteVista{
         this.comms = new Comms();
         this.pxSanitario = new ProxySanitario();
         this.welcomeVista = new WelcomeVista(this, comms, pxSanitario);
-        //this.loginVista = new LoginVista(this, pxSanitario, "1");
         
         comms.conectar();
     }
@@ -56,17 +53,13 @@ public class Hospital implements OyenteVista{
                 break;
 
             case SALIR:
-            {
                 try {
                     comms.desconectar();
+                    System.exit(0);
                 } catch (Exception ex) {
-                    
+                    ex.printStackTrace();
                 }
-            }
-                System.exit(0);
                 break;
-
-
         }
     } 
         

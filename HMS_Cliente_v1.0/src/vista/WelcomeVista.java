@@ -146,10 +146,15 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(
-            Comms.PROPIEDAD_CONECTADO)) {
+                                    Comms.PROPIEDAD_CONECTADO)) {
             String idConexion = (String)evt.getNewValue();
+            
+            if (idConexion == null){
+                idConexion = "0"; 
+            } 
+            
             this.dispose();
-            new LoginVista(oyenteVista, pxSanitario, idConexion).setVisible(true);
+            new LoginVista(oyenteVista, pxSanitario, idConexion).setVisible(true);  
         } 
     }
 

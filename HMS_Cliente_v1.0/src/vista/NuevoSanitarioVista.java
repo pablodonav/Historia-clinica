@@ -44,7 +44,6 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         pxSanitario.nuevoObservador(this);
                 
         initComponents();
-        this.setVisible(true); // habilita la vista
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
@@ -110,6 +109,11 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panel_principal.setBackground(new java.awt.Color(255, 255, 255));
         panel_principal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -428,21 +432,26 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
     }//GEN-LAST:event_b_GuardarActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
+    }//GEN-LAST:event_formWindowClosing
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(
-                ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO)) {
-            pxSanitario.eliminarObservador(this);
+                                ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO)) {
             String sanitarioJsonToReceive = (String)evt.getNewValue();
-            mensajeDialogo("Se ha dado de alta un nuevo sanitario.", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
             SanitarioDTO sanitarioDTO = gson.fromJson(
                 sanitarioJsonToReceive, SanitarioDTO.class);
-            System.out.println(sanitarioDTO.toString());
+            
+            mensajeDialogo("Se ha dado de alta un nuevo sanitario.", JOptionPane.INFORMATION_MESSAGE);
+            
+            pxSanitario.eliminarObservador(this);
+            this.dispose();
             menuAdminVista.setVisible(true);
         } 
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellido1_input_field;
     private javax.swing.JLabel apellido1_label;

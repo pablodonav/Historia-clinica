@@ -30,12 +30,20 @@ public class UsuarioDTO {
         this.contraseña = _contraseña;
     }
 
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    
     /**
      * Obtiene el correo del usuario
      * 
      * @return String
      */
-    public String getEmail() {
+    public String getCorreoElectronico() {
         return correoElectronico;
     }
 
@@ -44,7 +52,7 @@ public class UsuarioDTO {
      * 
      * @param _correoElectronico
      */
-    public void setEmail(String _correoElectronico) {
+    public void setCorreoElectronico(String _correoElectronico) {
         this.correoElectronico = _correoElectronico;
     }
 

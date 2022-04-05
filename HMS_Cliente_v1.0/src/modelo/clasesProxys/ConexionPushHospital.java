@@ -66,6 +66,7 @@ public class ConexionPushHospital {
                 new OutputStreamWriter(
                         socket.getOutputStream())), true);
 
+        System.out.println(solicitud);
         salida.println(solicitud.toString());
 
         if (parametros != null) {
