@@ -40,6 +40,7 @@ public class SanitarioDAOImpl implements SanitarioDAO {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
         this.stmt_del = _conn.prepareStatement(DELETE);
+        this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
         this.stmt_getSan = _conn.prepareStatement(FIND_SANITARIO);
     }

@@ -42,6 +42,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
         this.stmt_del = _conn.prepareStatement(DELETE);
+        this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
         this.stmt_getUs = _conn.prepareStatement(FIND_USUARIO);
         this.stmt_getAdm = _conn.prepareStatement(FIND_ADMIN);

@@ -69,15 +69,6 @@ public class SanitarioDTO extends UsuarioDTO {
     }
 
     /**
-     * Obtiene el dni del sanitario
-     * 
-     * @return String
-     */
-    public String getDni() {
-        return dni;
-    }
-
-    /**
      * Obtiene el teléfono del sanitario
      * 
      * @return String
@@ -106,14 +97,4 @@ public class SanitarioDTO extends UsuarioDTO {
                 apellido2 + ", dni=" + dni + ", telefono=" + telefono + ", correoElectronico=" + 
                 correoElectronico + ", contrasenia=" + contraseña + ", puestoTrabajo=" + puestoTrabajo + '}';
     }  
-    
-    /**
-     * Obtiene el JSON del sanitario
-     * 
-     * @return String
-     */
-    public String toJson(){
-        Gson gson = new Gson();
-        return gson.toJson(this);
-    }
 }
