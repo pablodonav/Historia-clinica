@@ -9,7 +9,8 @@ package control;
 
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
-import vista.LoginVista;
+import vista.EditarSanitarioVista;
+import vista.NuevoSanitarioVista;
 import vista.WelcomeVista;
 
 /**
@@ -22,7 +23,6 @@ public class Hospital implements OyenteVista{
     public static String TITULO = "Hospital Management System";
     
     private Comms comms = null;
-    private LoginVista loginVista;
     private WelcomeVista welcomeVista;
     private ProxySanitario pxSanitario = null;
     
@@ -48,7 +48,23 @@ public class Hospital implements OyenteVista{
                 try {
                     pxSanitario.darAltaSanitario((String)obj);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    welcomeVista.mensajeDialogo(NuevoSanitarioVista.ERROR_DAR_ALTA_SANITARIO);   
+                }
+                break;
+           
+            case DAR_BAJA_SANITARIO:
+                try {
+                    pxSanitario.darBajaSanitario((String)obj);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_DAR_BAJA_SANITARIO); 
+                }
+                break;
+                
+            case EDITAR_SANITARIO:
+                try {
+                    pxSanitario.editarSanitario((String)obj);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_EDITAR_SANITARIO); 
                 }
                 break;
 
@@ -57,7 +73,7 @@ public class Hospital implements OyenteVista{
                     comms.desconectar();
                     System.exit(0);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    welcomeVista.mensajeDialogo(Comms.ERROR_CONEXION); 
                 }
                 break;
         }

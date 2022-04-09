@@ -6,7 +6,14 @@
  */
 package vista;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import control.Hospital;
 import control.OyenteVista;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.ProxySanitario;
 
 /**
@@ -17,20 +24,27 @@ import modelo.clasesProxys.ProxySanitario;
 public class MenuAdminVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private ProxySanitario pxSanitario;
+    private String idConexion = null;
+    
+    /* Mensajes de Error */
+    private String ERROR_OBTENER_SANITARIOS = 
+            "No se ha podido obtener la lista con sanitarios.";
     
     /**
      * Crea e inicializa los componentes de MenuAdminVista.
      */
-    public MenuAdminVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario) {
+    public MenuAdminVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.pxSanitario = _pxSanitario;
+        this.idConexion = _idConexion;
         
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
+        habilitarBotonConectado(idConexion);
     }
-
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +63,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         b_NuevoSanitario = new javax.swing.JButton();
         b_EditarSanitario = new javax.swing.JButton();
         b_Salir = new javax.swing.JButton();
+        b_connecter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -148,6 +163,13 @@ public class MenuAdminVista extends javax.swing.JFrame {
             }
         });
 
+        b_connecter.setBackground(new java.awt.Color(204, 204, 204));
+        b_connecter.setText("   ");
+        b_connecter.setBorder(null);
+        b_connecter.setEnabled(false);
+        b_connecter.setFocusable(false);
+        b_connecter.setSelected(true);
+
         javax.swing.GroupLayout panel_principalLayout = new javax.swing.GroupLayout(panel_principal);
         panel_principal.setLayout(panel_principalLayout);
         panel_principalLayout.setHorizontalGroup(
@@ -163,14 +185,18 @@ public class MenuAdminVista extends javax.swing.JFrame {
                         .addContainerGap(68, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(b_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                                .addComponent(b_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addComponent(b_connecter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         panel_principalLayout.setVerticalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_izqd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panel_principalLayout.createSequentialGroup()
+                .addComponent(b_connecter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(b_NuevoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(b_EditarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,8 +219,57 @@ public class MenuAdminVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * Muestra un botón con el estado de la appCliente,
+     * se mostrará el color verde si la conexión con el servidor
+     * ha sido exitosa o el color amarillo en caso contrario. 
+     * 
+     * @param _idConexion 
+     */
+    private void habilitarBotonConectado(String _idConexion){
+        if (idConexion.equals("0")){
+            b_connecter.setEnabled(false);
+            b_connecter.setText("Disconnected");
+            b_connecter.setBackground(Color.YELLOW);
+        } else{
+            b_connecter.setEnabled(true);
+            b_connecter.setText("Connected with id " + _idConexion);
+            b_connecter.setBackground(Color.GREEN);
+        }
+    }
+    
+    /**
+     * Escribe mensaje con diálogo modal.
+     * 
+     * @param mensaje
+     */    
+    public void mensajeDialogo(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, 
+            Hospital.TITULO + " " + Hospital.VERSION, 
+            JOptionPane.ERROR_MESSAGE,  null);    
+    }
+    
+    /**
+     * Habilita la pantalla con sanitarios existentes en el sistema
+     * para poder eliminar o editar un sanitario
+     * @param evt 
+     */
     private void b_EditarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EditarSanitarioActionPerformed
-
+        Gson gson = new Gson();
+        String sanitariosToReceive = null;
+        try {
+           sanitariosToReceive = pxSanitario.obtenerSanitarios();
+        } catch (Exception ex) {
+            mensajeDialogo(ERROR_OBTENER_SANITARIOS);
+        }
+        
+        /* Permite obtener los sanitarios en un List con varios SanitarioDTO*/
+        java.lang.reflect.Type listType = new TypeToken<List<SanitarioDTO>>(){}.getType(); 
+        List<SanitarioDTO> sanitarios = gson.fromJson(sanitariosToReceive, listType);
+        
+        this.setVisible(false);
+        new EditarSanitarioVista(this, oyenteVista, pxSanitario, idConexion, sanitarios).setVisible(true);
     }//GEN-LAST:event_b_EditarSanitarioActionPerformed
 
     /**
@@ -204,11 +279,13 @@ public class MenuAdminVista extends javax.swing.JFrame {
      */
     private void b_NuevoSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoSanitarioActionPerformed
         this.setVisible(false);
-        new NuevoSanitarioVista(this, oyenteVista, pxSanitario).setVisible(true);
+        new NuevoSanitarioVista(this, oyenteVista, pxSanitario, idConexion).setVisible(true);
     }//GEN-LAST:event_b_NuevoSanitarioActionPerformed
 
     /**
-     * Provoca el cierre de la IU de la app
+     * Provoca el cierre de la IU de la app, y envía el evento a 
+     * la capa control para realizar las acciones
+     * de finalización necesarias para la appCliente.
      * 
      * @param evt 
      */
@@ -216,16 +293,21 @@ public class MenuAdminVista extends javax.swing.JFrame {
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_b_SalirActionPerformed
 
+    /**
+     * Captura el evento relacionado con el cierre de la ventana, y 
+     * envía el evento a la capa control para realizar las acciones
+     * de finalización necesarias para la appCliente.
+     * 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_formWindowClosing
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_EditarSanitario;
     private javax.swing.JButton b_NuevoSanitario;
     private javax.swing.JButton b_Salir;
+    private javax.swing.JButton b_connecter;
     private javax.swing.JLabel hospital_icon;
     private javax.swing.JLabel hospital_label;
     private javax.swing.JLabel management_label;

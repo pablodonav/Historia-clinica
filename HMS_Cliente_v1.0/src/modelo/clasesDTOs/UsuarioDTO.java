@@ -30,10 +30,20 @@ public class UsuarioDTO {
         this.contraseña = _contraseña;
     }
 
+    /**
+     * Obtiene el dni del usuario
+     * 
+     * @return String
+     */
     public String getDni() {
         return dni;
     }
 
+    /**
+     * Asigna el dni del usuario
+     * 
+     * @param dni 
+     */
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -104,8 +114,6 @@ public class UsuarioDTO {
         return "UsuarioDTO{" + "correoElectronico=" + correoElectronico + 
             "," + "contrase\u00f1a=" + contraseña + ", admin=" + admin + '}';
     }
-    
-    
     
     /**
      * Obtiene el JSON del usuario

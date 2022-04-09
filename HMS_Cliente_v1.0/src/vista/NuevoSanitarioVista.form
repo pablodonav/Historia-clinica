@@ -72,7 +72,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel_principal" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Component id="panel_principal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -98,7 +98,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
                   <Component id="datos_label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Component id="paner_superior" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
@@ -225,7 +225,7 @@
                       <Component id="asterisco_label_email5" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="asterisco_label_email6" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="pwd_label" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="email_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -265,19 +265,28 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="hospital_icon" min="-2" pref="108" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Component id="nuevoSanitario_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="nuevoSanitario_label" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="b_connecter" min="-2" pref="128" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="hospital_icon" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <Component id="hospital_icon" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="33" max="32767" attributes="0"/>
                       <Component id="nuevoSanitario_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="b_connecter" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -310,6 +319,20 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="b_connecter">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="   "/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="selected" type="boolean" value="true"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="datos_label">
@@ -334,6 +357,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nombre_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombre_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="apellido1_label">
           <Properties>
@@ -344,6 +370,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="apellido1_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido1_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="apellido2_label">
           <Properties>
@@ -354,6 +383,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="apellido2_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido2_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="dni_label">
           <Properties>
@@ -364,6 +396,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dni_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dni_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="telefono_label">
           <Properties>
@@ -374,6 +409,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="telefono_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefono_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="puesto_label">
           <Properties>
@@ -397,7 +435,12 @@
                 <StringItem index="4" value="Otros"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="puesto_comboBoxPopupMenuWillBecomeVisible"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -411,6 +454,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="email_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="email_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="pwd_label">
           <Properties>
@@ -421,6 +467,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="pwd_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pwd_input_fieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="b_Cancelar">
           <Properties>

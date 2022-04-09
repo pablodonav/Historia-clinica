@@ -1,29 +1,38 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * WelcomeVista.java
+ * Adnana Catrinel Dragut
+ * v1.0 04/04/2022.
+ * 
  */
+
 package vista;
 
+import control.Hospital;
 import control.OyenteVista;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 
 /**
- *
- * @author Ususario
+ * Clase que contiene los métodos para crear y gestionar 
+ * los componentes y los eventos de la pantalla de bienvenida.
+ * 
  */
 public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeListener {
     private Comms comms = null;
     private ProxySanitario pxSanitario = null;
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
+    
+    private static final int NUMERO_BARRA_PROGRESO = 100;
+    private static final int MILISEGUNDOS_ESPERA_BARRA_PROGRESO = 40;
 
     /**
-     * Creates new form WelcomeVista
+     * Crea e inicializa los componentes de WelcomeVista.
      */
     public WelcomeVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario) {
         this.comms = _comms;
@@ -38,7 +47,7 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
         setLocationRelativeTo(null);  // centra en la pantalla
         crearProgressBar();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,10 +140,25 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Escribe mensaje con diálogo modal.
+     * 
+     * @param mensaje
+     */    
+    public void mensajeDialogo(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, 
+            Hospital.TITULO + " " + Hospital.VERSION, 
+            JOptionPane.ERROR_MESSAGE,  null);    
+    } 
+    
+    /**
+     * Crea la barra de progreso. 
+     * 
+     */
     private void crearProgressBar(){
-        for (int i=0; i < 100; i++){
+        for (int i=0; i < NUMERO_BARRA_PROGRESO; i++){
             try {
-                Thread.sleep(40);
+                Thread.sleep(MILISEGUNDOS_ESPERA_BARRA_PROGRESO);
                 progress_bar_label.setText(i + "%");
                 progress_bar.setValue(i);
             } catch (InterruptedException ex) {
@@ -143,18 +167,34 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
         }
     }
     
+    /**
+     * Recibe evento conectar
+     * 
+     * @param evt 
+     */
+    private void propiedadConectar(PropertyChangeEvent evt){
+        String idConexion = (String)evt.getNewValue();
+
+        if (idConexion == null){
+            idConexion = "0"; 
+        } 
+
+        comms.eliminarObservador(this);
+        this.dispose();
+        new LoginVista(oyenteVista, pxSanitario, idConexion).setVisible(true);  
+    }
+    
+    /**
+     * Sobreescribe propertyChange para recibir cambios de modelo.
+     * 
+     * @param evt 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(
-                                    Comms.PROPIEDAD_CONECTADO)) {
-            String idConexion = (String)evt.getNewValue();
+                Comms.PROPIEDAD_CONECTADO)) {
             
-            if (idConexion == null){
-                idConexion = "0"; 
-            } 
-            
-            this.dispose();
-            new LoginVista(oyenteVista, pxSanitario, idConexion).setVisible(true);  
+            propiedadConectar(evt);
         } 
     }
 

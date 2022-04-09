@@ -8,6 +8,8 @@
 package modelo.clasesDTOs;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que contiene los atributos y getter-setter de un Sanitario.
@@ -133,15 +135,33 @@ public class SanitarioDTO extends UsuarioDTO{
     }
     
     /**
+     * Obtiene un vector de Object con los atributos de la clase sanitario
+     * 
+     * @return Object[]
+     */
+    public Object[] toArray(){
+        List<Object> object = new ArrayList();
+        
+        object.add(nombre);
+        object.add(apellido1);
+        object.add(apellido2);
+        object.add(dni);
+        object.add(telefono);
+        object.add(correoElectronico);
+        object.add(puestoTrabajo);
+        
+        return object.toArray();
+    }
+    
+    /**
      * Obtiene el toString del sanitario
      * 
      * @return String
      */
     @Override
     public String toString() {
-        return "SanitarioDTO{" + "nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + 
-                apellido2 + ", dni=" + dni + ", telefono=" + telefono + ", correoElectronico=" + 
-                correoElectronico + ", contrase\u00f1a=" + contraseña + ", puestoTrabajo=" + puestoTrabajo + '}';
+        return nombre + " " + apellido1 + " " + apellido2 + " " + dni + " " + 
+               telefono + " " + correoElectronico + " " + puestoTrabajo;
     }  
     
     /**

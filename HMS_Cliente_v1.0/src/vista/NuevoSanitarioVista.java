@@ -10,6 +10,7 @@ package vista;
 import com.google.gson.Gson;
 import control.Hospital;
 import control.OyenteVista;
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
@@ -27,28 +28,39 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private ProxySanitario pxSanitario = null;
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
+    private String idConexion = null;
     
     /* Mensajes de Error */
-    private String ERROR_DAR_ALTA_SANITARIO = 
-            "No se ha podido dar de alta al sanitario.\n" + 
+    public final static String ERROR_DAR_ALTA_SANITARIO = 
+            "No se ha podido realizar la operación para dar de alta un sanitario.\n" + 
             "Vuelva a introducir los datos.";
+    
+    /* Mensajes de Éxito */
+    public final static String EXITO_DAR_ALTA_SANITARIO = 
+            "Se ha dado de alta al sanitario con dni: ";
     
     /**
      * Crea e inicializa los componentes de NuevoSanitarioVista.
+     * 
      */
-    public NuevoSanitarioVista(MenuAdminVista _menuAdminVista, OyenteVista _oyenteVista, ProxySanitario _pxSanitario) {
+    public NuevoSanitarioVista(MenuAdminVista _menuAdminVista, 
+            OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
         this.menuAdminVista  = _menuAdminVista;
         this.pxSanitario = _pxSanitario;
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
+        this.idConexion = _idConexion;
         pxSanitario.nuevoObservador(this);
                 
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
+        habilitarBotonConectado(_idConexion);
+                    
+        b_Guardar.setEnabled(false);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +77,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         paner_superior = new javax.swing.JPanel();
         nuevoSanitario_label = new javax.swing.JLabel();
         hospital_icon = new javax.swing.JLabel();
+        b_connecter = new javax.swing.JButton();
         datos_label = new javax.swing.JLabel();
         nombre_label = new javax.swing.JLabel();
         nombre_input_field = new javax.swing.JTextField();
@@ -131,6 +144,13 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         hospital_icon.setMinimumSize(new java.awt.Dimension(70, 70));
         hospital_icon.setPreferredSize(new java.awt.Dimension(70, 70));
 
+        b_connecter.setBackground(new java.awt.Color(204, 204, 204));
+        b_connecter.setText("   ");
+        b_connecter.setBorder(null);
+        b_connecter.setEnabled(false);
+        b_connecter.setFocusable(false);
+        b_connecter.setSelected(true);
+
         javax.swing.GroupLayout paner_superiorLayout = new javax.swing.GroupLayout(paner_superior);
         paner_superior.setLayout(paner_superiorLayout);
         paner_superiorLayout.setHorizontalGroup(
@@ -138,17 +158,23 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paner_superiorLayout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(hospital_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(nuevoSanitario_label)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(paner_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paner_superiorLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(nuevoSanitario_label)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paner_superiorLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(b_connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         paner_superiorLayout.setVerticalGroup(
             paner_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(hospital_icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paner_superiorLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+            .addGroup(paner_superiorLayout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(nuevoSanitario_label)
-                .addGap(28, 28, 28))
+                .addGap(11, 11, 11)
+                .addComponent(b_connecter))
         );
 
         datos_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
@@ -160,29 +186,82 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         nombre_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         nombre_label.setText("Nombre");
 
+        nombre_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombre_input_fieldKeyTyped(evt);
+            }
+        });
+
         apellido1_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         apellido1_label.setText("1º. Apellido");
+
+        apellido1_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellido1_input_fieldKeyTyped(evt);
+            }
+        });
 
         apellido2_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         apellido2_label.setText("2º. Apellido");
 
+        apellido2_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellido2_input_fieldKeyTyped(evt);
+            }
+        });
+
         dni_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         dni_label.setText("DNI");
 
+        dni_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dni_input_fieldKeyTyped(evt);
+            }
+        });
+
         telefono_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         telefono_label.setText("Teléfono");
+
+        telefono_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefono_input_fieldKeyTyped(evt);
+            }
+        });
 
         puesto_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         puesto_label.setText("Puesto");
 
         puesto_comboBox.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         puesto_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Médico", "Enfermero", "Especialista", "Auxiliar", "Otros" }));
+        puesto_comboBox.setSelectedIndex(-1);
+        puesto_comboBox.setToolTipText("");
+        puesto_comboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                puesto_comboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         email_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         email_label.setText("Correo Electrónico");
 
+        email_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                email_input_fieldKeyTyped(evt);
+            }
+        });
+
         pwd_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         pwd_label.setText("Contraseña");
+
+        pwd_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pwd_input_fieldKeyTyped(evt);
+            }
+        });
 
         b_Cancelar.setBackground(new java.awt.Color(204, 204, 204));
         b_Cancelar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
@@ -251,7 +330,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addGap(281, 281, 281)
                 .addComponent(datos_label)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(paner_superior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addContainerGap()
@@ -353,7 +432,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addComponent(asterisco_label_email4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_email5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_email6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pwd_label)
                     .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,12 +457,31 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    /**
+     * Muestra un botón con el estado de la appCliente,
+     * se mostrará el color verde si la conexión con el servidor
+     * ha sido exitosa o el color amarillo en caso contrario. 
+     * 
+     * @param _idConexion 
+     */
+    private void habilitarBotonConectado(String _idConexion){
+        if (idConexion.equals("0")){
+            b_connecter.setEnabled(false);
+            b_connecter.setText("Disconnected");
+            b_connecter.setBackground(Color.YELLOW);
+        } else{
+            b_connecter.setEnabled(true);
+            b_connecter.setText("Connected with id " + _idConexion);
+            b_connecter.setBackground(Color.GREEN);
+        }
+    }
+    
     /**
      * Escribe mensaje con diálogo modal.
      * 
@@ -395,11 +493,23 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             messageType,  null);    
     } 
     
+    /**
+     * Cierra la ventana actual y regresa a la ventana MenuAdminVista
+     * 
+     * @param evt 
+     */
     private void b_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_CancelarActionPerformed
         this.dispose();
         menuAdminVista.setVisible(true);
     }//GEN-LAST:event_b_CancelarActionPerformed
    
+    /**
+     * Captura la información de los campos rellenados por el usuario,
+     * crea el json del sanitario nuevo con dicha información, y 
+     * envía la solicitud para dar de alta un sanitario a la capa control
+     * 
+     * @param evt 
+     */
     private void b_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarActionPerformed
         String nombre = "";
         String apellido1 = "";
@@ -432,23 +542,130 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
     }//GEN-LAST:event_b_GuardarActionPerformed
 
+    /**
+     * Captura el evento relacionado con el cierre de la ventana, y 
+     * envía el evento a la capa control para realizar las acciones
+     * de finalización necesarias para la appCliente.
+     * 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Habilita el botón de Guardar si todos los campos 
+     * han sido completados y no poseen solo valores en blanco.
+     */
+    private void changed(){
+        if (nombre_input_field.getText().isBlank() || 
+                apellido1_input_field.getText().isBlank() ||
+                apellido2_input_field.getText().isBlank() ||
+                dni_input_field.getText().isBlank() || 
+                telefono_input_field.getText().isBlank() ||
+                puesto_comboBox.getSelectedItem() == null ||
+                email_input_field.getText().isBlank() ||
+                String.valueOf(pwd_input_field.getPassword()).isBlank()){
+  
+            b_Guardar.setEnabled(false);
+        }
+        else {
+            b_Guardar.setEnabled(true);
+        }
+    }
+    
+    /**
+     * Captura los eventos relacionados con la modificación del campo "nombre".
+     * 
+     */
+    private void nombre_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_nombre_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "apellido1".
+     * 
+     */
+    private void apellido1_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido1_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_apellido1_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "apellido2".
+     * 
+     */
+    private void apellido2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido2_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_apellido2_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "dni".
+     * 
+     */
+    private void dni_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dni_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_dni_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "telefono".
+     * 
+     */
+    private void telefono_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_telefono_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "puesto".
+     * 
+     */
+    private void puesto_comboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_puesto_comboBoxPopupMenuWillBecomeVisible
+        changed();
+    }//GEN-LAST:event_puesto_comboBoxPopupMenuWillBecomeVisible
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "correo".
+     * 
+     */
+    private void email_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_email_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_email_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "contraseña".
+     * 
+     */
+    private void pwd_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_pwd_input_fieldKeyTyped
+    
+    /**
+     * Recibe evento dar alta sanitario
+     * 
+     * @param evt 
+     */
+    private void propiedadDarAltaSanitario(PropertyChangeEvent evt){
+        String sanitarioJsonToReceive = (String)evt.getNewValue();
+        SanitarioDTO sanitarioDTOReceived = gson.fromJson(
+           sanitarioJsonToReceive, SanitarioDTO.class);
+
+        mensajeDialogo(EXITO_DAR_ALTA_SANITARIO + 
+           sanitarioDTOReceived.getDni(), JOptionPane.INFORMATION_MESSAGE);
+
+        pxSanitario.eliminarObservador(this);
+        this.dispose();
+        menuAdminVista.setVisible(true);      
+    }
+    
+    /**
+     * Sobreescribe propertyChange para recibir cambios de modelo.
+     * 
+     * @param evt 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(
-                                ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO)) {
-            String sanitarioJsonToReceive = (String)evt.getNewValue();
-            SanitarioDTO sanitarioDTO = gson.fromJson(
-                sanitarioJsonToReceive, SanitarioDTO.class);
+                ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO)) {
             
-            mensajeDialogo("Se ha dado de alta un nuevo sanitario.", JOptionPane.INFORMATION_MESSAGE);
-            
-            pxSanitario.eliminarObservador(this);
-            this.dispose();
-            menuAdminVista.setVisible(true);
+            propiedadDarAltaSanitario(evt);
         } 
     }
     
@@ -468,6 +685,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JLabel asterisco_label_email8;
     private javax.swing.JButton b_Cancelar;
     private javax.swing.JButton b_Guardar;
+    private javax.swing.JButton b_connecter;
     private javax.swing.JLabel campo_obligatorio_label;
     private javax.swing.JLabel datos_label;
     private javax.swing.JTextField dni_input_field;
@@ -489,5 +707,4 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JTextField telefono_input_field;
     private javax.swing.JLabel telefono_label;
     // End of variables declaration//GEN-END:variables
-
 }

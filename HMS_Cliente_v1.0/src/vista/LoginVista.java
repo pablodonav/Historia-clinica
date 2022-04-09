@@ -32,7 +32,6 @@ public class LoginVista extends javax.swing.JFrame{
     private static final String EMAIL_PATTERN = "^(.+)@(.+)\\.[a-z]{2,}$";
     private String idConexion = null;
 
-    
     /* Mensajes de Error */
     private String ERROR_LOGIN = 
             "No se ha podido iniciar sesión en el sistema.\n" + 
@@ -326,7 +325,13 @@ public class LoginVista extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
         
-    
+    /**
+     * Muestra un botón con el estado de la appCliente,
+     * se mostrará el color verde si la conexión con el servidor
+     * ha sido exitosa o el color amarillo en caso contrario. 
+     * 
+     * @param _idConexion 
+     */
     private void habilitarBotonConectado(String _idConexion){
         if (idConexion.equals("0")){
             b_connecter.setEnabled(false);
@@ -351,8 +356,7 @@ public class LoginVista extends javax.swing.JFrame{
     } 
     
     /**
-     * Comprueba que se han introducido valores en los campos del formulario,
-     * y verifica que la sintaxis del email es correcta.
+     * Verifica que la sintaxis del email es correcta.
      * 
      * @param email
      * @param pwd
@@ -395,15 +399,15 @@ public class LoginVista extends javax.swing.JFrame{
 
             try {
                 usuarioJsonReceived = pxUsuario.verificarUsuario(usuarioJsonSended); 
-                System.out.println("Recibir:" + usuarioJsonReceived);
+
                 if(usuarioJsonReceived != null){
                     usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
                     this.dispose();
                 
                     if (usuario.isAdmin()){
-                        new MenuAdminVista(oyenteVista, pxSanitario).setVisible(true);
+                        new MenuAdminVista(oyenteVista, pxSanitario, idConexion).setVisible(true);
                     } else{
-                        new MenuAdminVista(oyenteVista, pxSanitario).setVisible(true);
+                        
                     }
                 } else{
                     mensajeDialogo(ERROR_VERIFICACIÓN_USUARIO);
@@ -416,8 +420,13 @@ public class LoginVista extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_b_LoginActionPerformed
 
+    /**
+     * Habilita el botón de Login si los campos "dni", "correo" y "contraseña"
+     * han sido completados y no poseen solo valores en blanco.
+     */
     private void changed(){
         if (dni_input_field.getText().isBlank() || 
+                correo_input_field.getText().isBlank() || 
                 String.valueOf(pwd_input_field.getPassword()).isBlank()){
             b_Login.setEnabled(false);
         }
@@ -426,19 +435,37 @@ public class LoginVista extends javax.swing.JFrame{
         }
     }
     
+    /**
+     * Captura los eventos relacionados con la modificación del campo "dni".
+     * 
+     */
     private void dni_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dni_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_dni_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "pwd".
+     * 
+     */
     private void pwd_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_pwd_input_fieldKeyTyped
-
+    
+    /**
+     * Captura el evento relacionado con el cierre de la ventana y 
+     * envía el evento a la capa control para realizar las acciones
+     * de finalización necesarias para la appCliente.
+     * 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.println("Cerrado");
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "correo".
+     * 
+     */
     private void correo_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correo_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_correo_input_fieldKeyTyped
