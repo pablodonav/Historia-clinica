@@ -25,7 +25,9 @@ public enum PrimitivaComunicacion {
     VERIFICAR_USUARIO("check_user"),
     USUARIO_NO_ENCONTRADO("not_found_user"),
     EDITAR_SANITARIO("edit_health_worker"),
-    NUEVO_PACIENTE("new_patient");
+    NUEVO_PACIENTE("new_patient"),
+    OBTENER_SANITARIOS("get_health_workers"),
+    DAR_BAJA_SANITARIO("remove_health_worker");
     
     private String simbolo;
 

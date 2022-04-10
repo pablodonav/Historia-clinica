@@ -291,6 +291,15 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
+     * Método que obtiene la lista de sanitarios registrados en el sistema.
+     * 
+     * @return
+     */
+    synchronized String obtenerSanitarios() throws SQLException {
+        return database.obtenerSanitarios();
+    }
+    
+    /**
      * Método que añade un paciente a la DB.
      * Para ello, primero crea un paciente.
      * Finalmente, notifica a todos los sanitarios activos.
@@ -307,6 +316,14 @@ public class ServidorSanitarios extends Thread {
         
         notificarSanitariosPush(PrimitivaComunicacion.NUEVO_PACIENTE, 
                 String.valueOf(_paciente.toJson()));
+        
+        return true;
+    }
+    
+    synchronized boolean eliminarSanitario(String _dni) throws IOException, SQLException {
+        if( ! database.eliminarSanitario(_dni)) {
+            return false;
+        }
         
         return true;
     }

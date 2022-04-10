@@ -21,14 +21,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     private PreparedStatement stmt_del;
     private PreparedStatement stmt_upd;
     private PreparedStatement stmt_getAll;
+    private PreparedStatement stmt_verifyUs;
     private PreparedStatement stmt_getUs;
     private PreparedStatement stmt_getAdm;
 
     private static final String INSERT = "INSERT INTO USUARIO(dni, correo, contraseña) VALUES(?, ?, ?)";
     private static final String DELETE = "DELETE FROM USUARIO WHERE dni=?";
-    private static final String UPDATE = "UPDATE USUARIO SET %s WHERE dni=\"%s\"";
+    private static final String UPDATE = "UPDATE USUARIO SET dni=?, correo=?, contraseña=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM USUARIO";
-    private static final String FIND_USUARIO = "SELECT * FROM USUARIO WHERE dni=? AND correo=? AND contraseña=?";
+    private static final String VERIFY_USUARIO = "SELECT * FROM USUARIO WHERE dni=? AND correo=? AND contraseña=?";
+    private static final String FIND_USUARIO = "SELECT * FROM USUARIO WHERE dni=?";
     private static final String FIND_ADMIN = "SELECT * FROM ADMINISTRADOR WHERE dni=?";
     
     private Connection connection;
@@ -47,6 +49,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
         this.stmt_getUs = _conn.prepareStatement(FIND_USUARIO);
+        this.stmt_verifyUs = _conn.prepareStatement(VERIFY_USUARIO);
         this.stmt_getAdm = _conn.prepareStatement(FIND_ADMIN);
     }
 
@@ -90,11 +93,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         UsuarioDTO usuarioEncontrado = null;
         int cuenta = 0;
         
-        stmt_getUs.setString(1, _usuario.getDni());
-        stmt_getUs.setString(2, _usuario.getEmail());
-        stmt_getUs.setString(3, _usuario.getContraseña());
+        stmt_verifyUs.setString(1, _usuario.getDni());
+        stmt_verifyUs.setString(2, _usuario.getEmail());
+        stmt_verifyUs.setString(3, _usuario.getContraseña());
         
-        ResultSet rs = stmt_getUs.executeQuery();
+        ResultSet rs = stmt_verifyUs.executeQuery();
         if (rs.next()) {
             cuenta = rs.getInt(1);
         }
@@ -124,7 +127,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public boolean deleteUsuario(String _dni) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        stmt_del.setString(1, _dni);
+
+        if (stmt_del.executeUpdate() > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -136,33 +145,29 @@ public class UsuarioDAOImpl implements UsuarioDAO {
      */
     @Override
     public boolean updateUsuario(UsuarioDTO _usuario) throws SQLException {
-        List<String> atributos = Arrays.asList("dni", "correo", "contraseña");
-        List<String> modified_param = new ArrayList<String>();
+        stmt_upd.setString(1, _usuario.getDni());
+        stmt_upd.setString(2, _usuario.getEmail());
+        stmt_upd.setString(3, _usuario.getContraseña());
+        stmt_upd.setString(4, _usuario.getDni());
 
-        for (String atributo : atributos) {
-            if (("correo".equals(atributo)) && (_usuario.getEmail() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _usuario.getEmail()));
-            }
-            if (("contraseña".equals(atributo)) && (_usuario.getContraseña() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _usuario.getContraseña()));
-            }
-        }
-
-        String param = String.join(", ", modified_param);
-        String sql = String.format(UPDATE, param, _usuario.getDni());
-
-        this.stmt_upd = connection.prepareStatement(sql);
-
-        if (stmt_upd.executeUpdate() > 0) {
-            return true;
-        }
-
-        return false;
+        return stmt_add.executeUpdate() > 0;
     }
 
     @Override
     public UsuarioDTO getUsuario(String _dni) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UsuarioDTO usuario = null;
+
+        stmt_getUs.setString(1, _dni);
+        ResultSet rs = stmt_getUs.executeQuery();
+
+        while (rs.next()) {
+            String dni = rs.getString("dni");
+            String correo = rs.getString("correo");
+            String contraseña = rs.getString("contraseña");
+
+            usuario = new UsuarioDTO(dni, correo, contraseña);
+        }
+        return usuario;
     }
 
     @Override

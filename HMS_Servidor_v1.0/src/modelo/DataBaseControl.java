@@ -5,10 +5,13 @@
  */
 package modelo;
 
+import com.google.gson.Gson;
 import modelo.clasesDAO.SanitarioDAOImpl;
 import modelo.clasesDTOs.SanitarioDTO;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
 import modelo.clasesDTOs.PacienteDTO;
@@ -156,5 +159,35 @@ public class DataBaseControl {
         }
         
         return false;
+    }
+    
+    public boolean eliminarSanitario(String _dni) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return usImpl.deleteUsuario(_dni);
+    }
+    
+    public String obtenerSanitarios() throws SQLException {
+        Gson gson = new Gson();
+        UsuarioDTO usuario = null;
+        
+        List<SanitarioDTO> sanitarios = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        sanitarios = sanImpl.getSanitarios();
+        
+        
+        for (SanitarioDTO san : sanitarios) {
+            usuario = usImpl.getUsuario(san.getDni());
+            san.setEmail(usuario.getEmail());
+            san.setContraseña(usuario.getContraseña());
+        }
+
+        
+        return gson.toJson(sanitarios);
     }
 }

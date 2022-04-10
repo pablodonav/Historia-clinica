@@ -9,7 +9,6 @@ import modelo.clasesDTOs.SanitarioDTO;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Clase que contiene las funciones necesarias
@@ -25,7 +24,7 @@ public class SanitarioDAOImpl implements SanitarioDAO {
 
     private static final String INSERT = "INSERT INTO SANITARIO(dni, nombre, apellido1, apellido2, telefono, puesto_trabajo) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM SANITARIO WHERE dni=?";
-    private static final String UPDATE = "UPDATE SANITARIO SET %s WHERE dni=\"%s\"";
+    private static final String UPDATE = "UPDATE SANITARIO SET dni=?, nombre=?, apellido1=?, apellido2=?, telefono=?, puesto_trabajo=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM SANITARIO";
     private static final String FIND_SANITARIO = "SELECT * FROM SANITARIO WHERE dni=?";
     
@@ -80,18 +79,6 @@ public class SanitarioDAOImpl implements SanitarioDAO {
     }
 
     /**
-     * Borra un sanitario existente de la DB.
-     * 
-     * @param _dni
-     * @return
-     * @throws SQLException 
-     */
-    @Override
-    public boolean deleteSanitario(String _dni) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
      * Modifica un sanitario existente de la DB.
      * 
      * @param _sanitario
@@ -100,37 +87,15 @@ public class SanitarioDAOImpl implements SanitarioDAO {
      */
     @Override
     public boolean updateSanitario(SanitarioDTO _sanitario) throws SQLException {
-        List<String> atributos = Arrays.asList("dni", "nombre", "apellido1", "apellido2", "telefono", "puesto_trabajo");
-        List<String> modified_param = new ArrayList<String>();
+        stmt_upd.setString(1, _sanitario.getDni());
+        stmt_upd.setString(2, _sanitario.getNombre());
+        stmt_upd.setString(3, _sanitario.getApellido1());
+        stmt_upd.setString(4, _sanitario.getApellido2());
+        stmt_upd.setInt(5, _sanitario.getTelefono());
+        stmt_upd.setString(6, _sanitario.getPuestoTrabajo());
+        stmt_upd.setString(7, _sanitario.getDni());
 
-        for (String atributo : atributos) {
-            if (("nombre".equals(atributo)) && (_sanitario.getNombre() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _sanitario.getNombre()));
-            }
-            if (("apellido1".equals(atributo)) && (_sanitario.getApellido1() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _sanitario.getApellido1()));
-            }
-            if (("apellido2".equals(atributo)) && (_sanitario.getApellido2() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _sanitario.getApellido2()));
-            }
-            if (("telefono".equals(atributo)) && (_sanitario.getTelefono() != 0)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _sanitario.getTelefono()));
-            }
-            if (("puesto_trabajo".equals(atributo)) && (_sanitario.getPuestoTrabajo() != null)) {
-                modified_param.add(String.format("%s=\"%s\"", atributo, _sanitario.getPuestoTrabajo()));
-            }
-        }
-
-        String param = String.join(", ", modified_param);
-        String sql = String.format(UPDATE, param, _sanitario.getDni());
-
-        this.stmt_upd = connection.prepareStatement(sql);
-
-        if (stmt_upd.executeUpdate() > 0) {
-            return true;
-        }
-
-        return false;
+        return stmt_add.executeUpdate() > 0;
     }
 
     /**
@@ -153,7 +118,24 @@ public class SanitarioDAOImpl implements SanitarioDAO {
      */
     @Override
     public List<SanitarioDTO> getSanitarios() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SanitarioDTO sanitario = null;
+
+        ResultSet rsSanitarios = stmt_getAll.executeQuery();
+        List<SanitarioDTO> sanitarios = new ArrayList<SanitarioDTO>();
+
+        while (rsSanitarios.next()) {
+            String dni = rsSanitarios.getString("dni");
+            String nombre = rsSanitarios.getString("nombre");
+            String apellido1 = rsSanitarios.getString("apellido1");
+            String apellido2 = rsSanitarios.getString("apellido2");
+            int telefono = rsSanitarios.getInt("telefono");
+            String puesto_trabajo = rsSanitarios.getString("puesto_trabajo");
+
+            sanitario = new SanitarioDTO(nombre, apellido1, apellido2, dni, telefono, null, null, puesto_trabajo);
+            sanitarios.add(sanitario);
+        }
+
+        return sanitarios;
     }
     
 }

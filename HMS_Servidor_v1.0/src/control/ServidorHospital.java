@@ -92,8 +92,16 @@ public class ServidorHospital implements Runnable {
                     editarSanitario();
                     break;
                     
+                case OBTENER_SANITARIOS:
+                    obtenerSanitarios();
+                    break;
+                    
                 case NUEVO_PACIENTE:
                     añadirPaciente();
+                    break;
+                    
+                case DAR_BAJA_SANITARIO:
+                    eliminarSanitario();
                     break;
                     
             }  
@@ -244,6 +252,21 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();
     }
     
+    private void obtenerSanitarios() throws IOException, SQLException {
+        salida.println(PrimitivaComunicacion.OBTENER_SANITARIOS);  
+        
+        String sanitariosJSON = servidorSanitarios.obtenerSanitarios();
+      
+        if (sanitariosJSON != null) {
+            salida.println(sanitariosJSON); 
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+        }
+        
+        cerrarConexion();    
+    }
+    
     private void añadirPaciente() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
@@ -251,6 +274,20 @@ public class ServidorHospital implements Runnable {
         PacienteDTO paciente = gson.fromJson(pacienteJSON, PacienteDTO.class);
         
         if (servidorSanitarios.añadirPaciente(paciente)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();
+    }
+    
+    private void eliminarSanitario() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String dni = entrada.readLine();
+        
+        if (servidorSanitarios.eliminarSanitario(dni)) {
             respuesta = PrimitivaComunicacion.OK;
         }
         

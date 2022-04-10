@@ -18,8 +18,6 @@ public interface SanitarioDAO {
     
     public boolean addSanitario(SanitarioDTO _sanitario) throws SQLException;
 
-    public boolean deleteSanitario(String _dni) throws SQLException;
-
     public boolean updateSanitario(SanitarioDTO _sanitario) throws SQLException;
 
     public SanitarioDTO getSanitario(String _dni) throws SQLException;
