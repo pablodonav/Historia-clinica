@@ -59,11 +59,23 @@ public class UsuarioDAOImpl implements UsuarioDAO {
      */
     @Override
     public boolean addUsuario(UsuarioDTO _usuario) throws SQLException {
-        stmt_add.setString(1, _usuario.getDni());
-        stmt_add.setString(2, _usuario.getEmail());
-        stmt_add.setString(3, _usuario.getContraseña());
+        int cuenta = 0;
+        stmt_getAdm.setString(1, _usuario.getDni());
 
-        return stmt_add.executeUpdate() > 0;
+        ResultSet rs = stmt_getAdm.executeQuery();
+        if (rs.next()) {
+            cuenta = rs.getInt(1);
+        }
+        rs.close();
+        
+        if (cuenta == 0) {
+            stmt_add.setString(1, _usuario.getDni());
+            stmt_add.setString(2, _usuario.getEmail());
+            stmt_add.setString(3, _usuario.getContraseña());
+            return stmt_add.executeUpdate() > 0;
+        } else {
+            return false;
+        }
     }
     
     /**

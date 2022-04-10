@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
+import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
 
@@ -90,6 +91,11 @@ public class ServidorHospital implements Runnable {
                 case EDITAR_SANITARIO:
                     editarSanitario();
                     break;
+                    
+                case NUEVO_PACIENTE:
+                    añadirPaciente();
+                    break;
+                    
             }  
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
             System.out.println(ERROR_CONEXION_HOSPITAL +
@@ -230,6 +236,21 @@ public class ServidorHospital implements Runnable {
         SanitarioDTO sanitario = gson.fromJson(sanitarioJSON, SanitarioDTO.class);
         
         if (servidorSanitarios.editarSanitario(sanitario)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();
+    }
+    
+    private void añadirPaciente() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String pacienteJSON = entrada.readLine();
+        PacienteDTO paciente = gson.fromJson(pacienteJSON, PacienteDTO.class);
+        
+        if (servidorSanitarios.añadirPaciente(paciente)) {
             respuesta = PrimitivaComunicacion.OK;
         }
         

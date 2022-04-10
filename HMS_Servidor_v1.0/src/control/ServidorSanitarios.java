@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import modelo.DataBaseControl;
+import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
 
@@ -285,6 +286,27 @@ public class ServidorSanitarios extends Thread {
         
         notificarSanitariosPush(PrimitivaComunicacion.EDITAR_SANITARIO, 
                 String.valueOf(_sanitario.toJson()));
+        
+        return true;
+    }
+    
+    /**
+     * Método que añade un paciente a la DB.
+     * Para ello, primero crea un paciente.
+     * Finalmente, notifica a todos los sanitarios activos.
+     * 
+     * @param _paciente
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
+    synchronized boolean añadirPaciente(PacienteDTO _paciente) throws IOException, SQLException {
+        if( ! database.addPaciente(_paciente)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVO_PACIENTE, 
+                String.valueOf(_paciente.toJson()));
         
         return true;
     }

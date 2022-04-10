@@ -56,14 +56,27 @@ public class SanitarioDAOImpl implements SanitarioDAO {
      */
     @Override
     public boolean addSanitario(SanitarioDTO _sanitario) throws SQLException {
-        stmt_add.setString(1, _sanitario.getDni());
-        stmt_add.setString(2, _sanitario.getNombre());
-        stmt_add.setString(3, _sanitario.getApellido1());
-        stmt_add.setString(4, _sanitario.getApellido2());
-        stmt_add.setInt(5, _sanitario.getTelefono());
-        stmt_add.setString(6, _sanitario.getPuestoTrabajo());
+        int cuenta = 0;
+        stmt_getSan.setString(1, _sanitario.getDni());
 
-        return stmt_add.executeUpdate() > 0;
+        ResultSet rs = stmt_getSan.executeQuery();
+        if (rs.next()) {
+            cuenta = rs.getInt(1);
+        }
+        rs.close();
+        
+        if (cuenta == 0) {
+            stmt_add.setString(1, _sanitario.getDni());
+            stmt_add.setString(2, _sanitario.getNombre());
+            stmt_add.setString(3, _sanitario.getApellido1());
+            stmt_add.setString(4, _sanitario.getApellido2());
+            stmt_add.setInt(5, _sanitario.getTelefono());
+            stmt_add.setString(6, _sanitario.getPuestoTrabajo());
+
+            return stmt_add.executeUpdate() > 0;
+        } else {
+            return false;
+        }
     }
 
     /**

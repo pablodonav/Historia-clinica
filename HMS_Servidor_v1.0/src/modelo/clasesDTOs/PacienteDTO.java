@@ -5,6 +5,8 @@
  */
 package modelo.clasesDTOs;
 
+import com.google.gson.Gson;
+
 /**
  * Clase que contiene los atributos y getter-setter de un paciente.
  * 
@@ -113,5 +115,15 @@ public class PacienteDTO {
      */
     public double getPeso() {
         return peso;
+    }
+    
+    /**
+     * Obtiene el JSON del usuario
+     * 
+     * @return String
+     */
+    public String toJson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

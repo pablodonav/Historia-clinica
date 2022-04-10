@@ -24,7 +24,8 @@ public enum PrimitivaComunicacion {
     NUEVO_ID_CONEXION("new_id_conection"),
     VERIFICAR_USUARIO("check_user"),
     USUARIO_NO_ENCONTRADO("not_found_user"),
-    EDITAR_SANITARIO("edit_health_worker");
+    EDITAR_SANITARIO("edit_health_worker"),
+    NUEVO_PACIENTE("new_patient");
     
     private String simbolo;
 

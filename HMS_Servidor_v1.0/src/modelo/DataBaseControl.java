@@ -9,7 +9,9 @@ import modelo.clasesDAO.SanitarioDAOImpl;
 import modelo.clasesDTOs.SanitarioDTO;
 import java.sql.SQLException;
 import java.sql.*;
+import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
+import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.UsuarioDTO;
 
 /**
@@ -24,6 +26,7 @@ public class DataBaseControl {
     
     private SanitarioDAOImpl sanImpl;
     private UsuarioDAOImpl usImpl;
+    private PacienteDAOImpl pacImpl;
     
     /**
      * Crea la conexión con la DB.
@@ -62,6 +65,7 @@ public class DataBaseControl {
         
         sanImpl = new SanitarioDAOImpl(conexion);
         usImpl = new UsuarioDAOImpl(conexion);
+        pacImpl = new PacienteDAOImpl(conexion);
     }
     
     /**
@@ -82,6 +86,7 @@ public class DataBaseControl {
         
         return usImpl.addUsuario(usuario);
     }
+    
     /**
      * Añade un nuevo sanitario a la DB.
      * 
@@ -97,6 +102,23 @@ public class DataBaseControl {
         }
 
         return sanImpl.addSanitario(_sanitario);
+    }
+    
+    /**
+     * Añade un nuevo paciente a la DB.
+     * 
+     * @param _paciente
+     * @return
+     * @throws SQLException 
+     */
+    public boolean addPaciente(PacienteDTO _paciente)
+            throws SQLException {
+
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+
+        return pacImpl.addPaciente(_paciente);
     }
     
     /**
