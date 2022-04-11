@@ -356,10 +356,6 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(panel_principalLayout.createSequentialGroup()
-                                        .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel_principalLayout.createSequentialGroup()
                                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(panel_principalLayout.createSequentialGroup()
                                                 .addComponent(dni_label)
@@ -375,7 +371,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                                                 .addComponent(asterisco_label_email2, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(panel_principalLayout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(asterisco_label_email5, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)))
+                                                .addComponent(asterisco_label_email5, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(panel_principalLayout.createSequentialGroup()
@@ -397,11 +393,16 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(apellido2_label)
                                                 .addGap(10, 10, 10)
-                                                .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 6, Short.MAX_VALUE))))
+                                                .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 14, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panel_principalLayout.setVerticalGroup(
@@ -432,7 +433,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addComponent(asterisco_label_email4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_email5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_email6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pwd_label)
                     .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -504,42 +505,44 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     }//GEN-LAST:event_b_CancelarActionPerformed
    
     /**
-     * Captura la información de los campos rellenados por el usuario,
-     * crea el json del sanitario nuevo con dicha información, y 
-     * envía la solicitud para dar de alta un sanitario a la capa control
+     * Captura la información de los campos rellenados por el usuario y
+     * crea el json del sanitario nuevo con dicha información
+     * 
+     * @return String
+     */
+    private String crearJsonSanitarioNuevo(){
+        String nombre = nombre_input_field.getText();
+        String apellido1 = apellido1_input_field.getText();
+        String apellido2 = apellido2_input_field.getText();
+        String dni = dni_input_field.getText();
+        String telefono = telefono_input_field.getText();
+        String email = email_input_field.getText();
+        String pwd = String.valueOf(pwd_input_field.getPassword());
+        String puestoTrabajo = String.valueOf(puesto_comboBox.getSelectedItem());
+        
+        /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
+        String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
+                
+        SanitarioDTO sanitario = new SanitarioDTO(nombre, apellido1, apellido2, 
+            dni, Integer.parseInt(telefono), email, encriptMD5_pwd, puestoTrabajo);
+        
+        return sanitario.toJson();
+    }
+    
+    /**
+     * Envía la solicitud para dar de alta un sanitario a la capa control
      * 
      * @param evt 
      */
     private void b_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarActionPerformed
-        String nombre = "";
-        String apellido1 = "";
-        String apellido2 = "";
-        String dni = "";
-        String telefono = "";
-        String email = "";
-        String pwd = "";
-        String puestoTrabajo = "";
-        String sanitarioJsonToSend=  null;
-        SanitarioDTO sanitario = null;
+        String sanitarioJsonToSend = crearJsonSanitarioNuevo();
         
-        nombre = nombre_input_field.getText();
-        apellido1 = apellido1_input_field.getText();
-        apellido2 = apellido2_input_field.getText();
-        dni = dni_input_field.getText();
-        telefono = telefono_input_field.getText();
-        email = email_input_field.getText();
-        pwd = String.valueOf(pwd_input_field.getPassword());
-        puestoTrabajo = String.valueOf(puesto_comboBox.getSelectedItem());
-        
-        /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
-        String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
-        System.out.println(encriptMD5_pwd);
-                
-        sanitario = new SanitarioDTO(nombre, apellido1, apellido2, dni, Integer.parseInt(telefono), email, encriptMD5_pwd, puestoTrabajo);
-        sanitarioJsonToSend = sanitario.toJson();
-        System.out.println("1" + sanitarioJsonToSend);
-
-        oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
+        if (sanitarioJsonToSend != null){
+            oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
+        } else{
+            mensajeDialogo(ERROR_DAR_ALTA_SANITARIO, JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_b_GuardarActionPerformed
 
     /**

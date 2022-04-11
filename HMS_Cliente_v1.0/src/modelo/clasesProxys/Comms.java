@@ -36,8 +36,8 @@ public class Comms implements OyenteServidor{
     public static String PROPIEDAD_CONECTADO = "Conectar"; 
     
     /* Mensajes de Error */
-    public static final String ERROR_CONEXION = 
-            "No se ha podido conectar con el servidor.";
+    public static final String ERROR_DESCONEXION = 
+            "No se ha podido realizar la desconexión del servidor.";
 
     /**
      * Crea Comms.

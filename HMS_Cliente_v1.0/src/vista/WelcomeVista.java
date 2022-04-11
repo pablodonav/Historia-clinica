@@ -31,6 +31,10 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     private static final int NUMERO_BARRA_PROGRESO = 100;
     private static final int MILISEGUNDOS_ESPERA_BARRA_PROGRESO = 40;
 
+    /* Mensajes de Error */
+    private String ERROR_CARGA_PAGINA_BIENVENIDA = 
+            "No se ha podido cargar la página de bienvenida.";
+    
     /**
      * Crea e inicializa los componentes de WelcomeVista.
      */
@@ -162,7 +166,7 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
                 progress_bar_label.setText(i + "%");
                 progress_bar.setValue(i);
             } catch (InterruptedException ex) {
-                Logger.getLogger(WelcomeVista.class.getName()).log(Level.SEVERE, null, ex);
+                mensajeDialogo(ERROR_CARGA_PAGINA_BIENVENIDA);
             }
         }
     }

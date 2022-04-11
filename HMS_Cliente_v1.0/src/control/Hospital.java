@@ -73,7 +73,7 @@ public class Hospital implements OyenteVista{
                     comms.desconectar();
                     System.exit(0);
                 } catch (Exception ex) {
-                    welcomeVista.mensajeDialogo(Comms.ERROR_CONEXION); 
+                    welcomeVista.mensajeDialogo(Comms.ERROR_DESCONEXION); 
                 }
                 break;
         }

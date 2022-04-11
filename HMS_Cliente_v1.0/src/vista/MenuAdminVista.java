@@ -251,25 +251,43 @@ public class MenuAdminVista extends javax.swing.JFrame {
     }
     
     /**
+     * Obtiene la lista con los sanitarios dados de alta en el sistema
+     * 
+     * @return List<SanitarioDTO>
+     * @throws Exception 
+     */
+    private List<SanitarioDTO> obtenerListaConSanitarios() throws Exception{
+        Gson gson = new Gson();
+        List<SanitarioDTO> sanitarios = null;
+        
+        String sanitariosToReceive = pxSanitario.obtenerSanitarios();
+
+        /* Permite obtener los sanitarios en un List con SanitarioDTO*/
+        java.lang.reflect.Type listType = new TypeToken<List<SanitarioDTO>>(){}.getType(); 
+        sanitarios = gson.fromJson(sanitariosToReceive, listType);
+        
+        return sanitarios;
+    }
+    
+    /**
      * Habilita la pantalla con sanitarios existentes en el sistema
      * para poder eliminar o editar un sanitario
      * @param evt 
      */
     private void b_EditarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EditarSanitarioActionPerformed
-        Gson gson = new Gson();
-        String sanitariosToReceive = null;
         try {
-           sanitariosToReceive = pxSanitario.obtenerSanitarios();
+            List<SanitarioDTO> sanitarios = obtenerListaConSanitarios();
+            
+            if(sanitarios != null){
+                this.setVisible(false);
+                new EditarSanitarioVista(this, oyenteVista, pxSanitario, idConexion, sanitarios).setVisible(true);   
+            } else{
+                mensajeDialogo(ERROR_OBTENER_SANITARIOS);
+                return;
+            }
         } catch (Exception ex) {
             mensajeDialogo(ERROR_OBTENER_SANITARIOS);
         }
-        
-        /* Permite obtener los sanitarios en un List con varios SanitarioDTO*/
-        java.lang.reflect.Type listType = new TypeToken<List<SanitarioDTO>>(){}.getType(); 
-        List<SanitarioDTO> sanitarios = gson.fromJson(sanitariosToReceive, listType);
-        
-        this.setVisible(false);
-        new EditarSanitarioVista(this, oyenteVista, pxSanitario, idConexion, sanitarios).setVisible(true);
     }//GEN-LAST:event_b_EditarSanitarioActionPerformed
 
     /**

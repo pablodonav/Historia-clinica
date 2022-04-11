@@ -104,7 +104,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="asterisco_label_email4" max="32767" attributes="0"/>
@@ -128,11 +128,6 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="b_Cancelar" min="-2" pref="85" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                          <Component id="b_Guardar" min="-2" pref="85" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="dni_label" min="-2" max="-2" attributes="0"/>
@@ -152,7 +147,7 @@
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="asterisco_label_email5" pref="17" max="32767" attributes="0"/>
+                                                  <Component id="asterisco_label_email5" pref="24" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -181,14 +176,20 @@
                                               </Group>
                                           </Group>
                                       </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="b_Cancelar" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="b_Guardar" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="campo_obligatorio_label" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="campo_obligatorio_label" min="-2" pref="133" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -225,7 +226,7 @@
                       <Component id="asterisco_label_email5" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="asterisco_label_email6" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="pwd_label" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="email_input_field" alignment="3" min="-2" max="-2" attributes="0"/>

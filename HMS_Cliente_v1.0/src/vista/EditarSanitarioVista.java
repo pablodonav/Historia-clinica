@@ -32,9 +32,10 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private String idConexion = null;
     private List<SanitarioDTO> sanitarios = null;
     private DefaultTableModel tableModel = null;
-    private int index_sanitario_seleccionado;
+    private int indexSanitarioSeleccionado;
     
     private static final int INDEX_COLUMNA_DNI = 3;
+    private static final int INDEX_SANITARIO_NO_SELECCIONADO = -1;
     
     /* Mensajes de Error */
     public static final String ERROR_DAR_BAJA_SANITARIO = 
@@ -523,21 +524,29 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     }//GEN-LAST:event_b_AtrásActionPerformed
 
     /**
-     * Obtiene el dni del sanitario seleccionado y
-     * envía la solicitud para dar de baja un sanitario a la capa control
+     * Obtener el dni del sanitario seleccionado en la tabla
+     * 
+     * @param _indexSanitarioSeleccionado
+     * @return String
+     */
+    private String obtenerDniSanitarioSeleccionado(int _indexSanitarioSeleccionado){
+        return  String.valueOf(tabla_con_sanitarios.getValueAt(
+                    _indexSanitarioSeleccionado, INDEX_COLUMNA_DNI));
+    }
+    
+    /**
+     * Envía la solicitud para dar de baja un sanitario a la capa control
      * 
      * @param evt 
      */
     private void b_EliminarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EliminarSanitarioActionPerformed
-        index_sanitario_seleccionado = tabla_con_sanitarios.getSelectedRow();
+        indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();
                 
-        if (index_sanitario_seleccionado != -1){
-            String dni_sanitario = String.valueOf(tabla_con_sanitarios.getValueAt(
-                tabla_con_sanitarios.getSelectedRow(),
-                INDEX_COLUMNA_DNI));
+        if (indexSanitarioSeleccionado != INDEX_SANITARIO_NO_SELECCIONADO){
+            String dniSanitario = obtenerDniSanitarioSeleccionado(indexSanitarioSeleccionado);
 
             oyenteVista.eventoProducido(OyenteVista.Evento.DAR_BAJA_SANITARIO,
-                dni_sanitario);
+                dniSanitario);
         }   
         
         /* Deshabilita botones hasta la próxima selección */
@@ -547,198 +556,175 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
 
     /**
      * Modifica el atributo "nombre" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo nombre
+     * List sanitarios (_sanitarioSeleccionado), si el campo nombre
      * ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
-    private void modificarNombreSanitario(SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
-        if (! nombre_input_field.getText().equals(_sanitarioSinModificar.getNombre())){
-            _sanitarioSinModificar.setNombre(nombre_input_field.getText());
-            _sanitarioModificado.setNombre(nombre_input_field.getText());
+    private void modificarNombreSanitario(SanitarioDTO _sanitarioSeleccionado){
+        if (! nombre_input_field.getText().equals(_sanitarioSeleccionado.getNombre())){
+            _sanitarioSeleccionado.setNombre(nombre_input_field.getText());
         }
     }
     
     /**
      * Modifica el atributo "apellido1" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * apellido1 ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
     private void modificarApellido1Sanitario(
-            SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+            SanitarioDTO _sanitarioSeleccionado){
         
         if (! apellido1_input_field.getText().equals(
-                _sanitarioSinModificar.getApellido1())){
+                _sanitarioSeleccionado.getApellido1())){
             
-            _sanitarioSinModificar.setApellido1(apellido1_input_field.getText());
-            _sanitarioModificado.setApellido1(apellido1_input_field.getText());
+            _sanitarioSeleccionado.setApellido1(apellido1_input_field.getText());
         }
     }
     
     /**
      * Modifica el atributo "apellido2" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * apellido2 ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
     private void modificarApellido2Sanitario(
-            SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+            SanitarioDTO _sanitarioSeleccionado){
         
         if (! apellido2_input_field.getText().equals(
-                _sanitarioSinModificar.getApellido2())){
+                _sanitarioSeleccionado.getApellido2())){
             
-            _sanitarioSinModificar.setApellido2(apellido2_input_field.getText());
-            _sanitarioModificado.setApellido2(apellido2_input_field.getText());
+            _sanitarioSeleccionado.setApellido2(apellido2_input_field.getText());
         }
     }
     
     /**
      * Modifica el atributo "dni" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo dni
+     * List sanitarios (_sanitarioSeleccionado), si el campo dni
      * ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
-    private void modificarDniSanitario(SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+    private void modificarDniSanitario(SanitarioDTO _sanitarioSeleccionado){
         
         if (! dni_input_field.getText().equals(
-                _sanitarioSinModificar.getDni())){
+                _sanitarioSeleccionado.getDni())){
             
-            _sanitarioSinModificar.setDni(dni_input_field.getText());
-            _sanitarioModificado.setDni(dni_input_field.getText());
+            _sanitarioSeleccionado.setDni(dni_input_field.getText());
         }
     }
     
     /**
      * Modifica el atributo "teléfono" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * teléfono ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado 
      */
     private void modificarTelefonoSanitario(
-            SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+            SanitarioDTO _sanitarioSeleccionado){
         if (Integer.parseInt(tlfn_input_field.getText()) !=
-                _sanitarioSinModificar.getTelefono()){
+                _sanitarioSeleccionado.getTelefono()){
             
-            _sanitarioSinModificar.setTelefono(Integer.parseInt(
-                tlfn_input_field.getText()));
-            _sanitarioModificado.setTelefono(Integer.parseInt(
+            _sanitarioSeleccionado.setTelefono(Integer.parseInt(
                 tlfn_input_field.getText()));
         }
     }
     
     /**
      * Modifica el atributo "correo" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * correo ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
-    private void modificarCorreoSanitario(SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+    private void modificarCorreoSanitario(SanitarioDTO _sanitarioSeleccionado){
         
         if (! correo_input_field.getText().equals(
-                _sanitarioSinModificar.getCorreoElectronico())){
+                _sanitarioSeleccionado.getCorreoElectronico())){
             
-            _sanitarioSinModificar.setCorreoElectronico(correo_input_field.getText());
-            _sanitarioModificado.setCorreoElectronico(correo_input_field.getText());
+            _sanitarioSeleccionado.setCorreoElectronico(correo_input_field.getText());
         }
     }
     
     /**
      * Modifica el atributo "puesto" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * puesto ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
-    private void modificarPuestoSanitario(SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+    private void modificarPuestoSanitario(SanitarioDTO _sanitarioSeleccionado){
         if (! String.valueOf(
                 puesto_comboBox.getSelectedItem()).equalsIgnoreCase(
-                    _sanitarioSinModificar.getPuestoTrabajo())){
+                    _sanitarioSeleccionado.getPuestoTrabajo())){
             
-            _sanitarioSinModificar.setPuestoTrabajo(String.valueOf(
-                puesto_comboBox.getSelectedItem()));
-            _sanitarioModificado.setPuestoTrabajo(String.valueOf(
+            _sanitarioSeleccionado.setPuestoTrabajo(String.valueOf(
                 puesto_comboBox.getSelectedItem()));
         }   
     }
     
     /**
      * Modifica el atributo "contraseña" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSinModificar) y del sanitario que se
-     * enviará por json al servidor (_sanitarioModificado), si el campo 
+     * List sanitarios (_sanitarioSeleccionado), si el campo 
      * contraseña ha sido modificado.
      * 
-     * @param _sanitarioSinModificar
-     * @param _sanitarioModificado 
+     * @param _sanitarioSeleccionado
      */
     private void modificarContraseñaSanitario(
-            SanitarioDTO _sanitarioSinModificar, 
-            SanitarioDTO _sanitarioModificado){
+            SanitarioDTO _sanitarioSeleccionado){
         
         if (! String.valueOf(pwd_input_field.getPassword()).isBlank()){
             /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
             String encriptMD5_pwd = DigestUtils.md5Hex(String.valueOf(
                 pwd_input_field.getPassword()));
 
-            if (! encriptMD5_pwd.equals(_sanitarioSinModificar.getContraseña())){
-                _sanitarioSinModificar.setContraseña(encriptMD5_pwd);
-                _sanitarioModificado.setContraseña(encriptMD5_pwd);
+            if (! encriptMD5_pwd.equals(_sanitarioSeleccionado.getContraseña())){
+                _sanitarioSeleccionado.setContraseña(encriptMD5_pwd);
             } 
         }  
     }
     
     /**
-     * Captura la información de los campos editados por el usuario,
-     * crea el json del sanitario editado con dicha información, y 
-     * envía la solicitud para editar un sanitario a la capa control
+     * Captura la información de los campos editados por el usuario y
+     * crea el json del sanitario editado con dicha información.
+     * 
+     * @return String
+     */
+    private String crearJsonSanitarioEditado(){ 
+        SanitarioDTO sanitarioSeleccionado = 
+            sanitarios.get(indexSanitarioSeleccionado);
+                        
+        modificarNombreSanitario(sanitarioSeleccionado);
+        modificarApellido1Sanitario(sanitarioSeleccionado);
+        modificarApellido2Sanitario(sanitarioSeleccionado);
+        modificarDniSanitario(sanitarioSeleccionado);
+        modificarTelefonoSanitario(sanitarioSeleccionado);
+        modificarCorreoSanitario(sanitarioSeleccionado);
+        modificarPuestoSanitario(sanitarioSeleccionado);
+        modificarContraseñaSanitario(sanitarioSeleccionado);
+                
+        return sanitarioSeleccionado.toJson();
+    }
+    
+    /**
+     * Envía la solicitud para editar un sanitario a la capa control
      * 
      * @param evt 
      */
     private void b_GuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarCambiosActionPerformed
-        String sanitarioJsonToSend = null;
+        String sanitarioJsonToSend = crearJsonSanitarioEditado();
         
-        SanitarioDTO sanitarioNoModificado = 
-            sanitarios.get(index_sanitario_seleccionado);
-        SanitarioDTO sanitarioModificado = new SanitarioDTO(null, null, null, 
-            sanitarioNoModificado.getDni(), 0, null, null, null);
-                        
-        modificarNombreSanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarApellido1Sanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarApellido2Sanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarDniSanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarTelefonoSanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarCorreoSanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarPuestoSanitario(sanitarioNoModificado, sanitarioModificado);
-        modificarContraseñaSanitario(sanitarioModificado, sanitarioModificado);
-        
-        sanitarioJsonToSend = sanitarioModificado.toJson();
-        oyenteVista.eventoProducido(OyenteVista.Evento.EDITAR_SANITARIO, sanitarioJsonToSend);        
+        System.out.println("Sanitario seleccionado: " + sanitarioJsonToSend);
+        if (sanitarioJsonToSend != null){
+            oyenteVista.eventoProducido(OyenteVista.Evento.EDITAR_SANITARIO, sanitarioJsonToSend); 
+        } else{
+            mensajeDialogo(ERROR_EDITAR_SANITARIO, JOptionPane.ERROR_MESSAGE);
+            return;
+        }       
     }//GEN-LAST:event_b_GuardarCambiosActionPerformed
 
     /**
@@ -760,28 +746,33 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         return -1;
     }
     
+    private void copiarInformaciónSanitarioEnInputFields(int _indexSanitarioSeleccionado){
+        SanitarioDTO sanitarioSeleccionado = sanitarios.get(
+            _indexSanitarioSeleccionado);
+        int indexPuestoSanitario = getIndexMatchingItemComboBox(
+            sanitarioSeleccionado.getPuestoTrabajo());    
+        
+        nombre_input_field.setText(sanitarioSeleccionado.getNombre());
+        apellido1_input_field.setText(sanitarioSeleccionado.getApellido1());
+        apellido2_input_field.setText(sanitarioSeleccionado.getApellido2());
+        dni_input_field.setText(sanitarioSeleccionado.getDni());
+        tlfn_input_field.setText(String.valueOf(sanitarioSeleccionado.getTelefono()));
+        correo_input_field.setText(sanitarioSeleccionado.getCorreoElectronico());
+        puesto_comboBox.setSelectedIndex(indexPuestoSanitario);  
+    }
+    
     /**
-     * Obtiene los valores del sanitario seleccionado en la tabla y
-     * muestra dicha información en los campos inferiores para poder editarlos
+     * Muestra la información de la tabla del sanitario seleccionado
+     * en los campos inferiores para poder editarlos
      * 
      * @param evt 
      */
     private void b_ModificarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_ModificarSanitarioActionPerformed
-        index_sanitario_seleccionado = tabla_con_sanitarios.getSelectedRow();
-        String dni_sanitario = String.valueOf(tabla_con_sanitarios.getValueAt(
-            tabla_con_sanitarios.getSelectedRow(), INDEX_COLUMNA_DNI));        
-        SanitarioDTO sanitario_seleccionado = sanitarios.get(
-            tabla_con_sanitarios.getSelectedRow());
-        int index_puesto_sanitario = getIndexMatchingItemComboBox(
-            sanitario_seleccionado.getPuestoTrabajo());    
-        
-        nombre_input_field.setText(sanitario_seleccionado.getNombre());
-        apellido1_input_field.setText(sanitario_seleccionado.getApellido1());
-        apellido2_input_field.setText(sanitario_seleccionado.getApellido2());
-        dni_input_field.setText(sanitario_seleccionado.getDni());
-        tlfn_input_field.setText(String.valueOf(sanitario_seleccionado.getTelefono()));
-        correo_input_field.setText(sanitario_seleccionado.getCorreoElectronico());
-        puesto_comboBox.setSelectedIndex(index_puesto_sanitario);
+        indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();       
+
+        if (indexSanitarioSeleccionado != INDEX_SANITARIO_NO_SELECCIONADO){
+            copiarInformaciónSanitarioEnInputFields(indexSanitarioSeleccionado);
+        }
         
         /* Deshabilita botones hasta la próxima selección */
         b_EliminarSanitario.setEnabled(false);
@@ -795,7 +786,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @param evt 
      */
     private void tabla_con_sanitariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_con_sanitariosMouseClicked
-        if (tabla_con_sanitarios.getSelectedRow() != -1){
+        if (tabla_con_sanitarios.getSelectedRow() != INDEX_SANITARIO_NO_SELECCIONADO){
             b_EliminarSanitario.setEnabled(true);
             b_ModificarSanitario.setEnabled(true);
         }
@@ -896,8 +887,8 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         mensajeDialogo(EXITO_DAR_BAJA_SANITARIO + 
         dniSanitario, JOptionPane.INFORMATION_MESSAGE);
 
-        sanitarios.remove(index_sanitario_seleccionado);
-        tableModel.removeRow(index_sanitario_seleccionado);
+        sanitarios.remove(indexSanitarioSeleccionado);
+        tableModel.removeRow(indexSanitarioSeleccionado);
     }
     
     /**
@@ -915,14 +906,8 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
 
         /* Muestra los datos modificados en el sanitario de la tabla*/
         for (int i = 0; i < sanitarioDTOReceived.toArray().length; i++){
-            if ((sanitarioDTOReceived.toArray()[i] instanceof String && 
-                    sanitarioDTOReceived.toArray()[i] != null) ||
-                    (sanitarioDTOReceived.toArray()[i] instanceof Integer && 
-                    (int) sanitarioDTOReceived.toArray()[i] != 0)){
-                
-                tableModel.setValueAt(sanitarioDTOReceived.toArray()[i], 
-                    index_sanitario_seleccionado, i);  
-            } 
+            tableModel.setValueAt(sanitarioDTOReceived.toArray()[i], 
+                    indexSanitarioSeleccionado, i);  
         }
     }
     
