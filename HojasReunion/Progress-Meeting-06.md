@@ -1,6 +1,6 @@
-# Progress Meeting 05
+# Progress Meeting 06
 ### Proyecto: Historia Clínica
-### Fecha: 05/04/2022 Lugar: Telemático
+### Fecha: 14/04/2022 Lugar: Telemático
 ### Asisten: Pablo Doñate, Adnana Dragut
 
 ### Orden del Día
@@ -17,10 +17,10 @@
         
   2. Realización de pruebas
      * Ambos miembros se han reunido para realizar pruebas de conexión entre la aplicación cliente y la aplicación servidor
-     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de inicio de sesión y añadir nuevo sanitario
+     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de modificar y eliminar un snaitario existente.
      
   3. Corrección de errores y nuevas mejoras
-     * Se han corregido los errores detectados en las pruebas realizadas.
+     * Se han corregido los errores visuales detectados en las pruebas realizadas, en concreto, los mensajes de confirmación cuando un sanitario existente era borrado o modificado exitosamente.
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
  
   4. Otros (Ruegos y preguntas).
