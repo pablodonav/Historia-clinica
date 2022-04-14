@@ -8,22 +8,20 @@
 package modelo.clasesProxys;
 
 import com.google.gson.Gson;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.clasesDTOs.SanitarioDTO;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
- * y obtener respuestas del servidor relacionados con un sanitario.
+ * y obtener información del servidor relacionados con un sanitario.
  * 
  */
 public class ProxySanitario extends Comms{
     public static String PROPIEDAD_DAR_ALTA_SANITARIO = "Dar Alta Sanitario";
     public static String PROPIEDAD_DAR_BAJA_SANITARIO = "Dar Baja Sanitario";
     public static String PROPIEDAD_EDITAR_SANITARIO = "Editar Sanitario";
-            
-    
+
     /**
      * Da de alta un nuevo sanitario con los atributos almacenados en 
      * el json pasado por parámetro
@@ -32,7 +30,6 @@ public class ProxySanitario extends Comms{
      * @throws Exception 
      */
     public void darAltaSanitario(String _jsonSanitario) throws Exception{
-        System.out.println(conectado);
         if (! conectado){
             return;
         }
@@ -65,7 +62,6 @@ public class ProxySanitario extends Comms{
      * @throws Exception 
      */
     public void darBajaSanitario(String _dniSanitario) throws Exception{
-        System.out.println(conectado);
         if (! conectado){
             return;
         }
@@ -99,7 +95,6 @@ public class ProxySanitario extends Comms{
      * @throws Exception 
      */
     public void editarSanitario(String _jsonSanitario) throws Exception{        
-        System.out.println(conectado);
         if (! conectado){
             return;
         }
@@ -175,92 +170,5 @@ public class ProxySanitario extends Comms{
         } else {
             return sanitariosToSend;
         }
-    }
-    
-    /**
-     *  Recibe del servidor el resultado de dar de alta
-     *  un nuevo sanitario.
-     * 
-     */
-    private boolean solicitudServidorDarAltaSanitario(
-            String propiedad, List<String> resultados)
-            throws IOException {
-        String sanitarioJsonToReceive = resultados.get(0);
-        
-        if (sanitarioJsonToReceive == null ||
-            sanitarioJsonToReceive.isBlank() ||
-            sanitarioJsonToReceive.isEmpty()) {
-            return false;
-        }
-        observadores.firePropertyChange(propiedad, null, sanitarioJsonToReceive);  
-        return true;
-    }
-    
-    /**
-     *  Recibe del servidor el resultado de dar de baja
-     *  un sanitario existente en el sistema.
-     * 
-     */
-    private boolean solicitudServidorDarBajaSanitario(
-            String propiedad, List<String> resultados)
-            throws IOException {
-        String dniSanitario = resultados.get(0);
-        
-        if (dniSanitario == null ||
-            dniSanitario.isBlank() ||
-            dniSanitario.isEmpty()) {
-            return false;
-        }
-        observadores.firePropertyChange(propiedad, null, dniSanitario);  
-        return true;
-    }
-    
-    /**
-     *  Recibe del servidor el resultado de editar
-     *  un sanitario existente en el sistema.
-     * 
-     */
-    private boolean solicitudServidorEditarSanitario(
-            String propiedad, List<String> resultados)
-            throws IOException {
-        String sanitarioJsonToReceive = resultados.get(0);
-        
-        if (sanitarioJsonToReceive == null ||
-            sanitarioJsonToReceive.isBlank() ||
-            sanitarioJsonToReceive.isEmpty()) {
-            return false;
-        }
-        observadores.firePropertyChange(propiedad, null, sanitarioJsonToReceive);  
-        return true;
-    }
-        
-    /**
-     * Recibe solicitudes del servidor
-     * 
-     * @param solicitud
-     * @param resultados
-     * @return boolean
-     * @throws IOException 
-     */
-    @Override
-    public boolean solicitudServidorProducida(PrimitivaComunicacion solicitud, 
-            List<String> resultados) throws IOException {
-        if (resultados.isEmpty()) {
-            return false;
-        } 
-      
-        switch(solicitud) {
-            case DAR_ALTA_SANITARIO:
-                return solicitudServidorDarAltaSanitario(
-                    PROPIEDAD_DAR_ALTA_SANITARIO, resultados);
-            case DAR_BAJA_SANITARIO:
-                return solicitudServidorDarBajaSanitario(
-                    PROPIEDAD_DAR_BAJA_SANITARIO, resultados);
-            case EDITAR_SANITARIO:
-                return solicitudServidorEditarSanitario(
-                    PROPIEDAD_EDITAR_SANITARIO, resultados);           
-            default:
-                return false;
-        }   
     }
 }

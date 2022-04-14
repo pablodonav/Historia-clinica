@@ -15,6 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.SanitarioDTO;
+import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -25,7 +26,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyChangeListener{
     private MenuAdminVista menuAdminVista = null;
-    private ProxySanitario pxSanitario = null;
+    private Comms comms = null;
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
@@ -44,13 +45,13 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
      * 
      */
     public NuevoSanitarioVista(MenuAdminVista _menuAdminVista, 
-            OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
+            OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.menuAdminVista  = _menuAdminVista;
-        this.pxSanitario = _pxSanitario;
+        this.comms = _comms;
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
         this.idConexion = _idConexion;
-        pxSanitario.nuevoObservador(this);
+        comms.nuevoObservador(this);
                 
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
@@ -362,8 +363,8 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(dni_input_field))
                                             .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(nombre_label, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(nombre_label, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panel_principalLayout.createSequentialGroup()
@@ -653,7 +654,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         mensajeDialogo(EXITO_DAR_ALTA_SANITARIO + 
            sanitarioDTOReceived.getDni(), JOptionPane.INFORMATION_MESSAGE);
 
-        pxSanitario.eliminarObservador(this);
+        comms.eliminarObservador(this);
         this.dispose();
         menuAdminVista.setVisible(true);      
     }

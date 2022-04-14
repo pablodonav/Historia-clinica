@@ -65,7 +65,6 @@ public class ConexionPushHospital {
                 new OutputStreamWriter(
                         socket.getOutputStream())), true);
 
-        System.out.println(solicitud);
         salida.println(solicitud.toString());
 
         if (parametros != null) {
@@ -223,7 +222,7 @@ public class ConexionPushHospital {
         do {
             PrimitivaComunicacion respuesta = recibir(
                     resultados, true);
-
+            
             if (respuesta != PrimitivaComunicacion.TEST) {
                 if (oyenteServidor.solicitudServidorProducida(
                         respuesta, resultados)) {

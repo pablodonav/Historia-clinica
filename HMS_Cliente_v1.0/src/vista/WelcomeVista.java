@@ -11,8 +11,6 @@ import control.Hospital;
 import control.OyenteVista;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
@@ -185,7 +183,7 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
 
         comms.eliminarObservador(this);
         this.dispose();
-        new LoginVista(oyenteVista, pxSanitario, idConexion).setVisible(true);  
+        new LoginVista(oyenteVista, comms, pxSanitario, idConexion).setVisible(true);  
     }
     
     /**

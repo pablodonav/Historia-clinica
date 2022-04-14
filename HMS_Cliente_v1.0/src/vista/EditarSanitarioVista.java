@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.clasesDTOs.SanitarioDTO;
+import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -26,7 +27,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class EditarSanitarioVista extends javax.swing.JFrame implements PropertyChangeListener{
     private MenuAdminVista menuAdminVista = null;
-    private ProxySanitario pxSanitario = null;
+    private Comms comms = null;
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
@@ -54,15 +55,15 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * 
      */
     public EditarSanitarioVista(MenuAdminVista _menuAdminVista, 
-            OyenteVista _oyenteVista, ProxySanitario _pxSanitario, 
+            OyenteVista _oyenteVista, Comms _comms,
             String _idConexion, List<SanitarioDTO> _sanitarios) {
         this.menuAdminVista  = _menuAdminVista;
-        this.pxSanitario = _pxSanitario;
+        this.comms = _comms;
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
         this.idConexion = _idConexion;
         this.sanitarios = _sanitarios;
-        pxSanitario.nuevoObservador(this);
+        comms.nuevoObservador(this);
                 
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
@@ -305,11 +306,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         dni_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         dni_label.setText("DNI");
 
-        dni_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                dni_input_fieldKeyTyped(evt);
-            }
-        });
+        dni_input_field.setEnabled(false);
 
         tlfn_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         tlfn_label.setText("Teléfono");
@@ -518,7 +515,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @param evt 
      */
     private void b_AtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_AtrásActionPerformed
-        pxSanitario.eliminarObservador(this);
+        comms.eliminarObservador(this);
         this.dispose();
         menuAdminVista.setVisible(true);
     }//GEN-LAST:event_b_AtrásActionPerformed
@@ -598,22 +595,6 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
                 _sanitarioSeleccionado.getApellido2())){
             
             _sanitarioSeleccionado.setApellido2(apellido2_input_field.getText());
-        }
-    }
-    
-    /**
-     * Modifica el atributo "dni" del sanitario almacenado en el 
-     * List sanitarios (_sanitarioSeleccionado), si el campo dni
-     * ha sido modificado.
-     * 
-     * @param _sanitarioSeleccionado
-     */
-    private void modificarDniSanitario(SanitarioDTO _sanitarioSeleccionado){
-        
-        if (! dni_input_field.getText().equals(
-                _sanitarioSeleccionado.getDni())){
-            
-            _sanitarioSeleccionado.setDni(dni_input_field.getText());
         }
     }
     
@@ -701,7 +682,6 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         modificarNombreSanitario(sanitarioSeleccionado);
         modificarApellido1Sanitario(sanitarioSeleccionado);
         modificarApellido2Sanitario(sanitarioSeleccionado);
-        modificarDniSanitario(sanitarioSeleccionado);
         modificarTelefonoSanitario(sanitarioSeleccionado);
         modificarCorreoSanitario(sanitarioSeleccionado);
         modificarPuestoSanitario(sanitarioSeleccionado);
@@ -718,7 +698,6 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private void b_GuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarCambiosActionPerformed
         String sanitarioJsonToSend = crearJsonSanitarioEditado();
         
-        System.out.println("Sanitario seleccionado: " + sanitarioJsonToSend);
         if (sanitarioJsonToSend != null){
             oyenteVista.eventoProducido(OyenteVista.Evento.EDITAR_SANITARIO, sanitarioJsonToSend); 
         } else{
@@ -836,14 +815,6 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         changed();
     }//GEN-LAST:event_apellido2_input_fieldKeyTyped
 
-    /**
-     * Captura los eventos relacionados con la modificación del campo "dni".
-     * 
-     */
-    private void dni_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dni_input_fieldKeyTyped
-        changed();
-    }//GEN-LAST:event_dni_input_fieldKeyTyped
- 
     /**
      * Captura los eventos relacionados con la modificación del campo "teléfono".
      * 

@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.SanitarioDTO;
+import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 
 /**
@@ -23,6 +24,7 @@ import modelo.clasesProxys.ProxySanitario;
  */
 public class MenuAdminVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
+    private Comms comms = null;
     private ProxySanitario pxSanitario;
     private String idConexion = null;
     
@@ -33,8 +35,9 @@ public class MenuAdminVista extends javax.swing.JFrame {
     /**
      * Crea e inicializa los componentes de MenuAdminVista.
      */
-    public MenuAdminVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
+    public MenuAdminVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario, String _idConexion) {
         this.oyenteVista = _oyenteVista;
+        this.comms = _comms;
         this.pxSanitario = _pxSanitario;
         this.idConexion = _idConexion;
         
@@ -280,7 +283,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
             
             if(sanitarios != null){
                 this.setVisible(false);
-                new EditarSanitarioVista(this, oyenteVista, pxSanitario, idConexion, sanitarios).setVisible(true);   
+                new EditarSanitarioVista(this, oyenteVista, comms, idConexion, sanitarios).setVisible(true);   
             } else{
                 mensajeDialogo(ERROR_OBTENER_SANITARIOS);
                 return;
@@ -297,7 +300,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
      */
     private void b_NuevoSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoSanitarioActionPerformed
         this.setVisible(false);
-        new NuevoSanitarioVista(this, oyenteVista, pxSanitario, idConexion).setVisible(true);
+        new NuevoSanitarioVista(this, oyenteVista, comms, idConexion).setVisible(true);
     }//GEN-LAST:event_b_NuevoSanitarioActionPerformed
 
     /**

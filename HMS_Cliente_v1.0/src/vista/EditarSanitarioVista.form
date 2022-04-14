@@ -534,9 +534,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dni_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dni_input_fieldKeyTyped"/>
-          </Events>
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="tlfn_label">
           <Properties>

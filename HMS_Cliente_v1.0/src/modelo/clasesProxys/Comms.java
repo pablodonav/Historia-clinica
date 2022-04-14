@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Clase que contiene los métodos para conectarse y desconectarse
- * del servidor.
+ * Clase que contiene los métodos para conectarse-desconectarse
+ * del servidor y los métodos para capturar las solicitudes enviadas por el mismo.
  * 
  */
 public class Comms implements OyenteServidor{
@@ -131,7 +131,7 @@ public class Comms implements OyenteServidor{
      * @throws IOException 
      */
     private boolean solicitudServidorNuevoIdConexion(
-            List<String> resultados) throws IOException {
+            String propiedad, List<String> resultados) throws IOException {
         idConexion = resultados.get(0);
         
         if (idConexion == null) {
@@ -140,7 +140,64 @@ public class Comms implements OyenteServidor{
     
         conectado = true; 
     
-        observadores.firePropertyChange(PROPIEDAD_CONECTADO, null, idConexion);  
+        observadores.firePropertyChange(propiedad, null, idConexion);  
+        return true;
+    }
+    
+    /**
+     *  Recibe del servidor el resultado de dar de alta
+     *  un nuevo sanitario.
+     * 
+     */
+    private boolean solicitudServidorDarAltaSanitario(
+            String propiedad, List<String> resultados)
+            throws IOException {
+        String sanitarioJsonToReceive = resultados.get(0);
+        
+        if (sanitarioJsonToReceive == null ||
+            sanitarioJsonToReceive.isBlank() ||
+            sanitarioJsonToReceive.isEmpty()) {
+            return false;
+        }
+        observadores.firePropertyChange(propiedad, null, sanitarioJsonToReceive);  
+        return true;
+    }
+    
+    /**
+     *  Recibe del servidor el resultado de dar de baja
+     *  un sanitario existente en el sistema.
+     * 
+     */
+    private boolean solicitudServidorDarBajaSanitario(
+            String propiedad, List<String> resultados)
+            throws IOException {
+        String dniSanitario = resultados.get(0);
+        
+        if (dniSanitario == null ||
+            dniSanitario.isBlank() ||
+            dniSanitario.isEmpty()) {
+            return false;
+        }
+        observadores.firePropertyChange(propiedad, null, dniSanitario);  
+        return true;
+    }
+    
+    /**
+     *  Recibe del servidor el resultado de editar
+     *  un sanitario existente en el sistema.
+     * 
+     */
+    private boolean solicitudServidorEditarSanitario(
+            String propiedad, List<String> resultados)
+            throws IOException {
+        String sanitarioJsonToReceive = resultados.get(0);
+        
+        if (sanitarioJsonToReceive == null ||
+            sanitarioJsonToReceive.isBlank() ||
+            sanitarioJsonToReceive.isEmpty()) {
+            return false;
+        }
+        observadores.firePropertyChange(propiedad, null, sanitarioJsonToReceive);  
         return true;
     }
     
@@ -161,7 +218,16 @@ public class Comms implements OyenteServidor{
       
         switch(solicitud) {
             case NUEVO_ID_CONEXION:
-                return solicitudServidorNuevoIdConexion(resultados);
+                return solicitudServidorNuevoIdConexion(PROPIEDAD_CONECTADO, resultados);
+            case DAR_ALTA_SANITARIO:
+                return solicitudServidorDarAltaSanitario(
+                    ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO, resultados);
+            case DAR_BAJA_SANITARIO:
+                return solicitudServidorDarBajaSanitario(
+                    ProxySanitario.PROPIEDAD_DAR_BAJA_SANITARIO, resultados);
+            case EDITAR_SANITARIO:
+                return solicitudServidorEditarSanitario(
+                    ProxySanitario.PROPIEDAD_EDITAR_SANITARIO, resultados);
             default:
                 return false;
         }   

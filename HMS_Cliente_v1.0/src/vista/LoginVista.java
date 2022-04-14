@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.UsuarioDTO;
+import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxySanitario;
 import modelo.clasesProxys.ProxyUsuario;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -26,6 +27,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class LoginVista extends javax.swing.JFrame{
     private ProxyUsuario pxUsuario = null;
+    private Comms comms = null;
     private ProxySanitario pxSanitario = null;
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
@@ -46,8 +48,9 @@ public class LoginVista extends javax.swing.JFrame{
     /**
      * Crea e inicializa los componentes de LoginVista.
      */
-    public LoginVista(OyenteVista _oyenteVista, ProxySanitario _pxSanitario, String _idConexion) {
+    public LoginVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario, String _idConexion) {
         this.pxUsuario = new ProxyUsuario();
+        this.comms = _comms;
         this.pxSanitario = _pxSanitario;
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
@@ -415,7 +418,7 @@ public class LoginVista extends javax.swing.JFrame{
                     this.dispose();
                 
                     if (usuario.isAdmin()){
-                        new MenuAdminVista(oyenteVista, pxSanitario, idConexion).setVisible(true);
+                        new MenuAdminVista(oyenteVista, comms, pxSanitario, idConexion).setVisible(true);
                     } else{
                         
                     }

@@ -15,7 +15,7 @@ import modelo.clasesDTOs.UsuarioDTO;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
- * y obtener respuestas del servidor relacionados con un usuario.
+ * y obtener información del servidor relacionados con un usuario.
  * 
  */
 public class ProxyUsuario extends Comms{
@@ -44,13 +44,11 @@ public class ProxyUsuario extends Comms{
             return null;
         }
         
-        System.out.println(_jsonUsuario);
         List<String> resultados =  new ArrayList<>();
         PrimitivaComunicacion respuesta = cliente.enviarSolicitud(PrimitivaComunicacion.VERIFICAR_USUARIO, 
                                                                   tiempoEsperaServidor,
                                                                   _jsonUsuario,
                                                                   resultados);
-        System.out.println(respuesta);
         if (resultados.isEmpty() || 
                 respuesta.equals(PrimitivaComunicacion.NOK.toString()) ||
                 respuesta.equals(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString())){
