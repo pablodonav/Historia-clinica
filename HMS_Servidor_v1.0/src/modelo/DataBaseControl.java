@@ -12,8 +12,10 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.clasesDAO.EpisodioAtencionDAOImpl;
 import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
+import modelo.clasesDTOs.EpisodioAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.UsuarioDTO;
 
@@ -30,6 +32,7 @@ public class DataBaseControl {
     private SanitarioDAOImpl sanImpl;
     private UsuarioDAOImpl usImpl;
     private PacienteDAOImpl pacImpl;
+    private EpisodioAtencionDAOImpl epImpl;
     
     /**
      * Crea la conexión con la DB.
@@ -167,6 +170,14 @@ public class DataBaseControl {
         }
         
         return usImpl.deleteUsuario(_dni);
+    }
+    
+    public boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return epImpl.addEpisodio(episodio);
     }
     
     public String obtenerSanitarios() throws SQLException {

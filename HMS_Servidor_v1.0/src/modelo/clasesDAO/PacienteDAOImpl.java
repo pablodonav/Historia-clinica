@@ -22,10 +22,6 @@ public class PacienteDAOImpl implements PacienteDAO {
     private PreparedStatement stmt_getPac;
 
     private static final String INSERT = "INSERT INTO PACIENTE(nss, nombre, apellido1, apellido2, alergias, edad, altura, peso) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM PACIENTE WHERE nss=?";
-    private static final String UPDATE = "UPDATE PACIENTE SET %s WHERE nss=\"%s\"";
-    private static final String FIND_ALL = "SELECT * FROM PACIENTE";
-    private static final String FIND_PACIENTE = "SELECT * FROM PACIENTE WHERE nss=?";
     
     private Connection connection;
 
@@ -39,10 +35,6 @@ public class PacienteDAOImpl implements PacienteDAO {
     public PacienteDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
-        this.stmt_del = _conn.prepareStatement(DELETE);
-        this.stmt_upd = _conn.prepareStatement(UPDATE);
-        this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
-        this.stmt_getPac = _conn.prepareStatement(FIND_PACIENTE);
     }
 
     /**

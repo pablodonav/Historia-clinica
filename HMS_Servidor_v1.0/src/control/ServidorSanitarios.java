@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import modelo.DataBaseControl;
+import modelo.clasesDTOs.EpisodioAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
@@ -325,9 +326,22 @@ public class ServidorSanitarios extends Thread {
             return false;
         }
         
+        notificarSanitariosPush(PrimitivaComunicacion.DAR_BAJA_SANITARIO, 
+                String.valueOf(_dni));
+        
         return true;
     }
     
+    synchronized boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws IOException, SQLException {
+        if( ! database.nuevoEpisodio(episodio)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVO_EPISODIO, 
+                String.valueOf(episodio));
+        
+        return true;
+    }
     /**
      *  Notifica cambio hospital al resto de sanitarios.
      * 

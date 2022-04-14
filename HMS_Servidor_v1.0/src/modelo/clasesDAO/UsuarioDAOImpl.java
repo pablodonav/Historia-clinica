@@ -102,7 +102,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         rs.close();
         
         if (cuenta > 0) {
-            System.out.println("Usuario encontrado: " + _usuario.toString());
             // Se ha encontrado un usuario con esas credenciales.
             //Se va a verificar si es un usuario administrador.
             cuenta = 0;
@@ -116,7 +115,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             rs.close();
             
             if (cuenta > 0) {
-                System.out.println("Es administrador: " + _usuario.toString());
                 //Se ha verificado que el usuario es admin.
                 _usuario.setAdmin(true);
             }
