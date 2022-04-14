@@ -24,7 +24,7 @@ public class SanitarioDAOImpl implements SanitarioDAO {
 
     private static final String INSERT = "INSERT INTO SANITARIO(dni, nombre, apellido1, apellido2, telefono, puesto_trabajo) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM SANITARIO WHERE dni=?";
-    private static final String UPDATE = "UPDATE SANITARIO SET dni=?, nombre=?, apellido1=?, apellido2=?, telefono=?, puesto_trabajo=? WHERE dni=?";
+    private static final String UPDATE = "UPDATE SANITARIO SET nombre=?, apellido1=?, apellido2=?, telefono=?, puesto_trabajo=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM SANITARIO";
     private static final String FIND_SANITARIO = "SELECT * FROM SANITARIO WHERE dni=?";
     
@@ -87,15 +87,14 @@ public class SanitarioDAOImpl implements SanitarioDAO {
      */
     @Override
     public boolean updateSanitario(SanitarioDTO _sanitario) throws SQLException {
-        stmt_upd.setString(1, _sanitario.getDni());
-        stmt_upd.setString(2, _sanitario.getNombre());
-        stmt_upd.setString(3, _sanitario.getApellido1());
-        stmt_upd.setString(4, _sanitario.getApellido2());
-        stmt_upd.setInt(5, _sanitario.getTelefono());
-        stmt_upd.setString(6, _sanitario.getPuestoTrabajo());
-        stmt_upd.setString(7, _sanitario.getDni());
+        stmt_upd.setString(1, _sanitario.getNombre());
+        stmt_upd.setString(2, _sanitario.getApellido1());
+        stmt_upd.setString(3, _sanitario.getApellido2());
+        stmt_upd.setInt(4, _sanitario.getTelefono());
+        stmt_upd.setString(5, _sanitario.getPuestoTrabajo());
+        stmt_upd.setString(6, _sanitario.getDni());
 
-        return stmt_add.executeUpdate() > 0;
+        return stmt_upd.executeUpdate() > 0;
     }
 
     /**

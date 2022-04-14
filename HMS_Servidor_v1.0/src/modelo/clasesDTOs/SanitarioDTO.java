@@ -11,7 +11,7 @@ import com.google.gson.Gson;
  * Clase que contiene los atributos y getter-setter de un Sanitario.
  * 
  */
-public class SanitarioDTO extends UsuarioDTO {
+public class SanitarioDTO extends UsuarioDTO{
     private String nombre;
     private String apellido1;
     private String apellido2;
@@ -19,7 +19,7 @@ public class SanitarioDTO extends UsuarioDTO {
     private String puestoTrabajo;
 
     /**
-     * Crea un sanitario.
+     * Crea un Sanitario
      * 
      * @param _nombre
      * @param _apellido1
@@ -93,8 +93,18 @@ public class SanitarioDTO extends UsuarioDTO {
      */
     @Override
     public String toString() {
-        return "SanitarioDTO{" + "nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + 
-                apellido2 + ", dni=" + dni + ", telefono=" + telefono + ", correoElectronico=" + 
-                correoElectronico + ", contrasenia=" + contraseña + ", puestoTrabajo=" + puestoTrabajo + '}';
+        return nombre + " " + apellido1 + " " + apellido2 + " " + dni + " " + 
+               telefono + " " + correoElectronico + " " + puestoTrabajo;
     }  
+    
+    /**
+     * Obtiene el JSON del sanitario
+     * 
+     * @return String
+     */
+    @Override
+    public String toJson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    } 
 }

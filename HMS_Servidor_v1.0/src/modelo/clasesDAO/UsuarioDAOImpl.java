@@ -8,8 +8,6 @@ package modelo.clasesDAO;
 import modelo.clasesDTOs.UsuarioDTO;
 import java.util.List;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Clase que contiene las funciones necesarias
@@ -27,7 +25,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     private static final String INSERT = "INSERT INTO USUARIO(dni, correo, contraseña) VALUES(?, ?, ?)";
     private static final String DELETE = "DELETE FROM USUARIO WHERE dni=?";
-    private static final String UPDATE = "UPDATE USUARIO SET dni=?, correo=?, contraseña=? WHERE dni=?";
+    private static final String UPDATE = "UPDATE USUARIO SET correo=?, contraseña=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM USUARIO";
     private static final String VERIFY_USUARIO = "SELECT * FROM USUARIO WHERE dni=? AND correo=? AND contraseña=?";
     private static final String FIND_USUARIO = "SELECT * FROM USUARIO WHERE dni=?";
@@ -96,7 +94,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         stmt_verifyUs.setString(1, _usuario.getDni());
         stmt_verifyUs.setString(2, _usuario.getEmail());
         stmt_verifyUs.setString(3, _usuario.getContraseña());
-        
+
         ResultSet rs = stmt_verifyUs.executeQuery();
         if (rs.next()) {
             cuenta = rs.getInt(1);
@@ -104,6 +102,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         rs.close();
         
         if (cuenta > 0) {
+            System.out.println("Usuario encontrado: " + _usuario.toString());
             // Se ha encontrado un usuario con esas credenciales.
             //Se va a verificar si es un usuario administrador.
             cuenta = 0;
@@ -117,6 +116,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             rs.close();
             
             if (cuenta > 0) {
+                System.out.println("Es administrador: " + _usuario.toString());
                 //Se ha verificado que el usuario es admin.
                 _usuario.setAdmin(true);
             }
@@ -145,12 +145,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
      */
     @Override
     public boolean updateUsuario(UsuarioDTO _usuario) throws SQLException {
-        stmt_upd.setString(1, _usuario.getDni());
-        stmt_upd.setString(2, _usuario.getEmail());
-        stmt_upd.setString(3, _usuario.getContraseña());
-        stmt_upd.setString(4, _usuario.getDni());
+        stmt_upd.setString(1, _usuario.getEmail());
+        stmt_upd.setString(2, _usuario.getContraseña());
+        stmt_upd.setString(3, _usuario.getDni());
 
-        return stmt_add.executeUpdate() > 0;
+        return stmt_upd.executeUpdate() > 0;
     }
 
     @Override

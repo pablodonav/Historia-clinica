@@ -28,8 +28,8 @@ public class DataBase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String servidor = "jdbc:mysql://155.210.71.163:3306/historia_clinica";
-            String usuario = "monty";
-            String pass = "24292Bis-";
+            String usuario = "root";
+            String pass = "123abAB-";
             
             // Se inicia la conexion
             conexion = DriverManager.getConnection(servidor, usuario, pass);
