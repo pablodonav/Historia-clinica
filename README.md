@@ -33,6 +33,7 @@ Leyenda de colores:
     <summary> <b> Versiones anteriores de la planificación </b> </summary>
     <ul>
       <h5> Planificación v3.4 </h5>
+      <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.4.png">
       <p align="right">Realizado con <a href="https://www.microsoft.com/es-es/microsoft-365/excel">Excel</a> a fecha de 09/04/2022.</p>
       <h5> Planificación v3.3 </h5>
       <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv3.3.png">
