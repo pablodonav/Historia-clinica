@@ -1,44 +1,33 @@
 /**
- * MenuAdminVista.java
+ * MenuSanitarioVista.java
  * Adnana Catrinel Dragut
- * v1.0 26/03/2022.
+ * v1.0 11/04/2022.
  * 
  */
 package vista;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.Comms;
-import modelo.clasesProxys.ProxySanitario;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
- * los componentes y los eventos de la pantalla MenúAdmin.
+ * los componentes y los eventos de la pantalla MenuSanitarioVista.
  * 
  */
-public class MenuAdminVista extends javax.swing.JFrame {
+public class MenuSanitarioVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private Comms comms = null;
-    private ProxySanitario pxSanitario;
     private String idConexion = null;
     
-    /* Mensajes de Error */
-    private String ERROR_OBTENER_SANITARIOS = 
-            "No se ha podido obtener la lista con sanitarios.";
-    
     /**
-     * Crea e inicializa los componentes de MenuAdminVista.
+     * Crea e inicializa los componentes de MenuSanitarioVista.
      */
-    public MenuAdminVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario, String _idConexion) {
+    public MenuSanitarioVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.comms = _comms;
-        this.pxSanitario = _pxSanitario;
         this.idConexion = _idConexion;
         
         initComponents();
@@ -47,7 +36,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
         setLocationRelativeTo(null);  // centra en la pantalla
         habilitarBotonConectado(idConexion);
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,10 +52,10 @@ public class MenuAdminVista extends javax.swing.JFrame {
         hospital_label = new javax.swing.JLabel();
         management_label = new javax.swing.JLabel();
         system_label = new javax.swing.JLabel();
-        b_NuevoSanitario = new javax.swing.JButton();
-        b_EditarSanitario = new javax.swing.JButton();
-        b_Salir = new javax.swing.JButton();
         b_connected = new javax.swing.JButton();
+        b_Salir = new javax.swing.JButton();
+        b_NuevoPaciente = new javax.swing.JButton();
+        b_GestionarPacientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -76,7 +65,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
         });
 
         panel_principal.setBackground(new java.awt.Color(255, 255, 255));
-        panel_principal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         panel_izqd.setBackground(new java.awt.Color(0, 153, 153));
         panel_izqd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -114,7 +102,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
             panel_izqdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_izqdLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(hospital_icon, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addComponent(hospital_icon, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
                 .addComponent(hospital_label)
                 .addGap(33, 33, 33)
@@ -124,33 +112,12 @@ public class MenuAdminVista extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
         );
 
-        b_NuevoSanitario.setBackground(new java.awt.Color(204, 204, 204));
-        b_NuevoSanitario.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
-        b_NuevoSanitario.setForeground(new java.awt.Color(0, 153, 153));
-        b_NuevoSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/add_user.png"))); // NOI18N
-        b_NuevoSanitario.setText("Nuevo Sanitario");
-        b_NuevoSanitario.setActionCommand("   Nuevo Sanitario");
-        b_NuevoSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        b_NuevoSanitario.setFocusable(false);
-        b_NuevoSanitario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_NuevoSanitarioActionPerformed(evt);
-            }
-        });
-
-        b_EditarSanitario.setBackground(new java.awt.Color(204, 204, 204));
-        b_EditarSanitario.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
-        b_EditarSanitario.setForeground(new java.awt.Color(0, 153, 153));
-        b_EditarSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/edit_user.png"))); // NOI18N
-        b_EditarSanitario.setText("Editar Sanitario");
-        b_EditarSanitario.setActionCommand("   Nuevo Sanitario");
-        b_EditarSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        b_EditarSanitario.setFocusable(false);
-        b_EditarSanitario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_EditarSanitarioActionPerformed(evt);
-            }
-        });
+        b_connected.setBackground(new java.awt.Color(204, 204, 204));
+        b_connected.setText("   ");
+        b_connected.setBorder(null);
+        b_connected.setEnabled(false);
+        b_connected.setFocusable(false);
+        b_connected.setSelected(true);
 
         b_Salir.setBackground(new java.awt.Color(204, 204, 204));
         b_Salir.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
@@ -166,12 +133,33 @@ public class MenuAdminVista extends javax.swing.JFrame {
             }
         });
 
-        b_connected.setBackground(new java.awt.Color(204, 204, 204));
-        b_connected.setText("   ");
-        b_connected.setBorder(null);
-        b_connected.setEnabled(false);
-        b_connected.setFocusable(false);
-        b_connected.setSelected(true);
+        b_NuevoPaciente.setBackground(new java.awt.Color(204, 204, 204));
+        b_NuevoPaciente.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_NuevoPaciente.setForeground(new java.awt.Color(0, 153, 153));
+        b_NuevoPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/add_user.png"))); // NOI18N
+        b_NuevoPaciente.setText("Nuevo Paciente");
+        b_NuevoPaciente.setActionCommand("   Nuevo Sanitario");
+        b_NuevoPaciente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_NuevoPaciente.setFocusable(false);
+        b_NuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_NuevoPacienteActionPerformed(evt);
+            }
+        });
+
+        b_GestionarPacientes.setBackground(new java.awt.Color(204, 204, 204));
+        b_GestionarPacientes.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_GestionarPacientes.setForeground(new java.awt.Color(0, 153, 153));
+        b_GestionarPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/icono_gestionar_pacientes.png"))); // NOI18N
+        b_GestionarPacientes.setText("Gestionar Pacientes");
+        b_GestionarPacientes.setActionCommand("   Nuevo Sanitario");
+        b_GestionarPacientes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_GestionarPacientes.setFocusable(false);
+        b_GestionarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_GestionarPacientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_principalLayout = new javax.swing.GroupLayout(panel_principal);
         panel_principal.setLayout(panel_principalLayout);
@@ -179,33 +167,31 @@ public class MenuAdminVista extends javax.swing.JFrame {
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(panel_izqd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(b_EditarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(b_NuevoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(68, Short.MAX_VALUE))
+                    .addComponent(b_connected, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                                .addComponent(b_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addComponent(b_connected, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(b_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                        .addComponent(b_NuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
+                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addComponent(b_GestionarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panel_principalLayout.setVerticalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_izqd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(b_connected)
+                .addGap(73, 73, 73)
+                .addComponent(b_NuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(b_GestionarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(b_NuevoSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(b_EditarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
                 .addComponent(b_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,7 +208,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     /**
      * Muestra un botón con el estado de la appCliente,
      * se mostrará el color verde si la conexión con el servidor
@@ -254,56 +239,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
     }
     
     /**
-     * Obtiene la lista con los sanitarios dados de alta en el sistema
-     * 
-     * @return List<SanitarioDTO>
-     * @throws Exception 
-     */
-    private List<SanitarioDTO> obtenerListaConSanitarios() throws Exception{
-        Gson gson = new Gson();
-        List<SanitarioDTO> sanitarios = null;
-        
-        String sanitariosToReceive = pxSanitario.obtenerSanitarios();
-
-        /* Permite obtener los sanitarios en un List con SanitarioDTO*/
-        java.lang.reflect.Type listType = new TypeToken<List<SanitarioDTO>>(){}.getType(); 
-        sanitarios = gson.fromJson(sanitariosToReceive, listType);
-        
-        return sanitarios;
-    }
-    
-    /**
-     * Habilita la pantalla con sanitarios existentes en el sistema
-     * para poder eliminar o editar un sanitario
-     * @param evt 
-     */
-    private void b_EditarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EditarSanitarioActionPerformed
-        try {
-            List<SanitarioDTO> sanitarios = obtenerListaConSanitarios();
-            
-            if(sanitarios != null){
-                this.setVisible(false);
-                new EditarSanitarioVista(this, oyenteVista, comms, idConexion, sanitarios).setVisible(true);   
-            } else{
-                mensajeDialogo(ERROR_OBTENER_SANITARIOS);
-                return;
-            }
-        } catch (Exception ex) {
-            mensajeDialogo(ERROR_OBTENER_SANITARIOS);
-        }
-    }//GEN-LAST:event_b_EditarSanitarioActionPerformed
-
-    /**
-     * Habilita la pantalla que permite añadir un nuevo sanitario al sistema
-     * 
-     * @param evt 
-     */
-    private void b_NuevoSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoSanitarioActionPerformed
-        this.setVisible(false);
-        new NuevoSanitarioVista(this, oyenteVista, comms, idConexion).setVisible(true);
-    }//GEN-LAST:event_b_NuevoSanitarioActionPerformed
-
-    /**
      * Provoca el cierre de la IU de la app, y envía el evento a 
      * la capa control para realizar las acciones
      * de finalización necesarias para la appCliente.
@@ -313,6 +248,15 @@ public class MenuAdminVista extends javax.swing.JFrame {
     private void b_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_SalirActionPerformed
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_b_SalirActionPerformed
+
+    private void b_NuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoPacienteActionPerformed
+        this.setVisible(false);
+        new NuevoPacienteVista(this, oyenteVista, comms, idConexion).setVisible(true);
+    }//GEN-LAST:event_b_NuevoPacienteActionPerformed
+
+    private void b_GestionarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GestionarPacientesActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_b_GestionarPacientesActionPerformed
 
     /**
      * Captura el evento relacionado con el cierre de la ventana, y 
@@ -325,8 +269,8 @@ public class MenuAdminVista extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton b_EditarSanitario;
-    private javax.swing.JButton b_NuevoSanitario;
+    private javax.swing.JButton b_GestionarPacientes;
+    private javax.swing.JButton b_NuevoPaciente;
     private javax.swing.JButton b_Salir;
     private javax.swing.JButton b_connected;
     private javax.swing.JLabel hospital_icon;

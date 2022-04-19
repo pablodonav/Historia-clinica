@@ -78,34 +78,34 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         paner_superior = new javax.swing.JPanel();
         nuevoSanitario_label = new javax.swing.JLabel();
         hospital_icon = new javax.swing.JLabel();
-        b_connecter = new javax.swing.JButton();
+        b_connected = new javax.swing.JButton();
         datos_label = new javax.swing.JLabel();
+        asterisco_label_nombre = new javax.swing.JLabel();
         nombre_label = new javax.swing.JLabel();
         nombre_input_field = new javax.swing.JTextField();
+        asterisco_label_prim_apellido = new javax.swing.JLabel();
         apellido1_label = new javax.swing.JLabel();
         apellido1_input_field = new javax.swing.JTextField();
+        asterisco_label_segun_apellido = new javax.swing.JLabel();
         apellido2_label = new javax.swing.JLabel();
         apellido2_input_field = new javax.swing.JTextField();
+        asterisco_label_dni = new javax.swing.JLabel();
         dni_label = new javax.swing.JLabel();
         dni_input_field = new javax.swing.JTextField();
+        asterisco_label_tlfn = new javax.swing.JLabel();
         telefono_label = new javax.swing.JLabel();
         telefono_input_field = new javax.swing.JTextField();
+        asterisco_label_puesto = new javax.swing.JLabel();
         puesto_label = new javax.swing.JLabel();
         puesto_comboBox = new javax.swing.JComboBox<>();
+        asterisco_label_email = new javax.swing.JLabel();
         email_label = new javax.swing.JLabel();
         email_input_field = new javax.swing.JTextField();
+        asterisco_label_pwd = new javax.swing.JLabel();
         pwd_label = new javax.swing.JLabel();
         pwd_input_field = new javax.swing.JPasswordField();
         b_Cancelar = new javax.swing.JButton();
         b_Guardar = new javax.swing.JButton();
-        asterisco_label_email = new javax.swing.JLabel();
-        asterisco_label_email2 = new javax.swing.JLabel();
-        asterisco_label_email3 = new javax.swing.JLabel();
-        asterisco_label_email4 = new javax.swing.JLabel();
-        asterisco_label_email5 = new javax.swing.JLabel();
-        asterisco_label_email6 = new javax.swing.JLabel();
-        asterisco_label_email7 = new javax.swing.JLabel();
-        asterisco_label_email8 = new javax.swing.JLabel();
         campo_obligatorio_label = new javax.swing.JLabel();
 
         jLabel5.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
@@ -145,12 +145,12 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         hospital_icon.setMinimumSize(new java.awt.Dimension(70, 70));
         hospital_icon.setPreferredSize(new java.awt.Dimension(70, 70));
 
-        b_connecter.setBackground(new java.awt.Color(204, 204, 204));
-        b_connecter.setText("   ");
-        b_connecter.setBorder(null);
-        b_connecter.setEnabled(false);
-        b_connecter.setFocusable(false);
-        b_connecter.setSelected(true);
+        b_connected.setBackground(new java.awt.Color(204, 204, 204));
+        b_connected.setText("   ");
+        b_connected.setBorder(null);
+        b_connected.setEnabled(false);
+        b_connected.setFocusable(false);
+        b_connected.setSelected(true);
 
         javax.swing.GroupLayout paner_superiorLayout = new javax.swing.GroupLayout(paner_superior);
         paner_superior.setLayout(paner_superiorLayout);
@@ -163,10 +163,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addGroup(paner_superiorLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(nuevoSanitario_label)
-                        .addContainerGap())
+                        .addContainerGap(267, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paner_superiorLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(b_connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(b_connected, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         paner_superiorLayout.setVerticalGroup(
             paner_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +175,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(nuevoSanitario_label)
                 .addGap(11, 11, 11)
-                .addComponent(b_connecter))
+                .addComponent(b_connected))
         );
 
         datos_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
@@ -183,6 +183,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         datos_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datos_label.setText("Datos");
         datos_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        asterisco_label_nombre.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_nombre.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_nombre.setText("*");
 
         nombre_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         nombre_label.setText("Nombre");
@@ -193,6 +197,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
+        asterisco_label_prim_apellido.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_prim_apellido.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_prim_apellido.setText("*");
+
         apellido1_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         apellido1_label.setText("1º. Apellido");
 
@@ -201,6 +209,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                 apellido1_input_fieldKeyTyped(evt);
             }
         });
+
+        asterisco_label_segun_apellido.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_segun_apellido.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_segun_apellido.setText("*");
 
         apellido2_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         apellido2_label.setText("2º. Apellido");
@@ -211,6 +223,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
+        asterisco_label_dni.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_dni.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_dni.setText("*");
+
         dni_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         dni_label.setText("DNI");
 
@@ -220,6 +236,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
+        asterisco_label_tlfn.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_tlfn.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_tlfn.setText("*");
+
         telefono_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         telefono_label.setText("Teléfono");
 
@@ -228,6 +248,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                 telefono_input_fieldKeyTyped(evt);
             }
         });
+
+        asterisco_label_puesto.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_puesto.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_puesto.setText("*");
 
         puesto_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         puesto_label.setText("Puesto");
@@ -246,6 +270,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
+        asterisco_label_email.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_email.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_email.setText("*");
+
         email_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         email_label.setText("Correo Electrónico");
 
@@ -254,6 +282,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                 email_input_fieldKeyTyped(evt);
             }
         });
+
+        asterisco_label_pwd.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_pwd.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_pwd.setText("*");
 
         pwd_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         pwd_label.setText("Contraseña");
@@ -288,38 +320,6 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
-        asterisco_label_email.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email.setText("*");
-
-        asterisco_label_email2.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email2.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email2.setText("*");
-
-        asterisco_label_email3.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email3.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email3.setText("*");
-
-        asterisco_label_email4.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email4.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email4.setText("*");
-
-        asterisco_label_email5.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email5.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email5.setText("*");
-
-        asterisco_label_email6.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email6.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email6.setText("*");
-
-        asterisco_label_email7.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email7.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email7.setText("*");
-
-        asterisco_label_email8.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email8.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email8.setText("*");
-
         campo_obligatorio_label.setFont(new java.awt.Font("Berlin Sans FB", 2, 13)); // NOI18N
         campo_obligatorio_label.setForeground(new java.awt.Color(255, 51, 0));
         campo_obligatorio_label.setText("* Campos obligatorios");
@@ -329,82 +329,81 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         panel_principalLayout.setHorizontalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
-                .addGap(281, 281, 281)
-                .addComponent(datos_label)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(paner_superior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panel_principalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(asterisco_label_dni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(asterisco_label_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(asterisco_label_email))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addComponent(email_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(asterisco_label_pwd)
+                        .addGap(6, 6, 6)
+                        .addComponent(pwd_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pwd_input_field)
+                        .addGap(249, 249, 249))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(dni_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dni_input_field))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(nombre_label, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(asterisco_label_email4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(asterisco_label_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(asterisco_label_email7))
+                            .addComponent(asterisco_label_prim_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(asterisco_label_tlfn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addComponent(email_label)
+                                .addComponent(telefono_label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addComponent(asterisco_label_email8)
-                                .addGap(6, 6, 6)
-                                .addComponent(pwd_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pwd_input_field))
+                                .addComponent(telefono_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panel_principalLayout.createSequentialGroup()
-                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(dni_label)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(dni_input_field))
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(nombre_label, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addComponent(asterisco_label_email2, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(asterisco_label_email5, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(telefono_label)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(telefono_input_field)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(asterisco_label_email6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(puesto_label)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(apellido1_label)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(asterisco_label_email3, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(apellido2_label)
-                                                .addGap(10, 10, 10)
-                                                .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(panel_principalLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 14, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                                .addComponent(apellido1_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(asterisco_label_segun_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                                .addComponent(apellido2_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(247, 247, 247))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(asterisco_label_puesto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(puesto_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(241, 241, 241))
+            .addGroup(panel_principalLayout.createSequentialGroup()
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(datos_label))
+                    .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panel_principalLayout.setVerticalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,9 +419,9 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(apellido2_label)
                     .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(asterisco_label_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asterisco_label_prim_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asterisco_label_segun_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dni_label)
@@ -431,20 +430,20 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addComponent(telefono_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(puesto_label)
                     .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(asterisco_label_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asterisco_label_tlfn, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asterisco_label_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pwd_label)
                     .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pwd_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(email_label)
-                    .addComponent(asterisco_label_email7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_email8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asterisco_label_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(campo_obligatorio_label)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -455,7 +454,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(panel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,13 +473,13 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
      */
     private void habilitarBotonConectado(String _idConexion){
         if (idConexion.equals("0")){
-            b_connecter.setEnabled(false);
-            b_connecter.setText("Disconnected");
-            b_connecter.setBackground(Color.YELLOW);
+            b_connected.setEnabled(false);
+            b_connected.setText("Disconnected");
+            b_connected.setBackground(Color.YELLOW);
         } else{
-            b_connecter.setEnabled(true);
-            b_connecter.setText("Connected with id " + _idConexion);
-            b_connecter.setBackground(Color.GREEN);
+            b_connected.setEnabled(true);
+            b_connected.setText("Connected with id " + _idConexion);
+            b_connected.setBackground(Color.GREEN);
         }
     }
     
@@ -562,13 +561,13 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
      */
     private void changed(){
         if (nombre_input_field.getText().isBlank() || 
-                apellido1_input_field.getText().isBlank() ||
-                apellido2_input_field.getText().isBlank() ||
-                dni_input_field.getText().isBlank() || 
-                telefono_input_field.getText().isBlank() ||
-                puesto_comboBox.getSelectedItem() == null ||
-                email_input_field.getText().isBlank() ||
-                String.valueOf(pwd_input_field.getPassword()).isBlank()){
+            apellido1_input_field.getText().isBlank() ||
+            apellido2_input_field.getText().isBlank() ||
+            dni_input_field.getText().isBlank() || 
+            telefono_input_field.getText().isBlank() ||
+            puesto_comboBox.getSelectedItem() == null ||
+            email_input_field.getText().isBlank() ||
+            String.valueOf(pwd_input_field.getPassword()).isBlank()){
   
             b_Guardar.setEnabled(false);
         }
@@ -678,18 +677,18 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JLabel apellido1_label;
     private javax.swing.JTextField apellido2_input_field;
     private javax.swing.JLabel apellido2_label;
+    private javax.swing.JLabel asterisco_label_dni;
     private javax.swing.JLabel asterisco_label_email;
     private javax.swing.JLabel asterisco_label_email1;
-    private javax.swing.JLabel asterisco_label_email2;
-    private javax.swing.JLabel asterisco_label_email3;
-    private javax.swing.JLabel asterisco_label_email4;
-    private javax.swing.JLabel asterisco_label_email5;
-    private javax.swing.JLabel asterisco_label_email6;
-    private javax.swing.JLabel asterisco_label_email7;
-    private javax.swing.JLabel asterisco_label_email8;
+    private javax.swing.JLabel asterisco_label_nombre;
+    private javax.swing.JLabel asterisco_label_prim_apellido;
+    private javax.swing.JLabel asterisco_label_puesto;
+    private javax.swing.JLabel asterisco_label_pwd;
+    private javax.swing.JLabel asterisco_label_segun_apellido;
+    private javax.swing.JLabel asterisco_label_tlfn;
     private javax.swing.JButton b_Cancelar;
     private javax.swing.JButton b_Guardar;
-    private javax.swing.JButton b_connecter;
+    private javax.swing.JButton b_connected;
     private javax.swing.JLabel campo_obligatorio_label;
     private javax.swing.JLabel datos_label;
     private javax.swing.JTextField dni_input_field;

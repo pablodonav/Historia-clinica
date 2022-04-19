@@ -64,7 +64,7 @@ public class ProxyUsuario extends Comms{
         
         System.out.println(_jsonUsuario);
         UsuarioDTO userTest = gson.fromJson(_jsonUsuario, UsuarioDTO.class);
-        userTest.setAdmin(true);
+        userTest.setAdmin(false);
         
         respuestaJson = userTest.toJson();
         System.out.println(respuestaJson);

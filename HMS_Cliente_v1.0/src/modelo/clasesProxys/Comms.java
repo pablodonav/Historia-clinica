@@ -202,6 +202,36 @@ public class Comms implements OyenteServidor{
     }
     
     /**
+     *  Recibe del servidor el resultado de añadir un nuevo paciente.
+     * 
+     */
+    private boolean solicitudServidorNuevoPaciente(
+            String propiedad, List<String> resultados)
+            throws IOException {
+        String pacienteJsonToReceive = resultados.get(0);
+        
+        if (pacienteJsonToReceive == null ||
+            pacienteJsonToReceive.isBlank() ||
+            pacienteJsonToReceive.isEmpty()) {
+            return false;
+        }
+        observadores.firePropertyChange(propiedad, null, pacienteJsonToReceive);  
+        return true;
+    }
+    
+    public void registrarNuevoPacienteTest(String _jsonPaciente) throws Exception{  
+        if (_jsonPaciente == null ||
+            _jsonPaciente.isBlank() ||
+            _jsonPaciente.isEmpty()) {
+            return;
+        }
+        
+        System.out.println("jsonRecibido:" + _jsonPaciente);
+        observadores.firePropertyChange("Nuevo Paciente", null, _jsonPaciente);  
+        return;
+    }
+    
+    /**
      * Recibe solicitudes del servidor
      * 
      * @param solicitud
@@ -228,6 +258,9 @@ public class Comms implements OyenteServidor{
             case EDITAR_SANITARIO:
                 return solicitudServidorEditarSanitario(
                     ProxySanitario.PROPIEDAD_EDITAR_SANITARIO, resultados);
+            case NUEVO_PACIENTE:
+                return solicitudServidorDarAltaSanitario(
+                    ProxyPaciente.PROPIEDAD_NUEVO_PACIENTE, resultados);
             default:
                 return false;
         }   

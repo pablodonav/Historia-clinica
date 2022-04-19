@@ -8,8 +8,10 @@
 package control;
 
 import modelo.clasesProxys.Comms;
+import modelo.clasesProxys.ProxyPaciente;
 import modelo.clasesProxys.ProxySanitario;
 import vista.EditarSanitarioVista;
+import vista.NuevoPacienteVista;
 import vista.NuevoSanitarioVista;
 import vista.WelcomeVista;
 
@@ -25,6 +27,7 @@ public class Hospital implements OyenteVista{
     private Comms comms = null;
     private WelcomeVista welcomeVista;
     private ProxySanitario pxSanitario = null;
+    private ProxyPaciente pxPaciente = null;
     
     /**
      * Crea un Hospital.
@@ -33,6 +36,7 @@ public class Hospital implements OyenteVista{
     public Hospital() {
         this.comms = new Comms();
         this.pxSanitario = new ProxySanitario();
+        this.pxPaciente = new ProxyPaciente();
         this.welcomeVista = new WelcomeVista(this, comms, pxSanitario);
         
         comms.conectar();
@@ -46,7 +50,7 @@ public class Hospital implements OyenteVista{
         switch(evento) {  
             case DAR_ALTA_SANITARIO:
                 try {
-                    pxSanitario.darAltaSanitario((String)obj);
+                    pxSanitario.darAltaSanitarioTest((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(NuevoSanitarioVista.ERROR_DAR_ALTA_SANITARIO);   
                 }
@@ -54,7 +58,7 @@ public class Hospital implements OyenteVista{
            
             case DAR_BAJA_SANITARIO:
                 try {
-                    pxSanitario.darBajaSanitario((String)obj);
+                    pxSanitario.darBajaSanitarioTest((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_DAR_BAJA_SANITARIO); 
                 }
@@ -62,9 +66,17 @@ public class Hospital implements OyenteVista{
                 
             case EDITAR_SANITARIO:
                 try {
-                    pxSanitario.editarSanitario((String)obj);
+                    pxSanitario.editarSanitarioTest((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_EDITAR_SANITARIO); 
+                }
+                break;
+            
+            case NUEVO_PACIENTE:
+                try {
+                    pxPaciente.registrarNuevoPaciente((String)obj);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(NuevoPacienteVista.ERROR_NUEVO_PACIENTE); 
                 }
                 break;
 

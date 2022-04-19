@@ -411,7 +411,7 @@ public class LoginVista extends javax.swing.JFrame{
                 
         if (usuarioJsonSended != null){      
             try {
-                String usuarioJsonReceived = pxUsuario.verificarUsuario(usuarioJsonSended); 
+                String usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
 
                 if(usuarioJsonReceived != null){
                     UsuarioDTO usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
@@ -420,7 +420,7 @@ public class LoginVista extends javax.swing.JFrame{
                     if (usuario.isAdmin()){
                         new MenuAdminVista(oyenteVista, comms, pxSanitario, idConexion).setVisible(true);
                     } else{
-                        
+                        new MenuSanitarioVista(oyenteVista, comms, idConexion).setVisible(true);
                     }
                 } else{
                     mensajeDialogo(ERROR_VERIFICACIÓN_USUARIO);

@@ -1,49 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Berlin Sans FB" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Email"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Berlin Sans FB" size="14" style="0"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Login"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="asterisco_label_email1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Berlin Sans FB" size="18" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -67,7 +26,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel_principal" min="-2" pref="695" max="-2" attributes="0"/>
+          <Component id="panel_principal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -82,116 +41,94 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder/>
-          </Border>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[630, 360]"/>
-        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="paner_superior" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="asterisco_label_dni" max="32767" attributes="0"/>
-                          <Component id="asterisco_label_nombre" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="asterisco_label_email" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="email_label" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="email_input_field" min="-2" pref="194" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Component id="asterisco_label_pwd" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="pwd_label" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pwd_input_field" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="dni_label" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="dni_input_field" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="nombre_label" min="-2" pref="74" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nombre_input_field" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="asterisco_label_prim_apellido" min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="asterisco_label_tlfn" max="32767" attributes="0"/>
+                              <Component id="asterisco_label_nombre" max="32767" attributes="0"/>
+                              <Component id="asterisco_label_edad" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="telefono_label" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="telefono_input_field" min="-2" pref="155" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="nombre_label1" min="-2" pref="74" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="nombre_input_field" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="apellido1_label" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="apellido1_input_field" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="asterisco_label_segun_apellido" min="-2" pref="9" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="edad_label" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="edad_input_field" min="-2" pref="77" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="asterisco_label_peso" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="peso_label" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="6" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="peso_input_field" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="asterisco_label_altura" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="altura_label" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="altura_input_field" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="asterisco_label_nss" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="nss_label" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="nss_input_field" min="-2" pref="192" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="datos_label" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="asterisco_label_prim_apellido" min="-2" pref="9" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="apellido1_label" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="apellido1_input_field" min="-2" pref="111" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="asterisco_label_segun_apellido" min="-2" pref="9" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="apellido2_label" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="apellido2_input_field" min="-2" pref="101" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="asterisco_label_alergias" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="alergias_label" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="alergias_input_field" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="apellido2_label" min="-2" max="-2" attributes="0"/>
+                                  <Component id="b_Cancelar" min="-2" pref="85" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="apellido2_input_field" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
+                                  <Component id="b_Guardar" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                  <Component id="asterisco_label_puesto" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="puesto_label" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="puesto_comboBox" min="-2" pref="101" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="campo_obligatorio_label" alignment="1" min="-2" pref="133" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="campo_obligatorio_label" min="-2" pref="133" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="b_Cancelar" min="-2" pref="85" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="b_Guardar" min="-2" pref="85" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
-                          <Component id="datos_label" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="paner_superior" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -201,47 +138,47 @@
                   <Component id="paner_superior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="datos_label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nombre_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="apellido1_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="apellido1_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nombre_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="apellido2_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="apellido2_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="asterisco_label_nombre" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="asterisco_label_prim_apellido" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="asterisco_label_segun_apellido" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="nombre_label1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombre_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="apellido1_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="apellido2_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="dni_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dni_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="telefono_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="telefono_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="puesto_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="puesto_comboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="asterisco_label_dni" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="asterisco_label_tlfn" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="asterisco_label_puesto" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="edad_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="asterisco_label_edad" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="peso_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="asterisco_label_peso" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="altura_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="asterisco_label_altura" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="nss_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="asterisco_label_nss" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="edad_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="peso_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="altura_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nss_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="pwd_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="email_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pwd_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="email_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="asterisco_label_email" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="asterisco_label_pwd" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="alergias_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="asterisco_label_alergias" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="alergias_input_field" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="campo_obligatorio_label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="b_Cancelar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="b_Guardar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="b_Cancelar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -268,8 +205,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                              <Component id="nuevoSanitario_label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="267" max="32767" attributes="0"/>
+                              <Component id="nuevoPaciente_label" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -284,7 +221,7 @@
                   <Component id="hospital_icon" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace pref="33" max="32767" attributes="0"/>
-                      <Component id="nuevoSanitario_label" min="-2" max="-2" attributes="0"/>
+                      <Component id="nuevoPaciente_label" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="b_connected" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -292,12 +229,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="nuevoSanitario_label">
+            <Component class="javax.swing.JLabel" name="nuevoPaciente_label">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Berlin Sans FB" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nuevo Sanitario"/>
+                <Property name="text" type="java.lang.String" value="Nuevo Paciente"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="hospital_icon">
@@ -359,18 +296,13 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="nombre_label">
+        <Component class="javax.swing.JLabel" name="nombre_label1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="nombre_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombre_input_fieldKeyTyped"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="asterisco_label_prim_apellido">
           <Properties>
@@ -391,11 +323,6 @@
             <Property name="text" type="java.lang.String" value="1&#xba;. Apellido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="apellido1_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido1_input_fieldKeyTyped"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="asterisco_label_segun_apellido">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -415,12 +342,7 @@
             <Property name="text" type="java.lang.String" value="2&#xba;. Apellido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="apellido2_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido2_input_fieldKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="asterisco_label_dni">
+        <Component class="javax.swing.JLabel" name="asterisco_label_edad">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
@@ -431,20 +353,15 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="dni_label">
+        <Component class="javax.swing.JLabel" name="edad_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DNI"/>
+            <Property name="text" type="java.lang.String" value="Edad"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dni_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dni_input_fieldKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="asterisco_label_tlfn">
+        <Component class="javax.swing.JLabel" name="asterisco_label_peso">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
@@ -455,20 +372,15 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="telefono_label">
+        <Component class="javax.swing.JLabel" name="peso_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono"/>
+            <Property name="text" type="java.lang.String" value="Peso"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="telefono_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefono_input_fieldKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="asterisco_label_puesto">
+        <Component class="javax.swing.JLabel" name="asterisco_label_altura">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
@@ -479,39 +391,15 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="puesto_label">
+        <Component class="javax.swing.JLabel" name="altura_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Puesto"/>
+            <Property name="text" type="java.lang.String" value="Altura"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="puesto_comboBox">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Berlin Sans FB" size="14" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="M&#xe9;dico"/>
-                <StringItem index="1" value="Enfermero"/>
-                <StringItem index="2" value="Especialista"/>
-                <StringItem index="3" value="Auxiliar"/>
-                <StringItem index="4" value="Otros"/>
-              </StringArray>
-            </Property>
-            <Property name="selectedIndex" type="int" value="-1"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="puesto_comboBoxPopupMenuWillBecomeVisible"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="asterisco_label_email">
+        <Component class="javax.swing.JLabel" name="asterisco_label_nss">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
@@ -522,20 +410,15 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="email_label">
+        <Component class="javax.swing.JLabel" name="nss_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
+            <Property name="text" type="java.lang.String" value="NSS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="email_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="email_input_fieldKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="asterisco_label_pwd">
+        <Component class="javax.swing.JLabel" name="asterisco_label_alergias">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
@@ -546,18 +429,13 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="pwd_label">
+        <Component class="javax.swing.JLabel" name="alergias_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
+            <Property name="text" type="java.lang.String" value="Alergias"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="pwd_input_field">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pwd_input_fieldKeyTyped"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="b_Cancelar">
           <Properties>
@@ -615,6 +493,46 @@
             </Property>
             <Property name="text" type="java.lang.String" value="* Campos obligatorios"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="nombre_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombre_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="apellido1_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido1_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="apellido2_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apellido2_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edad_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="edad_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="peso_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="peso_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="altura_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="altura_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="nss_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nss_input_fieldKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alergias_input_field">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="alergias_input_fieldKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
