@@ -6,7 +6,7 @@
 package modelo.clasesDTOs;
 
 import com.google.gson.Gson;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Clase que contiene los atributos y getter-setter de un episodio de atención.

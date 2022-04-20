@@ -49,7 +49,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
      */
     @Override
     public boolean addEpisodio(EpisodioAtencionDTO _episodio) throws SQLException {
-        stmt_add.setDate(1, (Date) _episodio.getFecha());
+        stmt_add.setDate(1, _episodio.getFecha());
         stmt_add.setString(2, _episodio.getMotivo());
         stmt_add.setString(3, _episodio.getDiagnostico());
         stmt_add.setString(4, _episodio.getNss_pac());

@@ -21,6 +21,7 @@ public class PacienteDAOImpl implements PacienteDAO {
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getPac;
 
+    private static final String FIND_PACIENTE = "SELECT * FROM PACIENTE WHERE nss=?";
     private static final String INSERT = "INSERT INTO PACIENTE(nss, nombre, apellido1, apellido2, alergias, edad, altura, peso) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     
     private Connection connection;
@@ -35,6 +36,7 @@ public class PacienteDAOImpl implements PacienteDAO {
     public PacienteDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
+        this.stmt_getPac = _conn.prepareStatement(FIND_PACIENTE);
     }
 
     /**
@@ -50,6 +52,7 @@ public class PacienteDAOImpl implements PacienteDAO {
         stmt_getPac.setString(1, _paciente.getNss());
 
         ResultSet rs = stmt_getPac.executeQuery();
+        
         if (rs.next()) {
             cuenta = rs.getInt(1);
         }
