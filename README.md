@@ -1,5 +1,5 @@
 # Historia Clínica de Teruel - PSW
-81dc9bdb52d04dc20036dbd8313ed055
+
 :mag_right: Análisis de requisitos:
  ---
 <p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> se accederá al mismo.</p>
