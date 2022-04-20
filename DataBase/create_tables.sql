@@ -101,7 +101,7 @@ CREATE TABLE CITA (
    	sala VARCHAR(255) NOT NULL,
 	centro VARCHAR(255) NOT NULL,
 	localidad VARCHAR(255) NOT NULL,
-	hora DECIMAL NOT NULL,
+	hora TIME NOT NULL,
 	fecha DATE NOT NULL,
 	nss_pac VARCHAR(255),
 	dni_sanit VARCHAR(255),
