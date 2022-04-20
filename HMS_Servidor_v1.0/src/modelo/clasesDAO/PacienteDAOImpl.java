@@ -11,7 +11,7 @@ import modelo.clasesDTOs.PacienteDTO;
 
 /**
  * Clase que contiene las funciones necesarias
- *  para realizas las operaciones CRUD de un paciente
+ *  para realizar las operaciones CRUD de un paciente
  * 
  */
 public class PacienteDAOImpl implements PacienteDAO {
@@ -99,7 +99,7 @@ public class PacienteDAOImpl implements PacienteDAO {
     }
 
     /**
-     * Obtiene un sanitario de la DB.
+     * Obtiene un paciente de la DB.
      * 
      * @param _nss
      * @return
@@ -111,7 +111,7 @@ public class PacienteDAOImpl implements PacienteDAO {
     }
 
     /**
-     * Obtiene la colección de sanitarios de la DB.
+     * Obtiene la colección de pacientes de la DB.
      * 
      * @return
      * @throws SQLException 

@@ -43,8 +43,9 @@ public class MedicamentoDTO {
     }
     
     /**
-     * Sobreescribe toString.
-     *
+     * Obtiene el toString del medicamento
+     * 
+     * @return String
      */
     @Override
     public String toString(){

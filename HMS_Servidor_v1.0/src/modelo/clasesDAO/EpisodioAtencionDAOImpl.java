@@ -6,16 +6,15 @@
 package modelo.clasesDAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
 
 /**
- *
- * @author pablo
+ * Clase que contiene las funciones necesarias
+ *  para realizar las operaciones CRUD de un episodio de atencion.
+ * 
  */
 public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     private PreparedStatement stmt_add;
@@ -57,23 +56,53 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
         return stmt_add.executeUpdate() > 0;
     }
 
+    /**
+     * Elimina el episodio de un paciente.
+     * 
+     * @param _id
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteEpisodio(String _id, String _nss) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Modifica el episodio de un paciente. Para ello,
+     * se pasa el episodio con los campos modificados.
+     * 
+     * @param _episodio
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean updateEpisodio(EpisodioAtencionDTO _episodio) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Devuelve el episodio dado su identificador y nss del paciente asociado.
+     * 
+     * @param _id
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public EpisodioAtencionDTO getEpisodio(String _id, String _nss) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Obtiene todos los episodios de un paciente.
+     * 
+     * @return
+     * @throws SQLException 
+     */
     @Override
-    public List<EpisodioAtencionDTO> getEpisodios() throws SQLException {
+    public List<EpisodioAtencionDTO> getEpisodios(String _nss) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

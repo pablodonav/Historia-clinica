@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Clase que contiene las funciones necesarias
- *  para realizas las operaciones CRUD de un sanitario
+ *  para realizar las operaciones CRUD de un sanitario
  * 
  */
 public class SanitarioDAOImpl implements SanitarioDAO {

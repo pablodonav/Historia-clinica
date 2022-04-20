@@ -23,5 +23,5 @@ public interface EpisodioAtencionDAO {
 
     public EpisodioAtencionDTO getEpisodio(String _id, String _nss) throws SQLException;
 
-    public List<EpisodioAtencionDTO> getEpisodios() throws SQLException;
+    public List<EpisodioAtencionDTO> getEpisodios(String _nss) throws SQLException;
 }

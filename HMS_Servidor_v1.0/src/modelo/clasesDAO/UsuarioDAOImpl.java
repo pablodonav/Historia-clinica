@@ -11,7 +11,7 @@ import java.sql.*;
 
 /**
  * Clase que contiene las funciones necesarias
- *  para realizas las operaciones CRUD de un usuario
+ *  para realizar las operaciones CRUD de un usuario
  * 
  */
 public class UsuarioDAOImpl implements UsuarioDAO {
@@ -123,6 +123,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return usuarioEncontrado;
     }
 
+    /**
+     * Borra un usuario dado su dni.
+     * 
+     * @param _dni
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteUsuario(String _dni) throws SQLException {
         stmt_del.setString(1, _dni);
@@ -150,6 +157,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return stmt_upd.executeUpdate() > 0;
     }
 
+    /**
+     * Devuelve el usuario dado su dni.
+     * 
+     * @param _dni
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public UsuarioDTO getUsuario(String _dni) throws SQLException {
         UsuarioDTO usuario = null;
@@ -167,6 +181,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return usuario;
     }
 
+    /**
+     * Devuelve la colección de usuarios del sistema.
+     * 
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public List<UsuarioDTO> getUsuarios() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

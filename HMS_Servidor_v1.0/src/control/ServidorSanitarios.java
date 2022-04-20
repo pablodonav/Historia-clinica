@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import modelo.DataBaseControl;
+import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
@@ -342,6 +343,18 @@ public class ServidorSanitarios extends Thread {
         
         return true;
     }
+    
+    synchronized boolean nuevaCita(CitaDTO cita) throws IOException, SQLException {
+        if( ! database.nuevaCita(cita)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVA_CITA, 
+                String.valueOf(cita));
+        
+        return true;
+    }
+    
     /**
      *  Notifica cambio hospital al resto de sanitarios.
      * 

@@ -12,9 +12,11 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.clasesDAO.CitaDAOImpl;
 import modelo.clasesDAO.EpisodioAtencionDAOImpl;
 import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
+import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.UsuarioDTO;
@@ -33,6 +35,7 @@ public class DataBaseControl {
     private UsuarioDAOImpl usImpl;
     private PacienteDAOImpl pacImpl;
     private EpisodioAtencionDAOImpl epImpl;
+    private CitaDAOImpl citImpl;
     
     /**
      * Crea la conexión con la DB.
@@ -72,6 +75,7 @@ public class DataBaseControl {
         sanImpl = new SanitarioDAOImpl(conexion);
         usImpl = new UsuarioDAOImpl(conexion);
         pacImpl = new PacienteDAOImpl(conexion);
+        citImpl = new CitaDAOImpl(conexion);
     }
     
     /**
@@ -164,6 +168,13 @@ public class DataBaseControl {
         return false;
     }
     
+    /**
+     * Método que elimina a un sanitario existente.
+     * 
+     * @param _dni
+     * @return
+     * @throws SQLException 
+     */
     public boolean eliminarSanitario(String _dni) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
@@ -172,14 +183,12 @@ public class DataBaseControl {
         return usImpl.deleteUsuario(_dni);
     }
     
-    public boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws SQLException {
-        if (conexion.isClosed()) {
-            connectDB();
-        }
-        
-        return epImpl.addEpisodio(episodio);
-    }
-    
+    /**
+     * Método que obtiene todos los sanitarios de la DB.
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public String obtenerSanitarios() throws SQLException {
         Gson gson = new Gson();
         UsuarioDTO usuario = null;
@@ -200,5 +209,35 @@ public class DataBaseControl {
 
         
         return gson.toJson(sanitarios);
+    }
+    
+    /**
+     * Método que crea un nuevo episodio de un paciente.
+     * 
+     * @param episodio
+     * @return
+     * @throws SQLException 
+     */
+    public boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return epImpl.addEpisodio(episodio);
+    }
+    
+    /**
+     * Método que crea una nueva cita de un paciente.
+     * 
+     * @param cita
+     * @return
+     * @throws SQLException 
+     */
+    public boolean nuevaCita(CitaDTO cita) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return citImpl.addCita(cita);
     }
 }

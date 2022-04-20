@@ -81,7 +81,12 @@ public class EpisodioAtencionDTO {
     public String getNss_pac() {
         return nss_pac;
     }
-
+    
+    /**
+     * Obtiene el toString del episodio.
+     * 
+     * @return String
+     */
     @Override
     public String toString() {
         return "EpisodioAtencionDTO{" + "id=" + id + ", fecha=" + fecha 

@@ -43,8 +43,9 @@ public class VacunaDTO {
     }
     
     /**
-     * Sobreescribe toString.
-     *
+     * Obtiene el toString de la vacuna.
+     * 
+     * @return String
      */
     @Override
     public String toString(){
