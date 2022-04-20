@@ -8,6 +8,7 @@ package modelo.clasesDAO;
 import modelo.clasesDTOs.UsuarioDTO;
 import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Clase que contiene las funciones necesarias
@@ -189,6 +190,20 @@ public class UsuarioDAOImpl implements UsuarioDAO {
      */
     @Override
     public List<UsuarioDTO> getUsuarios() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UsuarioDTO usuario = null;
+
+        ResultSet rsUsuarios = stmt_getAll.executeQuery();
+        List<UsuarioDTO> usuarios = new ArrayList<UsuarioDTO>();
+
+        while (rsUsuarios.next()) {
+            String dni = rsUsuarios.getString("dni");
+            String correo = rsUsuarios.getString("correo");
+            String contraseña = rsUsuarios.getString("contraseña");
+
+            usuario = new UsuarioDTO(dni, correo, contraseña);
+            usuarios.add(usuario);
+        }
+
+        return usuarios;
     }
 }

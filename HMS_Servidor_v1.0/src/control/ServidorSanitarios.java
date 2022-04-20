@@ -322,6 +322,14 @@ public class ServidorSanitarios extends Thread {
         return true;
     }
     
+    /**
+     * Método que elimina un sanitario del sistema.
+     * 
+     * @param _dni
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     synchronized boolean eliminarSanitario(String _dni) throws IOException, SQLException {
         if( ! database.eliminarSanitario(_dni)) {
             return false;
@@ -333,6 +341,14 @@ public class ServidorSanitarios extends Thread {
         return true;
     }
     
+    /**
+     * Método que crea un nuevo episodio de un paciente en el sistema.
+     * 
+     * @param episodio
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     synchronized boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws IOException, SQLException {
         if( ! database.nuevoEpisodio(episodio)) {
             return false;
@@ -344,6 +360,14 @@ public class ServidorSanitarios extends Thread {
         return true;
     }
     
+    /**
+     * Método que crea una nueva cita en el sistema.
+     * 
+     * @param cita
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     synchronized boolean nuevaCita(CitaDTO cita) throws IOException, SQLException {
         if( ! database.nuevaCita(cita)) {
             return false;
@@ -353,6 +377,15 @@ public class ServidorSanitarios extends Thread {
                 String.valueOf(cita));
         
         return true;
+    }
+    
+    /**
+     * Método que obtiene la lista de pacientes registrados en el sistema.
+     * 
+     * @return
+     */
+    synchronized String obtenerPacientes() throws SQLException {
+        return database.obtenerPacientes();
     }
     
     /**

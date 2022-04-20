@@ -23,7 +23,6 @@ public class SanitarioDAOImpl implements SanitarioDAO {
     private PreparedStatement stmt_getSan;
 
     private static final String INSERT = "INSERT INTO SANITARIO(dni, nombre, apellido1, apellido2, telefono, puesto_trabajo) VALUES(?, ?, ?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM SANITARIO WHERE dni=?";
     private static final String UPDATE = "UPDATE SANITARIO SET nombre=?, apellido1=?, apellido2=?, telefono=?, puesto_trabajo=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM SANITARIO";
     private static final String FIND_SANITARIO = "SELECT * FROM SANITARIO WHERE dni=?";
@@ -40,7 +39,6 @@ public class SanitarioDAOImpl implements SanitarioDAO {
     public SanitarioDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
-        this.stmt_del = _conn.prepareStatement(DELETE);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
         this.stmt_getSan = _conn.prepareStatement(FIND_SANITARIO);
@@ -106,7 +104,24 @@ public class SanitarioDAOImpl implements SanitarioDAO {
      */
     @Override
     public SanitarioDTO getSanitario(String _dni) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SanitarioDTO sanitario = null;
+
+        stmt_getSan.setString(1, _dni);
+        ResultSet rs = stmt_getSan.executeQuery();
+
+        while (rs.next()) {
+            String nombre = rs.getString("nombre");
+            String apellido1 = rs.getString("apellido1");
+            String apellido2 = rs.getString("apellido2");
+            String dni = rs.getString("dni");
+            int telefono = rs.getInt("telefono");
+            String correo = rs.getString("correo");
+            String contraseña = rs.getString("contraseña");
+            String puesto = rs.getString("puesto_trabajo");
+
+            sanitario = new SanitarioDTO(nombre, apellido1, apellido2, dni, telefono, correo, contraseña, puesto);
+        }
+        return sanitario;
     }
 
     /**
@@ -136,5 +151,4 @@ public class SanitarioDAOImpl implements SanitarioDAO {
 
         return sanitarios;
     }
-    
 }

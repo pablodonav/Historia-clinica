@@ -240,4 +240,24 @@ public class DataBaseControl {
         
         return citImpl.addCita(cita);
     }
+    
+    /**
+     * Método que obtiene todos los pacientes de la DB.
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerPacientes() throws SQLException {
+        Gson gson = new Gson();
+        PacienteDTO paciente = null;
+        
+        List<PacienteDTO> pacientes = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        pacientes = pacImpl.getPacientes();
+
+        return gson.toJson(pacientes);
+    }
 }

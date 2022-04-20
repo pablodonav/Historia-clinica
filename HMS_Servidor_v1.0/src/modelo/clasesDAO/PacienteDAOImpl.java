@@ -7,6 +7,7 @@ package modelo.clasesDAO;
 
 import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 import modelo.clasesDTOs.PacienteDTO;
 
 /**
@@ -23,6 +24,9 @@ public class PacienteDAOImpl implements PacienteDAO {
 
     private static final String FIND_PACIENTE = "SELECT * FROM PACIENTE WHERE nss=?";
     private static final String INSERT = "INSERT INTO PACIENTE(nss, nombre, apellido1, apellido2, alergias, edad, altura, peso) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String DELETE = "DELETE FROM PACIENTE WHERE nss=?";
+    private static final String UPDATE = "UPDATE PACIENTE SET nombre=?, apellido1=?, apellido2=?, alergias=?, edad=?, altura=?, peso=? WHERE nss=?";
+    private static final String FIND_ALL = "SELECT * FROM PACIENTE";
     
     private Connection connection;
 
@@ -37,6 +41,9 @@ public class PacienteDAOImpl implements PacienteDAO {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
         this.stmt_getPac = _conn.prepareStatement(FIND_PACIENTE);
+        this.stmt_del = _conn.prepareStatement(DELETE);
+        this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
+        this.stmt_upd = _conn.prepareStatement(UPDATE);
     }
 
     /**
@@ -83,7 +90,13 @@ public class PacienteDAOImpl implements PacienteDAO {
      */
     @Override
     public boolean deletePaciente(String _nss) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        stmt_del.setString(1, _nss);
+
+        if (stmt_del.executeUpdate() > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -95,7 +108,16 @@ public class PacienteDAOImpl implements PacienteDAO {
      */
     @Override
     public boolean updatePaciente(PacienteDTO _paciente) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        stmt_upd.setString(1, _paciente.getNombre());
+        stmt_upd.setString(2, _paciente.getApellido1());
+        stmt_upd.setString(3, _paciente.getApellido2());
+        stmt_upd.setString(4, _paciente.getAlergias());
+        stmt_upd.setInt(5, _paciente.getEdad());
+        stmt_upd.setDouble(6, _paciente.getAltura());
+        stmt_upd.setDouble(7, _paciente.getPeso());
+        stmt_upd.setString(8, _paciente.getNss());
+
+        return stmt_upd.executeUpdate() > 0;
     }
 
     /**
@@ -107,7 +129,24 @@ public class PacienteDAOImpl implements PacienteDAO {
      */
     @Override
     public PacienteDTO getPaciente(String _nss) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PacienteDTO paciente = null;
+
+        stmt_getPac.setString(1, _nss);
+        ResultSet rs = stmt_getPac.executeQuery();
+
+        while (rs.next()) {
+            String nss = rs.getString("nss");
+            String nombre = rs.getString("nombre");
+            String apellido1 = rs.getString("apellido1");
+            String apellido2 = rs.getString("apellido2");
+            String alergias = rs.getString("alergias");
+            int edad = rs.getInt("edad");
+            Double peso = rs.getDouble("peso");
+            Double altura = rs.getDouble("altura");
+
+            paciente = new PacienteDTO(nss, nombre, apellido1, apellido2, alergias, edad, altura, peso);
+        }
+        return paciente;
     }
 
     /**
@@ -118,7 +157,25 @@ public class PacienteDAOImpl implements PacienteDAO {
      */
     @Override
     public List<PacienteDTO> getPacientes() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PacienteDTO paciente = null;
+
+        ResultSet rsPacientes = stmt_getAll.executeQuery();
+        List<PacienteDTO> pacientes = new ArrayList<PacienteDTO>();
+
+        while (rsPacientes.next()) {
+            String nss = rsPacientes.getString("nss");
+            String nombre = rsPacientes.getString("nombre");
+            String apellido1 = rsPacientes.getString("apellido1");
+            String apellido2 = rsPacientes.getString("apellido2");
+            String alergias = rsPacientes.getString("alergias");
+            int edad = rsPacientes.getInt("edad");
+            Double peso = rsPacientes.getDouble("peso");
+            Double altura = rsPacientes.getDouble("altura");
+
+            paciente = new PacienteDTO(nss, nombre, apellido1, apellido2, alergias, edad, altura, peso);
+            pacientes.add(paciente);
+        }
+
+        return pacientes;
     }
-    
 }

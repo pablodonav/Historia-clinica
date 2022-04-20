@@ -114,6 +114,9 @@ public class ServidorHospital implements Runnable {
                     nuevaCita();
                     break;
                     
+                case OBTENER_PACIENTES:
+                    obtenerPacientes();
+                    break;  
             }  
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
             System.out.println(ERROR_CONEXION_HOSPITAL +
@@ -215,26 +218,23 @@ public class ServidorHospital implements Runnable {
     }
     
     /**
-     * Verifica si el login de un usuario es correcto.
+     * Elimina el sanitario cuyo dni es el que se recibe desde el cliente.
+     * Si no se elimina, devuelve NOK.
+     * En caso contrario, devuelve OK.
      * 
      * @throws IOException
      * @throws SQLException 
      */
-    private void verificarUsuario() throws IOException, SQLException {
+    private void eliminarSanitario() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
-        UsuarioDTO usuarioRes;
         
-        String usuarioJSON = entrada.readLine();
-        UsuarioDTO usuario = gson.fromJson(usuarioJSON, UsuarioDTO.class);
+        String dni = entrada.readLine();
         
-        usuarioRes = servidorSanitarios.verificarUsuario(usuario);
-        
-        if (usuarioRes != null) {
-            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString());
-            salida.println(usuario.toJson());
-        } else {
-            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
+        if (servidorSanitarios.eliminarSanitario(dni)) {
+            respuesta = PrimitivaComunicacion.OK;
         }
+        
+        salida.println(respuesta);
         
         cerrarConexion();
     }
@@ -262,6 +262,14 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();
     }
     
+    /**
+     * Se obtienen los sanitarios existentes.
+     * Si no se han obtenido, devuelve NOK. 
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void obtenerSanitarios() throws IOException, SQLException {
         salida.println(PrimitivaComunicacion.OBTENER_SANITARIOS);  
         
@@ -277,6 +285,37 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();    
     }
     
+    /**
+     * Verifica si el login de un usuario es correcto.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void verificarUsuario() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        UsuarioDTO usuarioRes;
+        
+        String usuarioJSON = entrada.readLine();
+        UsuarioDTO usuario = gson.fromJson(usuarioJSON, UsuarioDTO.class);
+        
+        usuarioRes = servidorSanitarios.verificarUsuario(usuario);
+        
+        if (usuarioRes != null) {
+            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString());
+            salida.println(usuario.toJson());
+        } else {
+            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
+        }
+        
+        cerrarConexion();
+    }
+    
+    /**
+     * Añade un nuevo paciente en el sistema.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void añadirPaciente() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
@@ -292,20 +331,12 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();
     }
     
-    private void eliminarSanitario() throws IOException, SQLException {
-        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
-        
-        String dni = entrada.readLine();
-        
-        if (servidorSanitarios.eliminarSanitario(dni)) {
-            respuesta = PrimitivaComunicacion.OK;
-        }
-        
-        salida.println(respuesta);
-        
-        cerrarConexion();
-    }
-    
+    /**
+     * Registra un nuevo episodio en el sistema.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void nuevoEpisodio() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
@@ -321,6 +352,12 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();
     }
     
+    /**
+     * Crea una nueva cita asociada a un paciente y a un sanitario.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void nuevaCita() throws IOException, SQLException {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
@@ -334,6 +371,29 @@ public class ServidorHospital implements Runnable {
         salida.println(respuesta);
         
         cerrarConexion();
+    }
+    
+    /**
+     * Obtiene los pacientes del sistema.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, devuelve OK.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerPacientes() throws IOException, SQLException {
+        salida.println(PrimitivaComunicacion.OBTENER_PACIENTES);  
+        
+        String pacientesJSON = servidorSanitarios.obtenerPacientes();
+      
+        if (pacientesJSON != null) {
+            salida.println(pacientesJSON); 
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+        }
+        
+        cerrarConexion();    
     }
     
     /**
