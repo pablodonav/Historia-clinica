@@ -6,11 +6,16 @@
  */
 package vista;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesProxys.Comms;
+import modelo.clasesProxys.ProxyPaciente;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -20,7 +25,12 @@ import modelo.clasesProxys.Comms;
 public class MenuSanitarioVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private Comms comms = null;
+    private ProxyPaciente pxPaciente;
     private String idConexion = null;
+    
+    /* Mensajes de Error */
+    private String ERROR_OBTENER_PACIENTES = 
+            "No se ha podido obtener la lista con pacientes.";
     
     /**
      * Crea e inicializa los componentes de MenuSanitarioVista.
@@ -28,6 +38,7 @@ public class MenuSanitarioVista extends javax.swing.JFrame {
     public MenuSanitarioVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.comms = _comms;
+        this.pxPaciente = ProxyPaciente.getInstance();
         this.idConexion = _idConexion;
         
         initComponents();
@@ -254,8 +265,39 @@ public class MenuSanitarioVista extends javax.swing.JFrame {
         new NuevoPacienteVista(this, oyenteVista, comms, idConexion).setVisible(true);
     }//GEN-LAST:event_b_NuevoPacienteActionPerformed
 
+    /**
+     * Obtiene la lista con los pacientes del sistema
+     * 
+     * @return List<PacienteDTO>
+     * @throws Exception 
+     */
+    private List<PacienteDTO> obtenerListaConPacientes() throws Exception{
+        Gson gson = new Gson();
+        List<PacienteDTO> pacientes = null;
+        
+        String sanitariosToReceive = pxPaciente.obtenerPacientes();
+
+        /* Permite obtener los pacientes en un List con PacienteDTO*/
+        java.lang.reflect.Type listType = new TypeToken<List<PacienteDTO>>(){}.getType(); 
+        pacientes = gson.fromJson(sanitariosToReceive, listType);
+        
+        return pacientes;
+    }
+    
     private void b_GestionarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GestionarPacientesActionPerformed
-        this.setVisible(false);
+        try {
+            List<PacienteDTO> pacientes = obtenerListaConPacientes();
+            
+            if(pacientes != null){
+                this.setVisible(false);
+                new MenuGestionPacientesVista(this, oyenteVista, comms, idConexion, pacientes).setVisible(true); 
+            } else{
+                mensajeDialogo(ERROR_OBTENER_PACIENTES);
+                return;
+            }
+        } catch (Exception ex) {
+            mensajeDialogo(ERROR_OBTENER_PACIENTES);
+        }
     }//GEN-LAST:event_b_GestionarPacientesActionPerformed
 
     /**

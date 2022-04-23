@@ -18,7 +18,6 @@ import java.util.Properties;
  * 
  */
 public class Config {
-
     private static Config instancia = null; // es singleton
     private Properties configuracion;
     private static final String FICHERO_CONFIG = "config.properties";
@@ -45,8 +44,7 @@ public class Config {
      *
      * @return Config
      */
-    public static synchronized Config
-            getInstance() {
+    public static synchronized Config getInstance() {
         if (instancia == null) {
             instancia = new Config();
         }

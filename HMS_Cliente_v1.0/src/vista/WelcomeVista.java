@@ -13,7 +13,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import modelo.clasesProxys.Comms;
-import modelo.clasesProxys.ProxySanitario;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -22,7 +21,6 @@ import modelo.clasesProxys.ProxySanitario;
  */
 public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeListener {
     private Comms comms = null;
-    private ProxySanitario pxSanitario = null;
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
     
@@ -36,9 +34,8 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     /**
      * Crea e inicializa los componentes de WelcomeVista.
      */
-    public WelcomeVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario) {
+    public WelcomeVista(OyenteVista _oyenteVista, Comms _comms) {
         this.comms = _comms;
-        this.pxSanitario = _pxSanitario;
         this.oyenteVista = _oyenteVista;
         
         comms.nuevoObservador(this);
@@ -183,7 +180,7 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
 
         comms.eliminarObservador(this);
         this.dispose();
-        new LoginVista(oyenteVista, comms, pxSanitario, idConexion).setVisible(true);  
+        new LoginVista(oyenteVista, comms, idConexion).setVisible(true);  
     }
     
     /**

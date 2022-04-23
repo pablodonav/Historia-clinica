@@ -7,6 +7,8 @@
 package modelo.clasesDTOs;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que contiene los atributos y getter-setter de un Paciente.
@@ -21,6 +23,7 @@ public class PacienteDTO {
     private double peso;
     private double altura;
     private String alergias;
+    private List<EpisodioDeAtencionDTO> episodios = new ArrayList<>();
 
     /**
      * Crea un Sanitario
@@ -189,6 +192,31 @@ public class PacienteDTO {
      */
     public void setAlergias(String _alergias) {
         this.alergias = _alergias;
+    }
+    
+    /**
+     * Añade un nuevo episodio al paciente
+     * 
+     * @param _episodio 
+     */
+    public void anyadirEpisodio(EpisodioDeAtencionDTO _episodio){
+        episodios.add(_episodio); 
+    }
+    
+    /**
+     * Obtiene un vector de Object con atributos de la clase paciente
+     * 
+     * @return Object[]
+     */
+    public Object[] toArray(){
+        List<Object> object = new ArrayList();
+        
+        object.add(nombre);
+        object.add(apellido1);
+        object.add(nss);
+        object.add(edad);
+        
+        return object.toArray();
     }
     
     /**

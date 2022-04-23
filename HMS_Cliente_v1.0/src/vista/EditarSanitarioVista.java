@@ -183,7 +183,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -244,7 +244,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         b_ModificarSanitario.setBackground(new java.awt.Color(204, 204, 204));
         b_ModificarSanitario.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         b_ModificarSanitario.setForeground(new java.awt.Color(0, 153, 153));
-        b_ModificarSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/edit-icon-two.png"))); // NOI18N
+        b_ModificarSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/edit-icon.png"))); // NOI18N
         b_ModificarSanitario.setText("Modificar Sanitario");
         b_ModificarSanitario.setActionCommand("   Nuevo Sanitario");
         b_ModificarSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

@@ -91,7 +91,6 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="datos_label" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="asterisco_label_prim_apellido" min="-2" pref="9" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -102,6 +101,10 @@
                                           <Component id="asterisco_label_segun_apellido" min="-2" pref="9" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="apellido2_label" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                          <Component id="datos_label" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -138,7 +141,7 @@
                   <Component id="paner_superior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="datos_label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="apellido1_label" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="apellido2_label" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -173,7 +176,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="campo_obligatorio_label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="b_Guardar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="b_Cancelar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>

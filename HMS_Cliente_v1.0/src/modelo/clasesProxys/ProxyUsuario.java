@@ -19,7 +19,20 @@ import modelo.clasesDTOs.UsuarioDTO;
  * 
  */
 public class ProxyUsuario extends Comms{
-
+    private static ProxyUsuario instancia = null; // es singleton
+    
+    /**
+     * Devuelve la instancia de la clase ProxyUsuario.
+     *
+     * @return Comms
+     */
+    public static synchronized ProxyUsuario getInstance() {
+        if (instancia == null) {
+            instancia = new ProxyUsuario();
+        }
+        return instancia;
+    }
+    
     /**
      * Crea ProxyUsuario.
      * 

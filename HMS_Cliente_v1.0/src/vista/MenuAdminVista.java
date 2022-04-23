@@ -35,10 +35,10 @@ public class MenuAdminVista extends javax.swing.JFrame {
     /**
      * Crea e inicializa los componentes de MenuAdminVista.
      */
-    public MenuAdminVista(OyenteVista _oyenteVista, Comms _comms, ProxySanitario _pxSanitario, String _idConexion) {
+    public MenuAdminVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.comms = _comms;
-        this.pxSanitario = _pxSanitario;
+        this.pxSanitario = ProxySanitario.getInstance();
         this.idConexion = _idConexion;
         
         initComponents();

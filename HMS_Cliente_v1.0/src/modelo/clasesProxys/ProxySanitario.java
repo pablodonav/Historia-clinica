@@ -21,7 +21,20 @@ public class ProxySanitario extends Comms{
     public static String PROPIEDAD_DAR_ALTA_SANITARIO = "Dar Alta Sanitario";
     public static String PROPIEDAD_DAR_BAJA_SANITARIO = "Dar Baja Sanitario";
     public static String PROPIEDAD_EDITAR_SANITARIO = "Editar Sanitario";
-
+    private static ProxySanitario instancia = null; // es singleton
+    
+    /**
+     * Devuelve la instancia de la clase ProxySanitario.
+     *
+     * @return Comms
+     */
+    public static synchronized ProxySanitario getInstance() {
+        if (instancia == null) {
+            instancia = new ProxySanitario();
+        }
+        return instancia;
+    }
+    
     /**
      * Da de alta un nuevo sanitario con los atributos almacenados en 
      * el json pasado por parámetro

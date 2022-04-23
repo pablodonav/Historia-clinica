@@ -8,6 +8,7 @@
 package control;
 
 import modelo.clasesProxys.Comms;
+import modelo.clasesProxys.ProxyEpisodio;
 import modelo.clasesProxys.ProxyPaciente;
 import modelo.clasesProxys.ProxySanitario;
 import vista.EditarSanitarioVista;
@@ -28,6 +29,7 @@ public class Hospital implements OyenteVista{
     private WelcomeVista welcomeVista;
     private ProxySanitario pxSanitario = null;
     private ProxyPaciente pxPaciente = null;
+    private ProxyEpisodio pxEpisodio = null;
     
     /**
      * Crea un Hospital.
@@ -35,9 +37,10 @@ public class Hospital implements OyenteVista{
      */
     public Hospital() {
         this.comms = new Comms();
-        this.pxSanitario = new ProxySanitario();
-        this.pxPaciente = new ProxyPaciente();
-        this.welcomeVista = new WelcomeVista(this, comms, pxSanitario);
+        this.pxSanitario = ProxySanitario.getInstance();
+        this.pxPaciente = ProxyPaciente.getInstance();
+        this.pxEpisodio = ProxyEpisodio.getInstance();
+        this.welcomeVista = new WelcomeVista(this, comms);
         
         comms.conectar();
     }
@@ -50,7 +53,7 @@ public class Hospital implements OyenteVista{
         switch(evento) {  
             case DAR_ALTA_SANITARIO:
                 try {
-                    pxSanitario.darAltaSanitarioTest((String)obj);
+                    pxSanitario.darAltaSanitario((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(NuevoSanitarioVista.ERROR_DAR_ALTA_SANITARIO);   
                 }
@@ -58,7 +61,7 @@ public class Hospital implements OyenteVista{
            
             case DAR_BAJA_SANITARIO:
                 try {
-                    pxSanitario.darBajaSanitarioTest((String)obj);
+                    pxSanitario.darBajaSanitario((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_DAR_BAJA_SANITARIO); 
                 }
@@ -66,7 +69,7 @@ public class Hospital implements OyenteVista{
                 
             case EDITAR_SANITARIO:
                 try {
-                    pxSanitario.editarSanitarioTest((String)obj);
+                    pxSanitario.editarSanitario((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(EditarSanitarioVista.ERROR_EDITAR_SANITARIO); 
                 }
@@ -75,6 +78,14 @@ public class Hospital implements OyenteVista{
             case NUEVO_PACIENTE:
                 try {
                     pxPaciente.registrarNuevoPaciente((String)obj);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(NuevoPacienteVista.ERROR_NUEVO_PACIENTE); 
+                }
+                break;
+            
+            case NUEVO_EPISODIO:
+                try {
+                    pxEpisodio.registrarNuevoEpisodio((String)obj);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(NuevoPacienteVista.ERROR_NUEVO_PACIENTE); 
                 }

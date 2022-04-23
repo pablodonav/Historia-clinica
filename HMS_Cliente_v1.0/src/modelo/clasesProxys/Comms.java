@@ -219,6 +219,24 @@ public class Comms implements OyenteServidor{
         return true;
     }
     
+    /**
+     *  Recibe del servidor el resultado de añadir un nuevo episodio.
+     * 
+     */
+    private boolean solicitudServidorNuevoEpisodio(
+            String propiedad, List<String> resultados)
+            throws IOException {
+        String pacienteConEpisodioJsonToReceive = resultados.get(0);
+        
+        if (pacienteConEpisodioJsonToReceive == null ||
+            pacienteConEpisodioJsonToReceive.isBlank() ||
+            pacienteConEpisodioJsonToReceive.isEmpty()) {
+            return false;
+        }
+        observadores.firePropertyChange(propiedad, null, pacienteConEpisodioJsonToReceive);  
+        return true;
+    }
+    
     public void registrarNuevoPacienteTest(String _jsonPaciente) throws Exception{  
         if (_jsonPaciente == null ||
             _jsonPaciente.isBlank() ||
@@ -228,6 +246,18 @@ public class Comms implements OyenteServidor{
         
         System.out.println("jsonRecibido:" + _jsonPaciente);
         observadores.firePropertyChange("Nuevo Paciente", null, _jsonPaciente);  
+        return;
+    }
+    
+    public void registrarNuevoEpisodioTest(String _jsonPacienteConEpisodio) throws Exception{  
+        if (_jsonPacienteConEpisodio == null ||
+            _jsonPacienteConEpisodio.isBlank() ||
+            _jsonPacienteConEpisodio.isEmpty()) {
+            return;
+        }
+        
+        System.out.println("jsonRecibido:" + _jsonPacienteConEpisodio);
+        observadores.firePropertyChange(ProxyEpisodio.PROPIEDAD_NUEVO_EPISODIO, null, _jsonPacienteConEpisodio);  
         return;
     }
     
@@ -261,6 +291,9 @@ public class Comms implements OyenteServidor{
             case NUEVO_PACIENTE:
                 return solicitudServidorDarAltaSanitario(
                     ProxyPaciente.PROPIEDAD_NUEVO_PACIENTE, resultados);
+            case NUEVO_EPISODIO:
+                return solicitudServidorNuevoEpisodio(
+                    ProxyEpisodio.PROPIEDAD_NUEVO_EPISODIO, resultados);
             default:
                 return false;
         }   
