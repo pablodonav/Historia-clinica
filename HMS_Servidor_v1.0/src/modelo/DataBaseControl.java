@@ -274,4 +274,41 @@ public class DataBaseControl {
 
         return gson.toJson(pacientes);
     }
+    
+    /**
+     * Devuelve el JSON del conjunto de episodios de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerEpisodiosPaciente(String _nss) throws SQLException {
+        Gson gson = new Gson();
+        
+        List<EpisodioAtencionDTO> episodios = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        episodios = epImpl.getEpisodios(_nss);
+       
+        return gson.toJson(episodios);
+    }
+    
+    /**
+     * Devuelve cierto si se ha conseguido registrar el nuevo diagnostico del episodio
+     *  del paciente.
+     * 
+     * @param _episodio
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public boolean modificarEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return epImpl.updateEpisodio(_episodio, _nss);
+    }
 }

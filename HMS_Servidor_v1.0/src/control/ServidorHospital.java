@@ -116,7 +116,15 @@ public class ServidorHospital implements Runnable {
                     
                 case OBTENER_PACIENTES:
                     obtenerPacientes();
-                    break;  
+                    break;
+                    
+                case OBTENER_EPISODIOS_PACIENTE:
+                    obtenerEpisodiosPaciente();
+                    break;
+                       
+                case NUEVO_DIAGNOSTICO:
+                    registrarDiagnostico();
+                    break;
             }  
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
             System.out.println(ERROR_CONEXION_HOSPITAL +
@@ -396,6 +404,56 @@ public class ServidorHospital implements Runnable {
         }
         
         cerrarConexion();    
+    }
+    
+    /**
+     * Método que obtiene los episodios de un paciente.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerEpisodiosPaciente() throws IOException, SQLException {
+        salida.println(PrimitivaComunicacion.OBTENER_EPISODIOS_PACIENTE);
+        
+        String nss_pac = entrada.readLine();
+        
+        String episodiosJSON = servidorSanitarios.obtenerEpisodiosPaciente(nss_pac);
+        
+        if (episodiosJSON != null) {
+            salida.println(episodiosJSON); 
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+        }
+        
+        cerrarConexion();    
+    }
+    
+    /**
+     * Recibe el episodio modificado y el nss del paciente y lo modifica en la DB.
+     * Si no se han podido modificar, notificará con un NOK.
+     * En caso contrario, le mandará OK.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void registrarDiagnostico() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String episodioJSON = entrada.readLine();
+        String nss = entrada.readLine();
+        
+        EpisodioAtencionDTO episodio = gson.fromJson(episodioJSON, EpisodioAtencionDTO.class);
+        
+        if (servidorSanitarios.registrarDiagnostico(episodio, nss)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();  
     }
     
     /**

@@ -397,6 +397,36 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
+     * Método que devuelve los episodios de un paciente.
+     * 
+     * @param nss
+     * @return 
+     */
+    synchronized String obtenerEpisodiosPaciente(String _nss) throws SQLException {
+        return database.obtenerEpisodiosPaciente(_nss);
+    }
+    
+    /**
+     * Devuelve cierto si se ha podido registrar el nuevo diagnostico 
+     *  al episodio del paciente.
+     * 
+     * @return
+     * @throws SQLException
+     * @throws IOException 
+     */
+    synchronized boolean registrarDiagnostico(EpisodioAtencionDTO _episodio, String _nss) 
+                throws SQLException, IOException {
+        if ( ! database.modificarEpisodio(_episodio, _nss)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVO_DIAGNOSTICO, 
+                String.valueOf(_episodio.toJson()));
+        
+        return true;
+    }
+    
+    /**
      * Notifica cambio hospital al resto de sanitarios.
      * 
      * @param _primitivaComunicacion
