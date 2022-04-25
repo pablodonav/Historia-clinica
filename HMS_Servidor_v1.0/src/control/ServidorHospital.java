@@ -341,9 +341,11 @@ public class ServidorHospital implements Runnable {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String episodioAtencionJSON = entrada.readLine();
+        String nss_received = entrada.readLine();
+        System.out.println(episodioAtencionJSON);
         EpisodioAtencionDTO episodio = gson.fromJson(episodioAtencionJSON, EpisodioAtencionDTO.class);
         
-        if (servidorSanitarios.nuevoEpisodio(episodio)) {
+        if (servidorSanitarios.nuevoEpisodio(episodio, nss_received)) {
             respuesta = PrimitivaComunicacion.OK;
         }
         

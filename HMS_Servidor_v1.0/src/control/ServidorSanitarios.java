@@ -164,8 +164,9 @@ public class ServidorSanitarios extends Thread {
     }
      
     /**
-     *  Genera nuevo identificador de conexión push hospital.
+     * Genera nuevo identificador de conexión push hospital.
      * 
+     * @return 
      */
     synchronized String generarIdConexionPushHospital() { 
         return String.valueOf(++numConexion); 
@@ -174,6 +175,7 @@ public class ServidorSanitarios extends Thread {
     /**
      * Devuelve el numero de conexión.
      * 
+     * @return 
      */
     synchronized String obtenerIdConexion() { 
         return String.valueOf(numConexion);
@@ -344,18 +346,24 @@ public class ServidorSanitarios extends Thread {
     /**
      * Método que crea un nuevo episodio de un paciente en el sistema.
      * 
-     * @param episodio
+     * @param _episodio
+     * @param _nss
      * @return
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws IOException, SQLException {
-        if( ! database.nuevoEpisodio(episodio)) {
+    synchronized boolean nuevoEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws IOException, SQLException {
+        int cuenta = database.obtenerIndiceNuevoEpisodio();
+        _episodio.setId(cuenta);
+        
+        if( ! database.nuevoEpisodio(_episodio, _nss)) {
             return false;
         }
         
+        System.out.println(_episodio.toJson());
+        
         notificarSanitariosPush(PrimitivaComunicacion.NUEVO_EPISODIO, 
-                String.valueOf(episodio));
+                String.valueOf(_episodio.toJson()));
         
         return true;
     }
@@ -363,18 +371,18 @@ public class ServidorSanitarios extends Thread {
     /**
      * Método que crea una nueva cita en el sistema.
      * 
-     * @param cita
+     * @param _cita
      * @return
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean nuevaCita(CitaDTO cita) throws IOException, SQLException {
-        if( ! database.nuevaCita(cita)) {
+    synchronized boolean nuevaCita(CitaDTO _cita) throws IOException, SQLException {
+        if( ! database.nuevaCita(_cita)) {
             return false;
         }
         
         notificarSanitariosPush(PrimitivaComunicacion.NUEVA_CITA, 
-                String.valueOf(cita));
+                String.valueOf(_cita));
         
         return true;
     }
@@ -389,9 +397,12 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Notifica cambio hospital al resto de sanitarios.
+     * Notifica cambio hospital al resto de sanitarios.
      * 
-     */ 
+     * @param _primitivaComunicacion
+     * @param _parametros
+     * @throws IOException 
+     */
     private void notificarSanitariosPush(
             PrimitivaComunicacion _primitivaComunicacion, 
             String _parametros)
@@ -406,8 +417,9 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     * @param args the command line arguments
-     * @throws java.sql.SQLException
+     * 
+     * @param args
+     * @throws SQLException 
      */
     public static void main(String[] args) throws SQLException {
         ServidorSanitarios servidorSanitarios = new ServidorSanitarios();

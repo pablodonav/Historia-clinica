@@ -6,7 +6,7 @@
 package modelo.clasesDTOs;
 
 import com.google.gson.Gson;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Clase que contiene los atributos y getter-setter de un episodio de atención.
@@ -17,7 +17,6 @@ public class EpisodioAtencionDTO {
     private Date fecha;
     private String motivo;
     private String diagnostico;
-    private String nss_pac;
     
     /**
      * Crea un Episodio de Atención.
@@ -25,15 +24,13 @@ public class EpisodioAtencionDTO {
      * @param id
      * @param fecha
      * @param motivo
-     * @param diagnostico
-     * @param nss_pac 
+     * @param diagnostico 
      */
-    public EpisodioAtencionDTO(int id, Date fecha, String motivo, String diagnostico, String nss_pac) {
+    public EpisodioAtencionDTO(int id, Date fecha, String motivo, String diagnostico) {
         this.id = id;
         this.fecha = fecha;
         this.motivo = motivo;
         this.diagnostico = diagnostico;
-        this.nss_pac = nss_pac;
     }
 
     /**
@@ -45,6 +42,15 @@ public class EpisodioAtencionDTO {
         return id;
     }
 
+    /**
+     * Modifica el identificador del episodio.
+     * 
+     * @param _id 
+     */
+    public void setId(int _id) {
+        this.id = _id;
+    }
+    
     /**
      * Obtiene la fecha del episodio.
      * 
@@ -71,16 +77,6 @@ public class EpisodioAtencionDTO {
     public String getDiagnostico() {
         return diagnostico;
     }
-
-    /**
-     * Obtiene el num. de la seguridad social
-     * del paciente asociado al episodio.
-     * 
-     * @return 
-     */
-    public String getNss_pac() {
-        return nss_pac;
-    }
     
     /**
      * Obtiene el toString del episodio.
@@ -90,8 +86,7 @@ public class EpisodioAtencionDTO {
     @Override
     public String toString() {
         return "EpisodioAtencionDTO{" + "id=" + id + ", fecha=" + fecha 
-                + ", motivo=" + motivo + ", diagnostico=" + diagnostico 
-                + ", nss_pac=" + nss_pac + '}';
+                + ", motivo=" + motivo + ", diagnostico=" + diagnostico + '}';
     }
     
     /**
@@ -101,6 +96,7 @@ public class EpisodioAtencionDTO {
      */
     public String toJson(){
         Gson gson = new Gson();
+        
         return gson.toJson(this);
     }
 }

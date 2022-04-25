@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
@@ -25,12 +26,14 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     private PreparedStatement stmt_upd;
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getEp;
+    private PreparedStatement stmt_getCount;
 
-    private static final String INSERT = "INSERT INTO EPISODIO_DE_ATENCION(fecha, motivo, diagnostico, nss_pac) VALUES(?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO EPISODIO_DE_ATENCION(id, fecha, motivo, diagnostico, nss_pac) VALUES(?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM EPISODIO_DE_ATENCION WHERE id=? AND nss_pac=?";
     private static final String UPDATE = "UPDATE EPISODIO_DE_ATENCION SET fecha=?, motivo=?, diagnostico=? WHERE id=? AND nss_pac=?";
     private static final String GET_EPISODIO = "SELECT * FROM EPISODIO_DE_ATENCION WHERE nss_pac=? AND id=?";
     private static final String GET_ALL = "SELECT * FROM EPISODIO_DE_ATENCION";
+    private static final String GET_COUNT = "SELECT COUNT(*) FROM EPISODIO_DE_ATENCION";
     
     private Connection connection;
 
@@ -48,23 +51,51 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
         this.stmt_del = _conn.prepareStatement(DELETE);
         this.stmt_getAll = _conn.prepareStatement(GET_ALL);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
+        this.stmt_getCount = _conn.prepareStatement (GET_COUNT);
     }
 
     /**
      * Añade un nuevo episodio a la DB.
      * 
      * @param _episodio
+     * @param _nss
      * @return
      * @throws SQLException 
      */
     @Override
-    public boolean addEpisodio(EpisodioAtencionDTO _episodio) throws SQLException {
-        stmt_add.setDate(1, _episodio.getFecha());
-        stmt_add.setString(2, _episodio.getMotivo());
-        stmt_add.setString(3, _episodio.getDiagnostico());
-        stmt_add.setString(4, _episodio.getNss_pac());
+    public boolean addEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
+        int cuenta = 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(_episodio.getFecha());
+       
+        stmt_add.setInt(1, _episodio.getId());
+        stmt_add.setDate(2, java.sql.Date.valueOf(formattedDate));
+        stmt_add.setString(3, _episodio.getMotivo());
+        stmt_add.setString(4, _episodio.getDiagnostico());
+        stmt_add.setString(5, _nss);
         
         return stmt_add.executeUpdate() > 0;
+    }
+    
+    /**
+     * Devuelve el el valor del indice del próximo episodio a insertar.
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    @Override
+    public int getCount() throws SQLException {
+        int cuenta = 0;
+        
+        ResultSet rs = stmt_getCount.executeQuery();
+
+        while (rs.next()) {
+            cuenta = rs.getInt("COUNT(*)");
+        }
+        
+        cuenta += 1;
+        
+        return cuenta;
     }
 
     /**
@@ -88,20 +119,24 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     }
 
     /**
-     * Modifica el episodio de un paciente. Para ello,
-     * se pasa el episodio con los campos modificados.
+     * Modifica el episodio de un paciente.Para ello,
+     *  se pasa el episodio con los campos modificados.
      * 
      * @param _episodio
+     * @param _nss
      * @return
      * @throws SQLException 
      */
     @Override
-    public boolean updateEpisodio(EpisodioAtencionDTO _episodio) throws SQLException {
-        stmt_upd.setDate(1, _episodio.getFecha());
+    public boolean updateEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(_episodio.getFecha());
+       
+        stmt_add.setDate(1, java.sql.Date.valueOf(formattedDate));
         stmt_upd.setString(2, _episodio.getMotivo());
         stmt_upd.setString(3, _episodio.getDiagnostico());
         stmt_upd.setInt(4, _episodio.getId());
-        stmt_upd.setString(5, _episodio.getNss_pac());
+        stmt_upd.setString(5, _nss);
 
         return stmt_upd.executeUpdate() > 0;
     }
@@ -129,7 +164,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
             String diagnostico = rs.getString("diagnostico");
             String nss_pac = rs.getString("nss_pac");
 
-            episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico, nss_pac);
+            episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico);
         }
         return episodio;
     }
@@ -154,7 +189,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
             String diagnostico = rs.getString("diagnostico");
             String nss_pac = rs.getString("nss_pac");
 
-            episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico, nss_pac);
+            episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico);
             episodios.add(episodio);
         }
 

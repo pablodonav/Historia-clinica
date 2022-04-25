@@ -76,6 +76,7 @@ public class DataBaseControl {
         usImpl = new UsuarioDAOImpl(conexion);
         pacImpl = new PacienteDAOImpl(conexion);
         citImpl = new CitaDAOImpl(conexion);
+        epImpl = new EpisodioAtencionDAOImpl(conexion);
     }
     
     /**
@@ -191,7 +192,6 @@ public class DataBaseControl {
      */
     public String obtenerSanitarios() throws SQLException {
         Gson gson = new Gson();
-        UsuarioDTO usuario = null;
         
         List<SanitarioDTO> sanitarios = new ArrayList<>();
         if (conexion.isClosed()) {
@@ -202,7 +202,7 @@ public class DataBaseControl {
         
         
         for (SanitarioDTO san : sanitarios) {
-            usuario = usImpl.getUsuario(san.getDni());
+            UsuarioDTO usuario = usImpl.getUsuario(san.getDni());
             san.setEmail(usuario.getEmail());
             san.setContraseña(usuario.getContraseña());
         }
@@ -214,31 +214,46 @@ public class DataBaseControl {
     /**
      * Método que crea un nuevo episodio de un paciente.
      * 
-     * @param episodio
+     * @param _episodio
+     * @param _nss
      * @return
      * @throws SQLException 
      */
-    public boolean nuevoEpisodio(EpisodioAtencionDTO episodio) throws SQLException {
+    public boolean nuevoEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return epImpl.addEpisodio(episodio);
+        return epImpl.addEpisodio(_episodio, _nss);
+    }
+    
+    /**
+     * Método que devuelve el índice que debe ocupar el nuevo episodio
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    public int obtenerIndiceNuevoEpisodio() throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return epImpl.getCount();
     }
     
     /**
      * Método que crea una nueva cita de un paciente.
      * 
-     * @param cita
+     * @param _cita
      * @return
      * @throws SQLException 
      */
-    public boolean nuevaCita(CitaDTO cita) throws SQLException {
+    public boolean nuevaCita(CitaDTO _cita) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return citImpl.addCita(cita);
+        return citImpl.addCita(_cita);
     }
     
     /**
@@ -249,7 +264,6 @@ public class DataBaseControl {
      */
     public String obtenerPacientes() throws SQLException {
         Gson gson = new Gson();
-        PacienteDTO paciente = null;
         
         List<PacienteDTO> pacientes = new ArrayList<>();
         if (conexion.isClosed()) {
