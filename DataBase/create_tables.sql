@@ -25,7 +25,7 @@ CREATE TABLE MEDICAMENTO_PACIENTE (
 	REFERENCES PACIENTE(nss)
 	ON DELETE CASCADE,
 
-	PRIMARY KEY(id, codigo_medic),
+	PRIMARY KEY(id, codigo_medic, nss_pac),
 
 	FOREIGN KEY (codigo_medic)
 	REFERENCES MEDICAMENTO(codigo)
