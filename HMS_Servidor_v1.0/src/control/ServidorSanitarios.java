@@ -1,7 +1,7 @@
 /**
  * ServidorSanitarios.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package control;
 
@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 import modelo.DataBaseControl;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
+import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
@@ -424,6 +425,52 @@ public class ServidorSanitarios extends Thread {
                 String.valueOf(_episodio.toJson()));
         
         return true;
+    }
+    
+    /**
+     * Devuelve cierto si se ha podido añadir un nuevo medicamento a la receta de
+     * un paciente.
+     * 
+     * @param _medicamento
+     * @return
+     * @throws SQLException
+     * @throws IOException 
+     */
+    synchronized boolean añadirMedicamento(MedicamentoPacienteDTO _medicamento) 
+                throws SQLException, IOException {
+        _medicamento.setId(database.obtenerIndiceNuevoMedicamento(_medicamento.getNss_pac()));
+        
+        if ( ! database.añadirMedicamentoAPaciente(_medicamento)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVO_MEDICAMENTO_PACIENTE, 
+                String.valueOf(_medicamento.toJson()));
+        
+        return true;
+    }
+    
+    /**
+     * Método que obtiene la receta electronica
+     * de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerRecetaPaciente(String _nss) throws SQLException {
+        return database.obtenerRecetaPaciente(_nss);
+    }
+    
+    /**
+     * Método que devuelve la lista de 
+     * medicamentos disponibles (dados de alta).
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerMedicamentosDisponibles() throws SQLException {
+        return database.obtenerMedicamentosDisponibles();
     }
     
     /**

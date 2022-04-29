@@ -1,9 +1,11 @@
 /**
  * MedicamentoDTO.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo.clasesDTOs;
+
+import com.google.gson.Gson;
 
 /**
  * Clase que contiene los atributos y getter-setter de un medicamento.
@@ -52,4 +54,14 @@ public class MedicamentoDTO {
         String s = codigo + " " + nombre + "\n";
         return s;
     }
+    
+    /**
+     * Obtiene el JSON del medicamento
+     * 
+     * @return String
+     */
+    public String toJson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    } 
 }

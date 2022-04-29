@@ -1,7 +1,7 @@
 /**
  * PacienteDAOImpl.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo.clasesDAO;
 
@@ -92,11 +92,7 @@ public class PacienteDAOImpl implements PacienteDAO {
     public boolean deletePaciente(String _nss) throws SQLException {
         stmt_del.setString(1, _nss);
 
-        if (stmt_del.executeUpdate() > 0) {
-            return true;
-        }
-
-        return false;
+        return stmt_del.executeUpdate() > 0;
     }
 
     /**

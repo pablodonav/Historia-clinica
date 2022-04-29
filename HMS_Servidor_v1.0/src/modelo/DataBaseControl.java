@@ -1,7 +1,7 @@
 /**
  * DataBaseControl.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo;
 
@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.clasesDAO.CitaDAOImpl;
 import modelo.clasesDAO.EpisodioAtencionDAOImpl;
+import modelo.clasesDAO.MedicamentoDAOImpl;
 import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
+import modelo.clasesDTOs.MedicamentoDTO;
+import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.UsuarioDTO;
 
@@ -36,6 +39,7 @@ public class DataBaseControl {
     private PacienteDAOImpl pacImpl;
     private EpisodioAtencionDAOImpl epImpl;
     private CitaDAOImpl citImpl;
+    private MedicamentoDAOImpl medImpl;
     
     /**
      * Crea la conexión con la DB.
@@ -47,7 +51,7 @@ public class DataBaseControl {
     }
     
     /**
-     * Devuelve la instancia de la clase-
+     * Devuelve la instancia de la clase
      *  -> Es singleton.
      * 
      * @return
@@ -77,6 +81,7 @@ public class DataBaseControl {
         pacImpl = new PacienteDAOImpl(conexion);
         citImpl = new CitaDAOImpl(conexion);
         epImpl = new EpisodioAtencionDAOImpl(conexion);
+        medImpl = new MedicamentoDAOImpl(conexion);
     }
     
     /**
@@ -310,5 +315,74 @@ public class DataBaseControl {
         }
         
         return epImpl.updateEpisodio(_episodio, _nss);
+    }
+    
+    /**
+     * Método que añade un medicamento a la receta de un paciente.
+     * 
+     * @param _medicamento
+     * @return
+     * @throws SQLException 
+     */
+    public boolean añadirMedicamentoAPaciente(MedicamentoPacienteDTO _medicamento) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return medImpl.addMedicineToPatient(_medicamento);
+    }
+    
+    /**
+     * Método que devuelve el índice que debe ocupar el nuevo medicamento en la receta del paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public int obtenerIndiceNuevoMedicamento(String _nss) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return medImpl.getCount(_nss);
+    }
+    
+    /**
+     * Devuelve la receta de un paciente en formate JSON.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerRecetaPaciente(String _nss) throws SQLException {
+        Gson gson = new Gson();
+        
+        List<MedicamentoPacienteDTO> receta = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        receta = medImpl.getMedicamentosPaciente(_nss);
+       
+        return gson.toJson(receta);
+    }
+    
+    /**
+     * Devuelve los medicamentos disponibles en formato JSON.
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerMedicamentosDisponibles() throws SQLException {
+        Gson gson = new Gson();
+        
+        List<MedicamentoDTO> medicamentos = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        medicamentos = medImpl.getMedicamentos();
+       
+        return gson.toJson(medicamentos);
     }
 }

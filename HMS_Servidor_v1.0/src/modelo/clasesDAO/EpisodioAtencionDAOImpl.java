@@ -1,7 +1,7 @@
 /**
  * EpisodioAtencionDAOImpl.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo.clasesDAO;
 
@@ -64,7 +64,6 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
      */
     @Override
     public boolean addEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
-        int cuenta = 0;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = simpleDateFormat.format(_episodio.getFecha());
        
@@ -111,11 +110,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
         stmt_del.setString(1, _id);
         stmt_del.setString(2, _nss);
 
-        if (stmt_del.executeUpdate() > 0) {
-            return true;
-        }
-
-        return false;
+        return stmt_del.executeUpdate() > 0;
     }
 
     /**

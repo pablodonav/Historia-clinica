@@ -1,7 +1,7 @@
 /**
  * CitaDAOImpl.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo.clasesDAO;
 
@@ -90,11 +90,7 @@ public class CitaDAOImpl implements CitaDAO {
     public boolean deleteCita(String _codigo) throws SQLException {
         stmt_del.setString(1, _codigo);
 
-        if (stmt_del.executeUpdate() > 0) {
-            return true;
-        }
-
-        return false;
+        return (stmt_del.executeUpdate() > 0);
     }
 
     /**
@@ -147,6 +143,7 @@ public class CitaDAOImpl implements CitaDAO {
 
             cita = new CitaDTO(codigo, descripcion, sala, centro, localidad, hora, fecha, nss_pac, dni_sanit);
         }
+        
         return cita;
     }
 
@@ -191,8 +188,6 @@ public class CitaDAOImpl implements CitaDAO {
      */
     @Override
     public List<CitaDTO> getCitasPaciente(String _nss) throws SQLException {
-        CitaDTO cita = null;
-
         stmt_getAllPac.setString(1, _nss);
         ResultSet rs = stmt_getAllPac.executeQuery();
         List<CitaDTO> citas = new ArrayList<CitaDTO>();
@@ -208,7 +203,7 @@ public class CitaDAOImpl implements CitaDAO {
             String nss_pac = rs.getString("nss_pac");
             String dni_sanit = rs.getString("dni_sanit");
 
-            cita = new CitaDTO(codigo, descripcion, sala, centro, localidad, hora, fecha, nss_pac, dni_sanit);
+            CitaDTO cita = new CitaDTO(codigo, descripcion, sala, centro, localidad, hora, fecha, nss_pac, dni_sanit);
             citas.add(cita);
         }
 

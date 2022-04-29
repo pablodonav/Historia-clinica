@@ -1,7 +1,7 @@
 /**
  * ServidorHospital.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package control;
 
@@ -20,6 +20,7 @@ import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
+import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
@@ -125,7 +126,20 @@ public class ServidorHospital implements Runnable {
                 case NUEVO_DIAGNOSTICO:
                     registrarDiagnostico();
                     break;
+                    
+                case NUEVO_MEDICAMENTO_PACIENTE:
+                    nuevoMedicamentoPaciente();
+                    break;
+                    
+                case OBTENER_RECETA_PACIENTE:
+                    obtenerRecetaPaciente();
+                    break;
+                    
+                case OBTENER_MEDICAMENTOS:
+                    obtenerMedicamentosDisponibles();
+                    break;
             }  
+            
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
             System.out.println(ERROR_CONEXION_HOSPITAL +
                 ": " + e.toString());       
@@ -454,6 +468,78 @@ public class ServidorHospital implements Runnable {
         salida.println(respuesta);
         
         cerrarConexion();  
+    }
+    
+    /**
+     * Recibe el medicamento, y 
+     * añade ese medicamento a la receta
+     * del paciente asociado.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void nuevoMedicamentoPaciente() throws IOException, SQLException {
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String medicamentoPacienteJSON = entrada.readLine();
+        
+        MedicamentoPacienteDTO medicamento = gson.fromJson(medicamentoPacienteJSON, MedicamentoPacienteDTO.class);
+        
+        if (servidorSanitarios.añadirMedicamento(medicamento)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();  
+    }
+    
+    /**
+     * Método que obtiene la receta de un paciente.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerRecetaPaciente() throws IOException, SQLException {
+        salida.println(PrimitivaComunicacion.OBTENER_RECETA_PACIENTE);
+        
+        String nss_pac = entrada.readLine();
+        
+        String recetaJSON = servidorSanitarios.obtenerRecetaPaciente(nss_pac);
+        
+        if (recetaJSON != null) {
+            salida.println(recetaJSON); 
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+        }
+        
+        cerrarConexion();    
+    }
+    
+    /**
+     * Método que obtiene la lista de medicamentos disponibles.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerMedicamentosDisponibles()throws IOException, SQLException {
+        salida.println(PrimitivaComunicacion.OBTENER_MEDICAMENTOS);
+        
+        String medicamentosJSON = servidorSanitarios.obtenerMedicamentosDisponibles();
+        
+        if (medicamentosJSON != null) {
+            salida.println(medicamentosJSON); 
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+        }
+        
+        cerrarConexion();    
     }
     
     /**

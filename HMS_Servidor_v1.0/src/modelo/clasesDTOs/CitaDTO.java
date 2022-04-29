@@ -1,7 +1,7 @@
 /**
  * CitaDTO.java
  * Pablo Doñate Navarro
- * v1.0 02/04/2022.
+ * v1.0 29/04/2022.
  */
 package modelo.clasesDTOs;
 
@@ -145,7 +145,10 @@ public class CitaDTO {
      */
     @Override
     public String toString() {
-        return "CitaDTO{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", sala=" + sala + ", centro=" + centro + ", localidad=" + localidad + ", hora=" + hora + ", fecha=" + fecha + ", nss_pac=" + nss_pac + ", dni_sanit=" + dni_sanit + '}';
+        return "CitaDTO{" + "codigo=" + codigo + ", descripcion=" + descripcion 
+                + ", sala=" + sala + ", centro=" + centro + ", localidad=" + localidad 
+                + ", hora=" + hora + ", fecha=" + fecha + ", nss_pac=" + nss_pac 
+                + ", dni_sanit=" + dni_sanit + '}';
     }
     
     /**
