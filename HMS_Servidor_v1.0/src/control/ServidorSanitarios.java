@@ -149,7 +149,6 @@ public class ServidorSanitarios extends Thread {
                 new ServerSocket(puertoServidor);
       
             while(true) {
-                System.out.println(ESPERANDO_SOLICITUD_SANITARIO);  
                 Socket socket = serverSocket.accept();
 
                 poolThreads.execute(

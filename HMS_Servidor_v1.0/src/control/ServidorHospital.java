@@ -34,7 +34,7 @@ public class ServidorHospital implements Runnable {
         "Closed hospital connection"; 
     private static String FORMATO_FECHA_CONEXION = 
         "kk:mm:ss EEE d MMM yy";
-    private static String SOLICITUD = "Request:";
+    private static String SOLICITUD = "Se ha recibido solicitud: ";
     
     private ServidorSanitarios servidorSanitarios;
     private Socket socket;
@@ -154,7 +154,7 @@ public class ServidorHospital implements Runnable {
             PrimitivaComunicacion _primitivaComunicacion, 
             String _identificador)throws IOException {        
         
-        System.out.println(SOLICITUD + " " + 
+        System.out.println(SOLICITUD + 
             _primitivaComunicacion.toString() + " " + 
             _identificador);
     }
@@ -209,7 +209,7 @@ public class ServidorHospital implements Runnable {
                 idConexion)) {
             salida.println(PrimitivaComunicacion.OK);
         
-            System.out.println(SOLICITUD + " " +
+            System.out.println(SOLICITUD +
                 PrimitivaComunicacion.DESCONECTAR_PUSH + " " +
                 conexionPushHospital.toString());
         } else {
@@ -228,6 +228,9 @@ public class ServidorHospital implements Runnable {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String sanitarioJSON = entrada.readLine();
+        
+        System.out.println(SOLICITUD + PrimitivaComunicacion.DAR_ALTA_SANITARIO + " - " + sanitarioJSON);
+        
         SanitarioDTO sanitario = gson.fromJson(sanitarioJSON, SanitarioDTO.class);
         
         if (servidorSanitarios.añadirSanitario(sanitario)) {
@@ -248,6 +251,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void eliminarSanitario() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.DAR_BAJA_SANITARIO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String dni = entrada.readLine();
@@ -270,6 +275,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void editarSanitario() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.EDITAR_SANITARIO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String sanitarioJSON = entrada.readLine();
@@ -293,6 +300,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerSanitarios() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_SANITARIOS);
+        
         salida.println(PrimitivaComunicacion.OBTENER_SANITARIOS);  
         
         String sanitariosJSON = servidorSanitarios.obtenerSanitarios();
@@ -314,6 +323,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void verificarUsuario() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.VERIFICAR_USUARIO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         UsuarioDTO usuarioRes;
         
@@ -339,6 +350,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void añadirPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVO_PACIENTE);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String pacienteJSON = entrada.readLine();
@@ -360,6 +373,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void nuevoEpisodio() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVO_EPISODIO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String episodioAtencionJSON = entrada.readLine();
@@ -383,6 +398,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void nuevaCita() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVA_CITA);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String citaJSON = entrada.readLine();
@@ -406,6 +423,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerPacientes() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_PACIENTES);
+        
         salida.println(PrimitivaComunicacion.OBTENER_PACIENTES);  
         
         String pacientesJSON = servidorSanitarios.obtenerPacientes();
@@ -429,6 +448,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerEpisodiosPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_EPISODIOS_PACIENTE);
+        
         salida.println(PrimitivaComunicacion.OBTENER_EPISODIOS_PACIENTE);
         
         String nss_pac = entrada.readLine();
@@ -454,6 +475,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void registrarDiagnostico() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVO_DIAGNOSTICO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String episodioJSON = entrada.readLine();
@@ -479,6 +502,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void nuevoMedicamentoPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVO_MEDICAMENTO_PACIENTE);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String medicamentoPacienteJSON = entrada.readLine();
@@ -503,6 +528,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerRecetaPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_RECETA_PACIENTE);
+        
         salida.println(PrimitivaComunicacion.OBTENER_RECETA_PACIENTE);
         
         String nss_pac = entrada.readLine();
@@ -528,6 +555,8 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerMedicamentosDisponibles()throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_MEDICAMENTOS);
+        
         salida.println(PrimitivaComunicacion.OBTENER_MEDICAMENTOS);
         
         String medicamentosJSON = servidorSanitarios.obtenerMedicamentosDisponibles();
