@@ -23,7 +23,6 @@ public class PacienteDTO {
     private double peso;
     private double altura;
     private String alergias;
-    private List<EpisodioDeAtencionDTO> episodios = new ArrayList<>();
 
     /**
      * Crea un Sanitario
@@ -192,15 +191,6 @@ public class PacienteDTO {
      */
     public void setAlergias(String _alergias) {
         this.alergias = _alergias;
-    }
-    
-    /**
-     * Añade un nuevo episodio al paciente
-     * 
-     * @param _episodio 
-     */
-    public void anyadirEpisodio(EpisodioDeAtencionDTO _episodio){
-        episodios.add(_episodio); 
     }
     
     /**

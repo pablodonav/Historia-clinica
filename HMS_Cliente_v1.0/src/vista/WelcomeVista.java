@@ -33,6 +33,9 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     
     /**
      * Crea e inicializa los componentes de WelcomeVista.
+     * 
+     * @param _oyenteVista
+     * @param _comms 
      */
     public WelcomeVista(OyenteVista _oyenteVista, Comms _comms) {
         this.comms = _comms;
@@ -142,10 +145,10 @@ public class WelcomeVista extends javax.swing.JFrame implements PropertyChangeLi
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
      */    
-    public void mensajeDialogo(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
             JOptionPane.ERROR_MESSAGE,  null);    
     } 

@@ -18,6 +18,7 @@ import static modelo.clasesProxys.Comms.conectado;
 public class ProxyEpisodio extends Comms{
     private static ProxyEpisodio instancia = null; // es singleton
     public static String PROPIEDAD_NUEVO_EPISODIO = "Nuevo Episodio";
+    public static String PROPIEDAD_NUEVO_DIAGNOSTICO = "Nuevo Diagnostico";
     
     /**
      * Devuelve la instancia de la clase ProxyEpisodio.
@@ -32,23 +33,49 @@ public class ProxyEpisodio extends Comms{
     }
     
     /**
-     * Registra a un paciente un nuevo episodio con los atributos almacenados en 
-     * el json pasado por parámetro
+     * Registra al paciente con idPaciente un nuevo episodio que posee
+     * los atributos almacenados en el json pasado por parámetro
      * 
-     * @param _jsonPaciente
+     * @param _jsonNuevoEpisodio
+     * @param idPaciente
      * @throws Exception 
      */
-    public void registrarNuevoEpisodio(String _jsonPacienteConEpisodio) throws Exception{
+    public void registrarNuevoEpisodio(String _jsonNuevoEpisodio, String idPaciente) throws Exception{
         if (! conectado){
             return;
         }
         
         List<String> resultados =  new ArrayList<>();
+        String parametros = _jsonNuevoEpisodio + "\n" + 
+            idPaciente;
         
         PrimitivaComunicacion respuesta = 
         cliente.enviarSolicitud(PrimitivaComunicacion.NUEVO_EPISODIO, 
                                 tiempoEsperaServidor,
-                                _jsonPacienteConEpisodio,
+                                parametros,
+                                resultados);
+    }
+    
+    /**
+     * Añade un diagnóstico al episodio del paciente pasados como parámetros
+     * 
+     * @param _jsonEpisodioConDiagnostico
+     * @param idPaciente
+     * @throws Exception 
+     */
+    public void anyadirDiagnostico(String _jsonEpisodioConDiagnostico, String idPaciente) throws Exception{
+        if (! conectado){
+            return;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        String parametros = _jsonEpisodioConDiagnostico + "\n" + 
+            idPaciente;
+        
+        PrimitivaComunicacion respuesta = 
+        cliente.enviarSolicitud(PrimitivaComunicacion.NUEVO_DIAGNOSTICO, 
+                                tiempoEsperaServidor,
+                                parametros,
                                 resultados);
     }
 }

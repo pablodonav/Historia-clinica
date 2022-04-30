@@ -31,7 +31,12 @@ public enum PrimitivaComunicacion {
     DAR_BAJA_SANITARIO("remove_health_worker"),
     NUEVO_PACIENTE("new_patient"),
     NUEVO_EPISODIO("new_episode"),
-    OBTENER_PACIENTES("get_patients");
+    NUEVO_DIAGNOSTICO("new_diagnosis"),
+    OBTENER_PACIENTES("get_patients"),
+    OBTENER_EPISODIOS_PACIENTE("get_patient_episodes"),
+    NUEVA_CITA("new_medical_appointment"),
+    ELIMINAR_CITA("remove_medical_appointment"),
+    OBTENER_CITAS_PACIENTE("get_medical_appointments");
     
     private String simbolo;
 

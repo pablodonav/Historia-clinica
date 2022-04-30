@@ -4,18 +4,13 @@
  * v1.0 11/04/2022.
  * 
  */
-package vista;
+package vista.vistasUsuarioSanitario;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesProxys.Comms;
-import modelo.clasesProxys.ProxyPaciente;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -25,20 +20,18 @@ import modelo.clasesProxys.ProxyPaciente;
 public class MenuSanitarioVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private Comms comms = null;
-    private ProxyPaciente pxPaciente;
     private String idConexion = null;
-    
-    /* Mensajes de Error */
-    private String ERROR_OBTENER_PACIENTES = 
-            "No se ha podido obtener la lista con pacientes.";
     
     /**
      * Crea e inicializa los componentes de MenuSanitarioVista.
+     * 
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion 
      */
     public MenuSanitarioVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.comms = _comms;
-        this.pxPaciente = ProxyPaciente.getInstance();
         this.idConexion = _idConexion;
         
         initComponents();
@@ -241,10 +234,10 @@ public class MenuSanitarioVista extends javax.swing.JFrame {
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
      */    
-    public void mensajeDialogo(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
             JOptionPane.ERROR_MESSAGE,  null);    
     }
@@ -260,44 +253,25 @@ public class MenuSanitarioVista extends javax.swing.JFrame {
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_b_SalirActionPerformed
 
+    /**
+     * Habilita la pantalla que permite añadir un nuevo paciente al sistema
+     * 
+     * @param evt 
+     */
     private void b_NuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoPacienteActionPerformed
         this.setVisible(false);
         new NuevoPacienteVista(this, oyenteVista, comms, idConexion).setVisible(true);
     }//GEN-LAST:event_b_NuevoPacienteActionPerformed
-
-    /**
-     * Obtiene la lista con los pacientes del sistema
-     * 
-     * @return List<PacienteDTO>
-     * @throws Exception 
-     */
-    private List<PacienteDTO> obtenerListaConPacientes() throws Exception{
-        Gson gson = new Gson();
-        List<PacienteDTO> pacientes = null;
-        
-        String sanitariosToReceive = pxPaciente.obtenerPacientes();
-
-        /* Permite obtener los pacientes en un List con PacienteDTO*/
-        java.lang.reflect.Type listType = new TypeToken<List<PacienteDTO>>(){}.getType(); 
-        pacientes = gson.fromJson(sanitariosToReceive, listType);
-        
-        return pacientes;
-    }
     
+    /**
+     * Habilita la pantalla que permite realizar operaciones con un paciente
+     * existente en el sistema
+     * 
+     * @param evt 
+     */
     private void b_GestionarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GestionarPacientesActionPerformed
-        try {
-            List<PacienteDTO> pacientes = obtenerListaConPacientes();
-            
-            if(pacientes != null){
-                this.setVisible(false);
-                new MenuGestionPacientesVista(this, oyenteVista, comms, idConexion, pacientes).setVisible(true); 
-            } else{
-                mensajeDialogo(ERROR_OBTENER_PACIENTES);
-                return;
-            }
-        } catch (Exception ex) {
-            mensajeDialogo(ERROR_OBTENER_PACIENTES);
-        }
+        this.setVisible(false);
+        new MenuGestionPacientesVista(this, oyenteVista, comms, idConexion).setVisible(true); 
     }//GEN-LAST:event_b_GestionarPacientesActionPerformed
 
     /**

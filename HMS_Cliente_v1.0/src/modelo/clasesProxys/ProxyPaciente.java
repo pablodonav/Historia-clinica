@@ -8,9 +8,16 @@
 package modelo.clasesProxys;
 
 import com.google.gson.Gson;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import modelo.clasesDTOs.CitaPacienteDTO;
+import modelo.clasesDTOs.EpisodioDeAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
+import modelo.clasesDTOs.Ubicacion;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
@@ -93,14 +100,129 @@ public class ProxyPaciente extends Comms{
     
         System.out.println("Enviados sanitarios: " + sanitariosToSend);
         
-        for(PacienteDTO sanitario: pacientes){
-            System.out.println(sanitario.toString());
+        for(PacienteDTO paciente: pacientes){
+            System.out.println(paciente.toString());
         }
         
         if (sanitariosToSend.isEmpty()){
             return null;
         } else {
             return sanitariosToSend;
+        }
+    }
+    
+    /**
+     * Obtiene todos los episodios de un paciente
+     * 
+     * @param _idPaciente
+     * @return String
+     * @throws Exception 
+     */
+    public String obtenerEpisodiosPaciente(String _idPaciente) throws Exception{
+        if (! conectado){
+            return null;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        
+        PrimitivaComunicacion respuesta = 
+                cliente.enviarSolicitud(PrimitivaComunicacion.OBTENER_EPISODIOS_PACIENTE, 
+                                        tiempoEsperaServidor,
+                                        _idPaciente,
+                                        resultados);
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+            return null;
+        } else {
+            return resultados.get(0);
+        }
+    }
+    
+    public String obtenerEpisodiosPacienteTest(String _idPaciente) throws Exception{
+        String respuestaJson = "";
+        Gson gson = new Gson();
+       
+        String oldstring = "2011-01-18 18:30:78.99";
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(oldstring);
+
+        List<EpisodioDeAtencionDTO> episodios = new ArrayList();
+        episodios.add(new EpisodioDeAtencionDTO(1, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(2, date, "Dolor garganta y tos", ""));
+        episodios.add(new EpisodioDeAtencionDTO(3, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(4, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(5, date, "Dolor garganta y tos", ""));
+        String episodiosToSend = gson.toJson(episodios);
+    
+        System.out.println("Enviados episodios: " + episodiosToSend);
+        
+        for(EpisodioDeAtencionDTO episodio: episodios){
+            System.out.println(episodio.toString());
+        }
+        
+        if (episodiosToSend.isEmpty()){
+            return null;
+        } else {
+            return episodiosToSend;
+        }
+    }
+    
+    /**
+     * Obtiene todas las citas de un paciente
+     * 
+     * @param _idPaciente
+     * @return String
+     * @throws Exception 
+     */
+    public String obtenerCitasPaciente(String _idPaciente) throws Exception{
+        if (! conectado){
+            return null;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        
+        PrimitivaComunicacion respuesta = 
+                cliente.enviarSolicitud(PrimitivaComunicacion.OBTENER_CITAS_PACIENTE, 
+                                        tiempoEsperaServidor,
+                                        _idPaciente,
+                                        resultados);
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+            return null;
+        } else {
+            return resultados.get(0);
+        }
+    }
+    
+    public String obtenerCitasPacienteTest(String _idPaciente) throws Exception{
+        String respuestaJson = "";
+        Gson gson = new Gson();
+       
+        String oldstring = "2011-01-18";
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring);
+        Time tiempo1 = Time.valueOf(LocalTime.of(10, 30));
+        Time tiempo2 = Time.valueOf(LocalTime.of(13, 45));
+        
+        Ubicacion ubicacion1 = new Ubicacion("Teruel", "Hospital Obisco Polanco" , "12 A");
+        Ubicacion ubicacion2 = new Ubicacion("Zaragoza", "Hospital Miguel Servet" , "103 B");
+        
+        
+        List<CitaPacienteDTO> citas = new ArrayList();
+        citas.add(new CitaPacienteDTO(1, "x1234", ubicacion1, date, tiempo1, "Prueba 1 "));
+        citas.add(new CitaPacienteDTO(2, "x1111", ubicacion2, date, tiempo2, "Prueba 2 "));
+        citas.add(new CitaPacienteDTO(3, "x2222", ubicacion2, date, tiempo2, "Prueba 3 "));
+        citas.add(new CitaPacienteDTO(4, "x3333", ubicacion1, date, tiempo1, "Prueba 4 "));
+        String citasToSend = gson.toJson(citas);
+    
+        System.out.println("Enviados episodios: " + citasToSend);
+        
+        for(CitaPacienteDTO cita: citas){
+            System.out.println(cita.toString());
+        }
+        
+        if (citasToSend.isEmpty()){
+            return null;
+        } else {
+            return citasToSend;
         }
     }
     

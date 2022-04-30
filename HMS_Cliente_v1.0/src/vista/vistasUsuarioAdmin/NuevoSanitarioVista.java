@@ -5,7 +5,7 @@
  * 
  */
 
-package vista;
+package vista.vistasUsuarioAdmin;
 
 import com.google.gson.Gson;
 import control.Hospital;
@@ -13,6 +13,8 @@ import control.OyenteVista;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.Comms;
@@ -31,10 +33,18 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
     
+    private static final String EMAIL_PATTERN = "^(.+)@(.+)\\.[a-z]{2,}$";
+    
     /* Mensajes de Error */
     public final static String ERROR_DAR_ALTA_SANITARIO = 
             "No se ha podido realizar la operación para dar de alta un sanitario.\n" + 
             "Vuelva a introducir los datos.";
+    private final String ERROR_SINTAXIS_EMAIL =  
+            "Sintaxis de correo electrónico errónea.\n" +
+            "Vuelva a introducir las credenciales.";
+    private final String ERROR_CONSTRASEÑAS_DIFERENTES =  
+            "Las contraseñas introducidas no coinciden.\n" +
+            "Vuelva a introducir las credenciales.";
     
     /* Mensajes de Éxito */
     public final static String EXITO_DAR_ALTA_SANITARIO = 
@@ -43,6 +53,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Crea e inicializa los componentes de NuevoSanitarioVista.
      * 
+     * @param _menuAdminVista
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion 
      */
     public NuevoSanitarioVista(MenuAdminVista _menuAdminVista, 
             OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
@@ -101,9 +115,12 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         asterisco_label_email = new javax.swing.JLabel();
         email_label = new javax.swing.JLabel();
         email_input_field = new javax.swing.JTextField();
-        asterisco_label_pwd = new javax.swing.JLabel();
-        pwd_label = new javax.swing.JLabel();
-        pwd_input_field = new javax.swing.JPasswordField();
+        asterisco_label_pwd1 = new javax.swing.JLabel();
+        pwd1_label = new javax.swing.JLabel();
+        pwd1_input_field = new javax.swing.JPasswordField();
+        asterisco_label_pwd2 = new javax.swing.JLabel();
+        pwd2_label = new javax.swing.JLabel();
+        pwd2_input_field = new javax.swing.JPasswordField();
         b_Cancelar = new javax.swing.JButton();
         b_Guardar = new javax.swing.JButton();
         campo_obligatorio_label = new javax.swing.JLabel();
@@ -163,7 +180,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addGroup(paner_superiorLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(nuevoSanitario_label)
-                        .addContainerGap(267, Short.MAX_VALUE))
+                        .addContainerGap(279, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paner_superiorLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(b_connected, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -283,16 +300,29 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             }
         });
 
-        asterisco_label_pwd.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_pwd.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_pwd.setText("*");
+        asterisco_label_pwd1.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_pwd1.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_pwd1.setText("*");
 
-        pwd_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        pwd_label.setText("Contraseña");
+        pwd1_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        pwd1_label.setText("Contraseña");
 
-        pwd_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+        pwd1_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                pwd_input_fieldKeyTyped(evt);
+                pwd1_input_fieldKeyTyped(evt);
+            }
+        });
+
+        asterisco_label_pwd2.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_pwd2.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_pwd2.setText("*");
+
+        pwd2_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        pwd2_label.setText("Repite Contraseña");
+
+        pwd2_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pwd2_input_fieldKeyTyped(evt);
             }
         });
 
@@ -331,24 +361,11 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(asterisco_label_dni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(asterisco_label_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(asterisco_label_email))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(email_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(asterisco_label_pwd)
-                        .addGap(6, 6, 6)
-                        .addComponent(pwd_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pwd_input_field)
-                        .addGap(249, 249, 249))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(asterisco_label_dni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(asterisco_label_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addComponent(dni_label)
@@ -378,25 +395,44 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
                                 .addComponent(apellido2_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(247, 247, 247))
+                                .addGap(254, 254, 254))
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(asterisco_label_puesto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(puesto_label)
                                 .addGap(18, 18, 18)
-                                .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(241, 241, 241))
+                                .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(asterisco_label_email)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(email_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(asterisco_label_pwd1)
+                                .addGap(6, 6, 6)
+                                .addComponent(pwd1_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(pwd1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(asterisco_label_pwd2)
+                                .addGap(6, 6, 6)
+                                .addComponent(pwd2_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pwd2_input_field))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(253, 253, 253))))
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
@@ -433,28 +469,33 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
                     .addComponent(asterisco_label_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_tlfn, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asterisco_label_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pwd2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(pwd1_label)
+                        .addComponent(pwd1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(asterisco_label_pwd1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pwd2_label)
+                        .addComponent(asterisco_label_pwd2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pwd_label)
                     .addComponent(email_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pwd_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(email_label)
                     .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asterisco_label_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(campo_obligatorio_label)
-                .addGap(12, 12, 12)
+                    .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(b_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 710, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,12 +527,13 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
+     * @param _messageType
      */    
-    public void mensajeDialogo(String mensaje, int messageType) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje, int _messageType) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
-            messageType,  null);    
+            _messageType,  null);    
     } 
     
     /**
@@ -505,28 +547,55 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     }//GEN-LAST:event_b_CancelarActionPerformed
    
     /**
+     * Verifica que la sintaxis del email es correcta.
+     * 
+     * @param email
+     * @param pwd
+     * @return boolean
+     */
+    private boolean sintaxisCorreoCorrecta(String email){
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    
+    /**
      * Captura la información de los campos rellenados por el usuario y
      * crea el json del sanitario nuevo con dicha información
      * 
      * @return String
+     * @throws Exception
      */
-    private String crearJsonSanitarioNuevo(){
+    private String crearJsonSanitarioNuevo() throws Exception{
+        String sanitarioJson = null;
+        
         String nombre = nombre_input_field.getText();
         String apellido1 = apellido1_input_field.getText();
         String apellido2 = apellido2_input_field.getText();
         String dni = dni_input_field.getText();
         String telefono = telefono_input_field.getText();
         String email = email_input_field.getText();
-        String pwd = String.valueOf(pwd_input_field.getPassword());
+        String pwd1 = String.valueOf(pwd1_input_field.getPassword());
+        String pwd2 = String.valueOf(pwd2_input_field.getPassword());
         String puestoTrabajo = String.valueOf(puesto_comboBox.getSelectedItem());
         
-        /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
-        String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
-                
-        SanitarioDTO sanitario = new SanitarioDTO(nombre, apellido1, apellido2, 
-            dni, Integer.parseInt(telefono), email, encriptMD5_pwd, puestoTrabajo);
+        if (sintaxisCorreoCorrecta(email)){
         
-        return sanitario.toJson();
+            if (pwd1.equals(pwd2)){
+                /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
+                String encriptMD5_pwd = DigestUtils.md5Hex(pwd2);
+
+                SanitarioDTO sanitario = new SanitarioDTO(nombre, apellido1, apellido2, 
+                   dni, Integer.parseInt(telefono), email, encriptMD5_pwd, puestoTrabajo);
+
+                sanitarioJson = sanitario.toJson();   
+            } else{
+                throw new Exception(ERROR_CONSTRASEÑAS_DIFERENTES);
+            }
+        } else{     
+            throw new Exception(ERROR_SINTAXIS_EMAIL);
+        }
+        return sanitarioJson;
     }
     
     /**
@@ -535,13 +604,16 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
      * @param evt 
      */
     private void b_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarActionPerformed
-        String sanitarioJsonToSend = crearJsonSanitarioNuevo();
-        
-        if (sanitarioJsonToSend != null){
-            oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
-        } else{
-            mensajeDialogo(ERROR_DAR_ALTA_SANITARIO, JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            String sanitarioJsonToSend = crearJsonSanitarioNuevo();
+            
+            if (sanitarioJsonToSend != null){
+                oyenteVista.eventoProducido(OyenteVista.Evento.DAR_ALTA_SANITARIO, sanitarioJsonToSend);
+            } else{
+                throw new Exception(ERROR_DAR_ALTA_SANITARIO);
+            }
+        } catch (Exception ex) {
+            mensajeDialogo(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_b_GuardarActionPerformed
 
@@ -550,6 +622,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
      * envía el evento a la capa control para realizar las acciones
      * de finalización necesarias para la appCliente.
      * 
+     * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
@@ -567,7 +640,8 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
             telefono_input_field.getText().isBlank() ||
             puesto_comboBox.getSelectedItem() == null ||
             email_input_field.getText().isBlank() ||
-            String.valueOf(pwd_input_field.getPassword()).isBlank()){
+            String.valueOf(pwd1_input_field.getPassword()).isBlank() || 
+            String.valueOf(pwd2_input_field.getPassword()).isBlank()){
   
             b_Guardar.setEnabled(false);
         }
@@ -579,6 +653,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "nombre".
      * 
+     * @param evt
      */
     private void nombre_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_input_fieldKeyTyped
         changed();
@@ -587,6 +662,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "apellido1".
      * 
+     * @param evt
      */
     private void apellido1_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido1_input_fieldKeyTyped
         changed();
@@ -595,6 +671,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "apellido2".
      * 
+     * @param evt
      */
     private void apellido2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido2_input_fieldKeyTyped
         changed();
@@ -603,6 +680,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "dni".
      * 
+     * @param evt
      */
     private void dni_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dni_input_fieldKeyTyped
         changed();
@@ -611,6 +689,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "telefono".
      * 
+     * @param evt
      */
     private void telefono_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono_input_fieldKeyTyped
         changed();
@@ -619,6 +698,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "puesto".
      * 
+     * @param evt
      */
     private void puesto_comboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_puesto_comboBoxPopupMenuWillBecomeVisible
         changed();
@@ -627,6 +707,7 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "correo".
      * 
+     * @param evt
      */
     private void email_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_email_input_fieldKeyTyped
         changed();
@@ -635,10 +716,20 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     /**
      * Captura los eventos relacionados con la modificación del campo "contraseña".
      * 
+     * @param evt
      */
-    private void pwd_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd_input_fieldKeyTyped
+    private void pwd1_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd1_input_fieldKeyTyped
         changed();
-    }//GEN-LAST:event_pwd_input_fieldKeyTyped
+    }//GEN-LAST:event_pwd1_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "Repite contraseña".
+     * 
+     * @param evt
+     */
+    private void pwd2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd2_input_fieldKeyTyped
+        changed();
+    }//GEN-LAST:event_pwd2_input_fieldKeyTyped
     
     /**
      * Recibe evento dar alta sanitario
@@ -683,7 +774,8 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JLabel asterisco_label_nombre;
     private javax.swing.JLabel asterisco_label_prim_apellido;
     private javax.swing.JLabel asterisco_label_puesto;
-    private javax.swing.JLabel asterisco_label_pwd;
+    private javax.swing.JLabel asterisco_label_pwd1;
+    private javax.swing.JLabel asterisco_label_pwd2;
     private javax.swing.JLabel asterisco_label_segun_apellido;
     private javax.swing.JLabel asterisco_label_tlfn;
     private javax.swing.JButton b_Cancelar;
@@ -705,8 +797,10 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
     private javax.swing.JPanel paner_superior;
     private javax.swing.JComboBox<String> puesto_comboBox;
     private javax.swing.JLabel puesto_label;
-    private javax.swing.JPasswordField pwd_input_field;
-    private javax.swing.JLabel pwd_label;
+    private javax.swing.JPasswordField pwd1_input_field;
+    private javax.swing.JLabel pwd1_label;
+    private javax.swing.JPasswordField pwd2_input_field;
+    private javax.swing.JLabel pwd2_label;
     private javax.swing.JTextField telefono_input_field;
     private javax.swing.JLabel telefono_label;
     // End of variables declaration//GEN-END:variables

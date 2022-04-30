@@ -11,7 +11,9 @@ package control;
  * 
  */
 public interface OyenteVista {
-    public enum Evento {DAR_ALTA_SANITARIO, DAR_BAJA_SANITARIO, EDITAR_SANITARIO, NUEVO_PACIENTE, NUEVO_EPISODIO, SALIR }
+    public enum Evento {DAR_ALTA_SANITARIO, DAR_BAJA_SANITARIO, EDITAR_SANITARIO, 
+        NUEVO_PACIENTE, NUEVO_EPISODIO, NUEVO_DIAGNOSTICO, NUEVA_CITA, 
+        ELIMINAR_CITA, SALIR }
   
     /**
      *  Llamado para notificar un evento de la interfaz de usuario.

@@ -18,6 +18,8 @@ import modelo.clasesDTOs.UsuarioDTO;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxyUsuario;
 import org.apache.commons.codec.digest.DigestUtils;
+import vista.vistasUsuarioAdmin.MenuAdminVista;
+import vista.vistasUsuarioSanitario.MenuSanitarioVista;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -40,14 +42,16 @@ public class LoginVista extends javax.swing.JFrame{
     private String ERROR_SINTAXIS_EMAIL =  
             "Sintaxis de correo electrónico errónea.\n" +
             "Vuelva a introducir las credenciales.";
-    private String ERROR_CONSTRASEÑAS_DIFERENTES =  
-            "Las contraseñas introducidas no coinciden.\n" +
-            "Vuelva a introducir las credenciales.";
     private String ERROR_VERIFICACIÓN_USUARIO = 
-        "El usuario no existe en el sistema.\n";
+        "El usuario introducido no existe en el sistema.\n" + 
+        "Vuelva a introducir las credenciales.";
     
     /**
      * Crea e inicializa los componentes de LoginVista.
+     * 
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion 
      */
     public LoginVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.pxUsuario = ProxyUsuario.getInstance();
@@ -83,22 +87,18 @@ public class LoginVista extends javax.swing.JFrame{
         management_label = new javax.swing.JLabel();
         system_label = new javax.swing.JLabel();
         email_label = new javax.swing.JLabel();
+        asterisco_label_email = new javax.swing.JLabel();
         dni_input_field = new javax.swing.JTextField();
         b_Login = new javax.swing.JButton();
-        asterisco_label_email = new javax.swing.JLabel();
         campo_obligatorio_label = new javax.swing.JLabel();
         b_connecter = new javax.swing.JButton();
         dni_label = new javax.swing.JLabel();
         asterisco_label_dni = new javax.swing.JLabel();
         correo_input_field = new javax.swing.JTextField();
-        pwd1_label = new javax.swing.JLabel();
-        asterisco_label_pwd1 = new javax.swing.JLabel();
-        pwd1_input_field = new javax.swing.JPasswordField();
-        pwd2_label = new javax.swing.JLabel();
-        asterisco_label_pwd2 = new javax.swing.JLabel();
-        pwd2_input_field = new javax.swing.JPasswordField();
-        b_show_pwd1 = new javax.swing.JToggleButton();
-        b_show_pwd2 = new javax.swing.JToggleButton();
+        pwd_label = new javax.swing.JLabel();
+        asterisco_label_pwd = new javax.swing.JLabel();
+        pwd_input_field = new javax.swing.JPasswordField();
+        b_show_pwd = new javax.swing.JToggleButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -187,6 +187,10 @@ public class LoginVista extends javax.swing.JFrame{
         email_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         email_label.setText("Email");
 
+        asterisco_label_email.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_email.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_email.setText("*");
+
         dni_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 dni_input_fieldKeyTyped(evt);
@@ -205,10 +209,6 @@ public class LoginVista extends javax.swing.JFrame{
                 b_LoginActionPerformed(evt);
             }
         });
-
-        asterisco_label_email.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_email.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_email.setText("*");
 
         campo_obligatorio_label.setFont(new java.awt.Font("Berlin Sans FB", 2, 13)); // NOI18N
         campo_obligatorio_label.setForeground(new java.awt.Color(255, 51, 0));
@@ -234,52 +234,27 @@ public class LoginVista extends javax.swing.JFrame{
             }
         });
 
-        pwd1_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        pwd1_label.setText("Contraseña");
+        pwd_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        pwd_label.setText("Contraseña");
 
-        asterisco_label_pwd1.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_pwd1.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_pwd1.setText("*");
+        asterisco_label_pwd.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_pwd.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_pwd.setText("*");
 
-        pwd1_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
+        pwd_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                pwd1_input_fieldKeyTyped(evt);
+                pwd_input_fieldKeyTyped(evt);
             }
         });
 
-        pwd2_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        pwd2_label.setText("Repita Contraseña");
-
-        asterisco_label_pwd2.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_pwd2.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_pwd2.setText("*");
-
-        pwd2_input_field.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pwd2_input_fieldKeyTyped(evt);
-            }
-        });
-
-        b_show_pwd1.setForeground(new java.awt.Color(255, 255, 255));
-        b_show_pwd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/eye_icon.png"))); // NOI18N
-        b_show_pwd1.setBorderPainted(false);
-        b_show_pwd1.setContentAreaFilled(false);
-        b_show_pwd1.setFocusable(false);
-        b_show_pwd1.setOpaque(false);
-        b_show_pwd1.addActionListener(new java.awt.event.ActionListener() {
+        b_show_pwd.setForeground(new java.awt.Color(255, 255, 255));
+        b_show_pwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/eye_icon.png"))); // NOI18N
+        b_show_pwd.setBorderPainted(false);
+        b_show_pwd.setContentAreaFilled(false);
+        b_show_pwd.setFocusable(false);
+        b_show_pwd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_show_pwd1ActionPerformed(evt);
-            }
-        });
-
-        b_show_pwd2.setForeground(new java.awt.Color(255, 255, 255));
-        b_show_pwd2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/eye_icon.png"))); // NOI18N
-        b_show_pwd2.setBorderPainted(false);
-        b_show_pwd2.setContentAreaFilled(false);
-        b_show_pwd2.setFocusable(false);
-        b_show_pwd2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_show_pwd2ActionPerformed(evt);
+                b_show_pwdActionPerformed(evt);
             }
         });
 
@@ -289,58 +264,42 @@ public class LoginVista extends javax.swing.JFrame{
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(panel_izqd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(b_connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                .addComponent(dni_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(correo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(pwd1_input_field)
-                                            .addComponent(pwd2_input_field)
-                                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(panel_principalLayout.createSequentialGroup()
-                                                        .addComponent(pwd1_label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(asterisco_label_pwd1))
-                                                    .addGroup(panel_principalLayout.createSequentialGroup()
-                                                        .addComponent(dni_label)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(asterisco_label_dni))
-                                                    .addGroup(panel_principalLayout.createSequentialGroup()
-                                                        .addComponent(pwd2_label)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(asterisco_label_pwd2)))
-                                                .addGap(0, 0, Short.MAX_VALUE)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(b_show_pwd1)
-                                    .addComponent(b_show_pwd2))
-                                .addGap(0, 4, Short.MAX_VALUE))
-                            .addGroup(panel_principalLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(campo_obligatorio_label)
-                                    .addComponent(b_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                        .addComponent(pwd_label, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(asterisco_label_pwd))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                        .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(asterisco_label_email))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                        .addComponent(dni_label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(asterisco_label_dni))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(dni_input_field, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                            .addComponent(correo_input_field, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(pwd_input_field, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(b_show_pwd)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addGap(0, 156, Short.MAX_VALUE)
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(b_connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addComponent(campo_obligatorio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(b_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         panel_principalLayout.setVerticalGroup(
@@ -348,42 +307,40 @@ public class LoginVista extends javax.swing.JFrame{
             .addComponent(panel_izqd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(b_connecter)
-                .addGap(9, 9, 9)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(asterisco_label_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dni_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dni_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(email_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(correo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pwd1_label)
-                    .addComponent(asterisco_label_pwd1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pwd1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_show_pwd1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(asterisco_label_pwd2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pwd2_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(pwd2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(campo_obligatorio_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(b_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                        .addComponent(dni_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dni_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(email_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(correo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addComponent(pwd_label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(pwd_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(b_show_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                        .addComponent(campo_obligatorio_label)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(b_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())
+                                    .addGroup(panel_principalLayout.createSequentialGroup()
+                                        .addComponent(asterisco_label_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addComponent(asterisco_label_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(b_show_pwd2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(asterisco_label_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -422,10 +379,10 @@ public class LoginVista extends javax.swing.JFrame{
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
      */    
-    public void mensajeDialogo(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
             JOptionPane.ERROR_MESSAGE,  null);    
     } 
@@ -447,25 +404,22 @@ public class LoginVista extends javax.swing.JFrame{
      * Lee los datos del formulario y crea el json del usuario a verificar
      * 
      * @return String
+     * @throws Exception
      */
     private String crearJsonUsuarioAVerificar() throws Exception{
         String usuarioJson = null;
         
         String dni = dni_input_field.getText();
         String email = correo_input_field.getText();
-        String pwd1 = String.valueOf(pwd1_input_field.getPassword());
-        String pwd2 = String.valueOf(pwd2_input_field.getPassword());
+        String pwd = String.valueOf(pwd_input_field.getPassword());
         
         if (sintaxisCorreoCorrecta(email)){
-            if(pwd1.equals(pwd2)){
-                /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
-                String encriptMD5_pwd = DigestUtils.md5Hex(pwd2);
+            /* Se encripta la contraseña introducida por el usuario con algoritmo md5 */
+            String encriptMD5_pwd = DigestUtils.md5Hex(pwd);
 
-                UsuarioDTO usuario = new UsuarioDTO(dni, email, encriptMD5_pwd);
-                usuarioJson = usuario.toJson(); 
-            } else{
-                throw new Exception(ERROR_CONSTRASEÑAS_DIFERENTES);
-            }
+            UsuarioDTO usuario = new UsuarioDTO(dni, email, encriptMD5_pwd);
+            usuarioJson = usuario.toJson(); 
+            
         } else{     
             throw new Exception(ERROR_SINTAXIS_EMAIL);
         }
@@ -484,7 +438,7 @@ public class LoginVista extends javax.swing.JFrame{
             String usuarioJsonSended = crearJsonUsuarioAVerificar();
             
             if (usuarioJsonSended != null){
-                String usuarioJsonReceived = pxUsuario.verificarUsuario(usuarioJsonSended); 
+                String usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
 
                 if(usuarioJsonReceived != null){
                     UsuarioDTO usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
@@ -513,8 +467,7 @@ public class LoginVista extends javax.swing.JFrame{
     private void changed(){
         if (dni_input_field.getText().isBlank() || 
             correo_input_field.getText().isBlank() || 
-            String.valueOf(pwd1_input_field.getPassword()).isBlank() ||
-            String.valueOf(pwd2_input_field.getPassword()).isBlank()){
+            String.valueOf(pwd_input_field.getPassword()).isBlank()){
             
             b_Login.setEnabled(false);
         }
@@ -526,6 +479,7 @@ public class LoginVista extends javax.swing.JFrame{
     /**
      * Captura los eventos relacionados con la modificación del campo "dni".
      * 
+     * @param evt 
      */
     private void dni_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dni_input_fieldKeyTyped
         changed();
@@ -534,16 +488,18 @@ public class LoginVista extends javax.swing.JFrame{
     /**
      * Captura los eventos relacionados con la modificación del campo "pwd1".
      * 
+     * @param evt 
      */
-    private void pwd1_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd1_input_fieldKeyTyped
+    private void pwd_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd_input_fieldKeyTyped
         changed();
-    }//GEN-LAST:event_pwd1_input_fieldKeyTyped
+    }//GEN-LAST:event_pwd_input_fieldKeyTyped
     
     /**
      * Captura el evento relacionado con el cierre de la ventana y 
      * envía el evento a la capa control para realizar las acciones
      * de finalización necesarias para la appCliente.
      * 
+     * @param evt 
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
@@ -552,44 +508,34 @@ public class LoginVista extends javax.swing.JFrame{
     /**
      * Captura los eventos relacionados con la modificación del campo "correo".
      * 
+     * @param evt 
      */
     private void correo_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correo_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_correo_input_fieldKeyTyped
 
-    private void pwd2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd2_input_fieldKeyTyped
-        changed();
-    }//GEN-LAST:event_pwd2_input_fieldKeyTyped
-
-    private void b_show_pwd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_show_pwd1ActionPerformed
-        if (b_show_pwd1.isSelected()){
-            b_show_pwd1.setContentAreaFilled(true);
-            pwd1_input_field.setEchoChar((char)0);
+    /**
+     * Muestra u oculta la contraseña introducida 
+     * 
+     * @param evt 
+     */
+    private void b_show_pwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_show_pwdActionPerformed
+        if (b_show_pwd.isSelected()){
+            b_show_pwd.setContentAreaFilled(true);
+            pwd_input_field.setEchoChar((char)0);
         } else{
-            b_show_pwd1.setContentAreaFilled(false);
-            pwd1_input_field.setEchoChar('*');
+            b_show_pwd.setContentAreaFilled(false);
+            pwd_input_field.setEchoChar('*');
         }
-    }//GEN-LAST:event_b_show_pwd1ActionPerformed
-
-    private void b_show_pwd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_show_pwd2ActionPerformed
-        if (b_show_pwd2.isSelected()){
-            b_show_pwd2.setContentAreaFilled(true);
-            pwd2_input_field.setEchoChar((char)0);
-        } else{
-            b_show_pwd2.setContentAreaFilled(false);
-            pwd2_input_field.setEchoChar('*');
-        }
-    }//GEN-LAST:event_b_show_pwd2ActionPerformed
+    }//GEN-LAST:event_b_show_pwdActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel asterisco_label_dni;
     private javax.swing.JLabel asterisco_label_email;
-    private javax.swing.JLabel asterisco_label_pwd1;
-    private javax.swing.JLabel asterisco_label_pwd2;
+    private javax.swing.JLabel asterisco_label_pwd;
     private javax.swing.JButton b_Login;
     private javax.swing.JButton b_connecter;
-    private javax.swing.JToggleButton b_show_pwd1;
-    private javax.swing.JToggleButton b_show_pwd2;
+    private javax.swing.JToggleButton b_show_pwd;
     private javax.swing.JLabel campo_obligatorio_label;
     private javax.swing.JTextField correo_input_field;
     private javax.swing.JTextField dni_input_field;
@@ -604,10 +550,8 @@ public class LoginVista extends javax.swing.JFrame{
     private javax.swing.JLabel management_label;
     private javax.swing.JPanel panel_izqd;
     private javax.swing.JPanel panel_principal;
-    private javax.swing.JPasswordField pwd1_input_field;
-    private javax.swing.JLabel pwd1_label;
-    private javax.swing.JPasswordField pwd2_input_field;
-    private javax.swing.JLabel pwd2_label;
+    private javax.swing.JPasswordField pwd_input_field;
+    private javax.swing.JLabel pwd_label;
     private javax.swing.JLabel system_label;
     // End of variables declaration//GEN-END:variables
 }

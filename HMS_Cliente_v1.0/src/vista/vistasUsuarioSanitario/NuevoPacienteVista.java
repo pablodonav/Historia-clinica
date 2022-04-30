@@ -4,7 +4,7 @@
  * v1.0 19/04/2022.
  * 
  */
-package vista;
+package vista.vistasUsuarioSanitario;
 
 import com.google.gson.Gson;
 import control.Hospital;
@@ -41,6 +41,10 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
     /**
      * Crea e inicializa los componentes de NuevoPacienteVista.
      * 
+     * @param _menuSanitarioVista
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion 
      */
     public NuevoPacienteVista(MenuSanitarioVista _menuSanitarioVista, 
             OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
@@ -452,12 +456,13 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
+     * @param _messageType
      */    
-    public void mensajeDialogo(String mensaje, int messageType) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje, int _messageType) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
-            messageType,  null);    
+            _messageType,  null);    
     } 
     
     /**
@@ -501,11 +506,9 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         String pacienteJsonToSend = crearJsonPacienteNuevo();
 
         if (pacienteJsonToSend != null){
-            System.out.println("Paciente json a enviar:" + pacienteJsonToSend);
             oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_PACIENTE, pacienteJsonToSend);
         } else{
             mensajeDialogo(ERROR_NUEVO_PACIENTE, JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }//GEN-LAST:event_b_GuardarActionPerformed
 
@@ -540,34 +543,74 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         }
     }
     
+    /**
+     * Captura los eventos relacionados con la modificación del campo "nombre".
+     * 
+     * @param evt
+     */
     private void nombre_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_nombre_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "apellido1".
+     * 
+     * @param evt
+     */
     private void apellido1_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido1_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_apellido1_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "apellido2".
+     * 
+     * @param evt
+     */
     private void apellido2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellido2_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_apellido2_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "edad".
+     * 
+     * @param evt
+     */
     private void edad_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edad_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_edad_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "peso".
+     * 
+     * @param evt
+     */
     private void peso_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_peso_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_peso_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "altura".
+     * 
+     * @param evt
+     */
     private void altura_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_altura_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_altura_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "nss".
+     * 
+     * @param evt
+     */
     private void nss_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nss_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_nss_input_fieldKeyTyped
 
+    /**
+     * Captura los eventos relacionados con la modificación del campo "alergias".
+     * 
+     * @param evt
+     */
     private void alergias_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alergias_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_alergias_input_fieldKeyTyped

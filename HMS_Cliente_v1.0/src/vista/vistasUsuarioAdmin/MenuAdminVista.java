@@ -4,18 +4,13 @@
  * v1.0 26/03/2022.
  * 
  */
-package vista;
+package vista.vistasUsuarioAdmin;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.Comms;
-import modelo.clasesProxys.ProxySanitario;
 
 /**
  * Clase que contiene los métodos para crear y gestionar 
@@ -25,20 +20,18 @@ import modelo.clasesProxys.ProxySanitario;
 public class MenuAdminVista extends javax.swing.JFrame {
     private OyenteVista oyenteVista = null;
     private Comms comms = null;
-    private ProxySanitario pxSanitario;
     private String idConexion = null;
-    
-    /* Mensajes de Error */
-    private String ERROR_OBTENER_SANITARIOS = 
-            "No se ha podido obtener la lista con sanitarios.";
     
     /**
      * Crea e inicializa los componentes de MenuAdminVista.
+     * 
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion 
      */
     public MenuAdminVista(OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.oyenteVista = _oyenteVista;
         this.comms = _comms;
-        this.pxSanitario = ProxySanitario.getInstance();
         this.idConexion = _idConexion;
         
         initComponents();
@@ -222,7 +215,6 @@ public class MenuAdminVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     /**
      * Muestra un botón con el estado de la appCliente,
      * se mostrará el color verde si la conexión con el servidor
@@ -245,52 +237,23 @@ public class MenuAdminVista extends javax.swing.JFrame {
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
      */    
-    public void mensajeDialogo(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
             JOptionPane.ERROR_MESSAGE,  null);    
     }
-    
-    /**
-     * Obtiene la lista con los sanitarios dados de alta en el sistema
-     * 
-     * @return List<SanitarioDTO>
-     * @throws Exception 
-     */
-    private List<SanitarioDTO> obtenerListaConSanitarios() throws Exception{
-        Gson gson = new Gson();
-        List<SanitarioDTO> sanitarios = null;
         
-        String sanitariosToReceive = pxSanitario.obtenerSanitarios();
-
-        /* Permite obtener los sanitarios en un List con SanitarioDTO*/
-        java.lang.reflect.Type listType = new TypeToken<List<SanitarioDTO>>(){}.getType(); 
-        sanitarios = gson.fromJson(sanitariosToReceive, listType);
-        
-        return sanitarios;
-    }
-    
     /**
      * Habilita la pantalla con sanitarios existentes en el sistema
      * para poder eliminar o editar un sanitario
+     * 
      * @param evt 
      */
     private void b_EditarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EditarSanitarioActionPerformed
-        try {
-            List<SanitarioDTO> sanitarios = obtenerListaConSanitarios();
-            
-            if(sanitarios != null){
-                this.setVisible(false);
-                new EditarSanitarioVista(this, oyenteVista, comms, idConexion, sanitarios).setVisible(true);   
-            } else{
-                mensajeDialogo(ERROR_OBTENER_SANITARIOS);
-                return;
-            }
-        } catch (Exception ex) {
-            mensajeDialogo(ERROR_OBTENER_SANITARIOS);
-        }
+        this.setVisible(false);
+        new EditarSanitarioVista(this, oyenteVista, comms, idConexion).setVisible(true);  
     }//GEN-LAST:event_b_EditarSanitarioActionPerformed
 
     /**
@@ -319,6 +282,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
      * envía el evento a la capa control para realizar las acciones
      * de finalización necesarias para la appCliente.
      * 
+     * @param evt 
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);

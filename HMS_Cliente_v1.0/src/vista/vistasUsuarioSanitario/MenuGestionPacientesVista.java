@@ -4,9 +4,10 @@
  * v1.0 21/04/2022.
  * 
  */
-package vista;
+package vista.vistasUsuarioSanitario;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
@@ -36,19 +37,27 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
     
     private static final int INDEX_PACIENTE_NO_SELECCIONADO = -1;
     
+    /* Mensajes de Error */
+    private final String ERROR_OBTENER_PACIENTES = 
+            "No se ha podido obtener la lista con pacientes.";
+    
     /**
      * Crea e inicializa los componentes de MenuGestionPacientesVista.
+     * 
+     * @param _menuSanitarioVista
+     * @param _oyenteVista
+     * @param _comms
+     * @param _idConexion
      */
     public MenuGestionPacientesVista(MenuSanitarioVista _menuSanitarioVista, 
-            OyenteVista _oyenteVista, Comms _comms, String _idConexion, 
-            List<PacienteDTO> _pacientes) {
+            OyenteVista _oyenteVista, Comms _comms, String _idConexion) {
         this.menuSanitarioVista  = _menuSanitarioVista;
         this.comms = _comms;
         this.pxPaciente = ProxyPaciente.getInstance();
         this.gson = new Gson();
         this.oyenteVista = _oyenteVista;
         this.idConexion = _idConexion;
-        this.pacientes = _pacientes;
+        this.pacientes = obtenerListaConPacientes();
                 
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
@@ -60,14 +69,6 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         /* Subraya el texto "Sanitario Seleccionado" */
         lista_de_pacientes_label.setText("<HTML><U>Lista De Pacientes</U></HTML>");
         lista_de_pacientes_label.setHorizontalAlignment(LEFT);
-        
-        b_NuevoEpisodio.setEnabled(false);
-        b_VerEpisodios.setEnabled(false);
-        b_RegistroVacunacion.setEnabled(false);
-        b_NuevaCita.setEnabled(false);
-        b_VerCitas.setEnabled(false);
-        b_RecetaElectronica.setEnabled(false);
-        b_VerHistoria.setEnabled(false);
     }
     
     /**
@@ -167,7 +168,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         ));
         tabla_con_pacientes.setFocusable(false);
         tabla_con_pacientes.setGridColor(new java.awt.Color(0, 153, 153));
-        tabla_con_pacientes.setRowHeight(35);
+        tabla_con_pacientes.setRowHeight(30);
         tabla_con_pacientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_con_pacientes.setShowGrid(true);
         tabla_con_pacientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,6 +199,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_NuevoEpisodio.setText("Nuevo Episodio");
         b_NuevoEpisodio.setActionCommand("");
         b_NuevoEpisodio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_NuevoEpisodio.setEnabled(false);
         b_NuevoEpisodio.setFocusable(false);
         b_NuevoEpisodio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +214,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_VerEpisodios.setText(" Ver Episodios");
         b_VerEpisodios.setActionCommand("");
         b_VerEpisodios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_VerEpisodios.setEnabled(false);
         b_VerEpisodios.setFocusable(false);
         b_VerEpisodios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +229,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_NuevaCita.setText("Nueva Cita");
         b_NuevaCita.setActionCommand("");
         b_NuevaCita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_NuevaCita.setEnabled(false);
         b_NuevaCita.setFocusable(false);
         b_NuevaCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +244,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_VerCitas.setText("Ver Citas");
         b_VerCitas.setActionCommand("");
         b_VerCitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_VerCitas.setEnabled(false);
         b_VerCitas.setFocusable(false);
         b_VerCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +259,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_RegistroVacunacion.setText("Registro Vacunación");
         b_RegistroVacunacion.setActionCommand("");
         b_RegistroVacunacion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_RegistroVacunacion.setEnabled(false);
         b_RegistroVacunacion.setFocusable(false);
         b_RegistroVacunacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +274,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_RecetaElectronica.setText("Receta Electrónica");
         b_RecetaElectronica.setActionCommand("");
         b_RecetaElectronica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_RecetaElectronica.setEnabled(false);
         b_RecetaElectronica.setFocusable(false);
         b_RecetaElectronica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,6 +289,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_VerHistoria.setText("Ver Historia");
         b_VerHistoria.setActionCommand("  ");
         b_VerHistoria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_VerHistoria.setEnabled(false);
         b_VerHistoria.setFocusable(false);
         b_VerHistoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,6 +374,34 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Obtiene la lista con los pacientes del sistema
+     * 
+     * @return List<PacienteDTO>
+     * @throws Exception 
+     */
+    private List<PacienteDTO> obtenerListaConPacientes(){
+        Gson gson = new Gson();
+        List<PacienteDTO> pacientes = null;
+        String pacientesToReceive;
+        
+        try {
+            pacientesToReceive = pxPaciente.obtenerPacientesTest();
+            
+            if(pacientesToReceive != null){
+                /* Permite obtener los pacientes en un List con PacienteDTO*/
+                java.lang.reflect.Type listType = new TypeToken<List<PacienteDTO>>(){}.getType(); 
+                pacientes = gson.fromJson(pacientesToReceive, listType);
+            } else {
+                throw new Exception(ERROR_OBTENER_PACIENTES);
+            }
+        } catch (Exception ex) {
+            mensajeDialogo(ex.getMessage(), JOptionPane.ERROR);
+        }
+        
+        return pacientes;
+    }
+    
+    /**
      * Muestra un botón con el estado de la appCliente,
      * se mostrará el color verde si la conexión con el servidor
      * ha sido exitosa o el color amarillo en caso contrario. 
@@ -387,12 +423,13 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
     /**
      * Escribe mensaje con diálogo modal.
      * 
-     * @param mensaje
+     * @param _mensaje
+     * @param _messageType
      */    
-    public void mensajeDialogo(String mensaje, int messageType) {
-        JOptionPane.showMessageDialog(this, mensaje, 
+    public void mensajeDialogo(String _mensaje, int _messageType) {
+        JOptionPane.showMessageDialog(this, _mensaje, 
             Hospital.TITULO + " " + Hospital.VERSION, 
-            messageType,  null);    
+            _messageType,  null);    
     } 
     
     /**
@@ -439,33 +476,81 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         menuSanitarioVista.setVisible(true);
     }//GEN-LAST:event_b_AtrásActionPerformed
 
+    /**
+     * Habilita la pantalla que permite añadir un nuevo episodio a un 
+     * paciente existente en el sistema
+     * 
+     * @param evt 
+     */
     private void b_NuevoEpisodioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevoEpisodioActionPerformed
         PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
         
         this.setVisible(false);
         new NuevoEpisodioVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_NuevoEpisodioActionPerformed
-
+    
+    /**
+     * Habilita la pantalla que permite ver los episodios de un paciente
+     * y añadir un diagnóstico a los episodios no cerrados
+     * 
+     * @param evt 
+     */
     private void b_VerEpisodiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_VerEpisodiosActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+        this.setVisible(false);
+        new EpisodiosPacienteVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_VerEpisodiosActionPerformed
-
+    
+    /**
+     * Habilita la pantalla que permite añadir una nueva cita de un paciente
+     * 
+     * @param evt 
+     */
     private void b_NuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_NuevaCitaActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+
+        this.setVisible(false);
+        new NuevaCitaVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_NuevaCitaActionPerformed
 
+    /**
+     * Habilita la pantalla que permite ver las citas de un paciente
+     * 
+     * @param evt 
+     */
     private void b_VerCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_VerCitasActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+
+        this.setVisible(false);
+        new CitasPacienteVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_VerCitasActionPerformed
 
+    /**
+     * Habilita la pantalla que permite ver la lista de vacunas administradas
+     * a un paciente y añadir a dicha lista una nueva vacuna
+     * 
+     * @param evt 
+     */
     private void b_RegistroVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RegistroVacunacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_b_RegistroVacunacionActionPerformed
 
+    /**
+     * Habilita la pantalla que permite ver la lista de medicamentos de un 
+     * paciente y añadir un nuevo medicamento a dicha lista
+     * 
+     * @param evt 
+     */
     private void b_RecetaElectronicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RecetaElectronicaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_b_RecetaElectronicaActionPerformed
 
+    /**
+     * Habilita la pantalla que permite ver la información completa de un
+     * paciente existente en el sistema
+     * 
+     * @param evt 
+     */
     private void b_VerHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_VerHistoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_b_VerHistoriaActionPerformed
