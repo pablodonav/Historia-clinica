@@ -64,6 +64,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
      */
     @Override
     public boolean addEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
+        
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = simpleDateFormat.format(_episodio.getFecha());
        
@@ -124,6 +125,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
      */
     @Override
     public boolean updateEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
+        
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = simpleDateFormat.format(_episodio.getFecha());
        
@@ -154,11 +156,13 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
 
         while (rs.next()) {
             int id = rs.getInt("id");
-            Date fecha = rs.getDate("fecha");
+            Date fec = rs.getDate("fecha");
             String motivo = rs.getString("motivo");
             String diagnostico = rs.getString("diagnostico");
             String nss_pac = rs.getString("nss_pac");
 
+            java.util.Date fecha = new java.util.Date(fec.getYear(), fec.getMonth(), fec.getDay());
+            
             episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico);
         }
         return episodio;
@@ -179,10 +183,12 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
 
         while (rs.next()) {
             int id = rs.getInt("id");
-            Date fecha = rs.getDate("fecha");
+            Date fec = rs.getDate("fecha");
             String motivo = rs.getString("motivo");
             String diagnostico = rs.getString("diagnostico");
             String nss_pac = rs.getString("nss_pac");
+            
+            java.util.Date fecha = new java.util.Date(fec.getYear(), fec.getMonth(), fec.getDay());
 
             episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico);
             episodios.add(episodio);

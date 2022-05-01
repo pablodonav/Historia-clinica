@@ -35,7 +35,9 @@ public enum PrimitivaComunicacion {
     NUEVO_DIAGNOSTICO("new_diagnosis"),
     NUEVO_MEDICAMENTO_PACIENTE("new_patient_medicine"),
     OBTENER_RECETA_PACIENTE("get_patient_medicines"),
-    OBTENER_MEDICAMENTOS("get_medicines");
+    OBTENER_MEDICAMENTOS("get_medicines"),
+    OBTENER_CITAS_PACIENTE("get_medical_appointments"),
+    ELIMINAR_CITA("remove_medical_appointment");
     
     private String simbolo;
 

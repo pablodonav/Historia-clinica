@@ -138,6 +138,14 @@ public class ServidorHospital implements Runnable {
                 case OBTENER_MEDICAMENTOS:
                     obtenerMedicamentosDisponibles();
                     break;
+                    
+                case OBTENER_CITAS_PACIENTE:
+                    obtenerCitasPaciente();
+                    break;
+                    
+                case ELIMINAR_CITA:
+                    eliminarCitaPaciente();
+                    break;
             }  
             
         } catch (IOException | InterruptedException | SQLException | InputMismatchException e) {
@@ -156,7 +164,7 @@ public class ServidorHospital implements Runnable {
         
         System.out.println(SOLICITUD + 
             _primitivaComunicacion.toString() + " " + 
-            _identificador);
+            _identificador + "\n");
     }
     
     /**
@@ -211,7 +219,7 @@ public class ServidorHospital implements Runnable {
         
             System.out.println(SOLICITUD +
                 PrimitivaComunicacion.DESCONECTAR_PUSH + " " +
-                conexionPushHospital.toString());
+                conexionPushHospital.toString() + "\n");
         } else {
             salida.println(PrimitivaComunicacion.NOK);
         }
@@ -225,17 +233,21 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void darAltaSanitario() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.DAR_ALTA_SANITARIO);
+        
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String sanitarioJSON = entrada.readLine();
         
-        System.out.println(SOLICITUD + PrimitivaComunicacion.DAR_ALTA_SANITARIO + " - " + sanitarioJSON);
+        System.out.println("Info de entrada: " + sanitarioJSON);
         
         SanitarioDTO sanitario = gson.fromJson(sanitarioJSON, SanitarioDTO.class);
         
         if (servidorSanitarios.añadirSanitario(sanitario)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println("Salida: " + respuesta + "\n");
         
         salida.println(respuesta);
         
@@ -257,9 +269,13 @@ public class ServidorHospital implements Runnable {
         
         String dni = entrada.readLine();
         
+        System.out.println("Info de entrada: " + "Dni - " + dni);
+        
         if (servidorSanitarios.eliminarSanitario(dni)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println("Salida: " + respuesta + "\n");
         
         salida.println(respuesta);
         
@@ -282,9 +298,13 @@ public class ServidorHospital implements Runnable {
         String sanitarioJSON = entrada.readLine();
         SanitarioDTO sanitario = gson.fromJson(sanitarioJSON, SanitarioDTO.class);
         
+        System.out.println("Info de entrada: " + sanitarioJSON);
+        
         if (servidorSanitarios.editarSanitario(sanitario)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println("Salida: " + respuesta + "\n");
         
         salida.println(respuesta);
         
@@ -307,10 +327,12 @@ public class ServidorHospital implements Runnable {
         String sanitariosJSON = servidorSanitarios.obtenerSanitarios();
       
         if (sanitariosJSON != null) {
-            salida.println(sanitariosJSON); 
+            salida.println(sanitariosJSON);
+            System.out.println("Salida: " + sanitariosJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();    
@@ -326,18 +348,19 @@ public class ServidorHospital implements Runnable {
         System.out.println(SOLICITUD + PrimitivaComunicacion.VERIFICAR_USUARIO);
         
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
-        UsuarioDTO usuarioRes;
         
         String usuarioJSON = entrada.readLine();
         UsuarioDTO usuario = gson.fromJson(usuarioJSON, UsuarioDTO.class);
         
-        usuarioRes = servidorSanitarios.verificarUsuario(usuario);
+        System.out.println("Info de entrada: " + usuarioJSON);
+        
+        UsuarioDTO usuarioRes = servidorSanitarios.verificarUsuario(usuario);
         
         if (usuarioRes != null) {
-            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString());
-            salida.println(usuario.toJson());
+            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString() + "\n");
+            System.out.println("Salida: " + usuarioRes);
         } else {
-            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();
@@ -357,9 +380,13 @@ public class ServidorHospital implements Runnable {
         String pacienteJSON = entrada.readLine();
         PacienteDTO paciente = gson.fromJson(pacienteJSON, PacienteDTO.class);
         
+        System.out.println("Info de entrada: " + pacienteJSON);
+        
         if (servidorSanitarios.añadirPaciente(paciente)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println(respuesta + "\n");
         
         salida.println(respuesta);
         
@@ -379,12 +406,16 @@ public class ServidorHospital implements Runnable {
         
         String episodioAtencionJSON = entrada.readLine();
         String nss_received = entrada.readLine();
-        System.out.println(episodioAtencionJSON);
+        
+        System.out.println("Info de entrada: " + episodioAtencionJSON + "Nss - " + nss_received);
+
         EpisodioAtencionDTO episodio = gson.fromJson(episodioAtencionJSON, EpisodioAtencionDTO.class);
         
         if (servidorSanitarios.nuevoEpisodio(episodio, nss_received)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println(respuesta + "\n");
         
         salida.println(respuesta);
         
@@ -403,15 +434,71 @@ public class ServidorHospital implements Runnable {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String citaJSON = entrada.readLine();
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: " + citaJSON + "Nss - " + nss_pac);
+        
         CitaDTO cita = gson.fromJson(citaJSON, CitaDTO.class);
         
-        if (servidorSanitarios.nuevaCita(cita)) {
+        if (servidorSanitarios.nuevaCita(cita, nss_pac)) {
             respuesta = PrimitivaComunicacion.OK;
         }
+        
+        System.out.println(respuesta + "\n"); 
         
         salida.println(respuesta);
         
         cerrarConexion();
+    }
+    
+    /**
+     * Obtiene las citas de un paciente.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerCitasPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_CITAS_PACIENTE);
+        
+        salida.println(PrimitivaComunicacion.OBTENER_CITAS_PACIENTE);  
+        
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: Nss - " + nss_pac);
+        
+        String citasJSON = servidorSanitarios.obtenerCitasPaciente(nss_pac);
+        
+        if (citasJSON != null) {
+            salida.println(citasJSON); 
+            System.out.println("Salida: " + citasJSON + "\n");
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
+        }
+        
+        cerrarConexion();  
+    }
+    
+    private void eliminarCitaPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.ELIMINAR_CITA);
+        
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String idCita = entrada.readLine();
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: Nss - " + nss_pac + " idCita - " + idCita);
+        
+        if (servidorSanitarios.eliminarCita(idCita)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        System.out.println(respuesta + "\n");
+        
+        salida.println(respuesta);
+        
+        cerrarConexion(); 
     }
     
     /**
@@ -431,9 +518,11 @@ public class ServidorHospital implements Runnable {
       
         if (pacientesJSON != null) {
             salida.println(pacientesJSON); 
+            System.out.println("Salida: " + pacientesJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();    
@@ -454,13 +543,17 @@ public class ServidorHospital implements Runnable {
         
         String nss_pac = entrada.readLine();
         
+        System.out.println("Info de entrada: Nss - " + nss_pac);
+        
         String episodiosJSON = servidorSanitarios.obtenerEpisodiosPaciente(nss_pac);
         
         if (episodiosJSON != null) {
             salida.println(episodiosJSON); 
+            System.out.println("Salida: " + episodiosJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();    
@@ -488,6 +581,8 @@ public class ServidorHospital implements Runnable {
             respuesta = PrimitivaComunicacion.OK;
         }
         
+        System.out.println(respuesta + "\n");
+        
         salida.println(respuesta);
         
         cerrarConexion();  
@@ -514,6 +609,8 @@ public class ServidorHospital implements Runnable {
             respuesta = PrimitivaComunicacion.OK;
         }
         
+        System.out.println(respuesta + "\n");
+        
         salida.println(respuesta);
         
         cerrarConexion();  
@@ -538,9 +635,11 @@ public class ServidorHospital implements Runnable {
         
         if (recetaJSON != null) {
             salida.println(recetaJSON); 
+            System.out.println("Salida: " + recetaJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();    
@@ -563,9 +662,11 @@ public class ServidorHospital implements Runnable {
         
         if (medicamentosJSON != null) {
             salida.println(medicamentosJSON); 
+            System.out.println("Salida: " + medicamentosJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
         }
         
         cerrarConexion();    

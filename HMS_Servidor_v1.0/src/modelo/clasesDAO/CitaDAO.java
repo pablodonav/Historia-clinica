@@ -15,11 +15,13 @@ import modelo.clasesDTOs.CitaDTO;
  * 
  */
 public interface CitaDAO {
-    public boolean addCita(CitaDTO _cita) throws SQLException;
+    public boolean addCita(CitaDTO _cita, String nss_pac) throws SQLException;
+    
+    public int getCount() throws SQLException;
 
     public boolean deleteCita(String _codigo) throws SQLException;
 
-    public boolean updateCita(CitaDTO _cita) throws SQLException;
+    public boolean updateCita(CitaDTO _cita, String nss_pac) throws SQLException;
 
     public CitaDTO getCita(String _codigo) throws SQLException;
 

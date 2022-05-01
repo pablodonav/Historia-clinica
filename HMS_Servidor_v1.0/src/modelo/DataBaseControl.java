@@ -246,19 +246,56 @@ public class DataBaseControl {
         return epImpl.getCount();
     }
     
-    /**
-     * Método que crea una nueva cita de un paciente.
-     * 
-     * @param _cita
-     * @return
-     * @throws SQLException 
-     */
-    public boolean nuevaCita(CitaDTO _cita) throws SQLException {
+    public int obtenerIndiceNuevaCita() throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return citImpl.addCita(_cita);
+        return citImpl.getCount();
+    }
+    
+    /**
+     * Método que crea una nueva cita de un paciente.
+     * 
+     * @param _cita
+     * @param _nss_pac
+     * @return
+     * @throws SQLException 
+     */
+    public boolean nuevaCita(CitaDTO _cita, String _nss_pac) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return citImpl.addCita(_cita, _nss_pac);
+    }
+    
+    /**
+     * Método que obtiene las citas de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerCitasPaciente(String _nss) throws SQLException {
+        Gson gson = new Gson();
+        
+        List<CitaDTO> citas = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        citas = citImpl.getCitasPaciente(_nss);
+       
+        return gson.toJson(citas);
+    }
+    
+    public boolean eliminarCita(String _idCita) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return citImpl.deleteCita(_idCita);
     }
     
     /**

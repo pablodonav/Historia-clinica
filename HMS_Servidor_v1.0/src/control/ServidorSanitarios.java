@@ -360,8 +360,6 @@ public class ServidorSanitarios extends Thread {
             return false;
         }
         
-        System.out.println(_episodio.toJson());
-        
         notificarSanitariosPush(PrimitivaComunicacion.NUEVO_EPISODIO, 
                 String.valueOf(_episodio.toJson()));
         
@@ -376,13 +374,38 @@ public class ServidorSanitarios extends Thread {
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean nuevaCita(CitaDTO _cita) throws IOException, SQLException {
-        if( ! database.nuevaCita(_cita)) {
+    synchronized boolean nuevaCita(CitaDTO _cita, String _nss_pac) throws IOException, SQLException {
+        int cuenta = database.obtenerIndiceNuevaCita();
+        _cita.setIdentificador(cuenta);
+        
+        if( ! database.nuevaCita(_cita, _nss_pac)) {
             return false;
         }
         
         notificarSanitariosPush(PrimitivaComunicacion.NUEVA_CITA, 
-                String.valueOf(_cita));
+                String.valueOf(_cita.toJson()));
+        
+        return true;
+    }
+    
+    /**
+     * Método que devuelve las citas de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerCitasPaciente(String _nss) throws SQLException {
+        return database.obtenerCitasPaciente(_nss);
+    }
+    
+    synchronized boolean eliminarCita(String _idCita) throws IOException, SQLException {
+        if( ! database.eliminarCita(_idCita)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.ELIMINAR_CITA, 
+                String.valueOf(_idCita));
         
         return true;
     }
