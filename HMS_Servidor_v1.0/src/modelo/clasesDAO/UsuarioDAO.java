@@ -1,7 +1,7 @@
 /**
  * UsuarioDAO.java
  * Pablo Doñate Navarro
- * v1.0 01/05/2022.
+ * v2.4 01/05/2022.
  */
 package modelo.clasesDAO;
 
