@@ -1,7 +1,7 @@
 /**
  * DataBaseControl.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package modelo;
 
@@ -246,6 +246,12 @@ public class DataBaseControl {
         return epImpl.getCount();
     }
     
+    /**
+     * Devuelve el indice de la nueva cita a añadir.
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public int obtenerIndiceNuevaCita() throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
@@ -290,6 +296,13 @@ public class DataBaseControl {
         return gson.toJson(citas);
     }
     
+    /**
+     * Elimina la cita de un paciente.
+     * 
+     * @param _idCita
+     * @return
+     * @throws SQLException 
+     */
     public boolean eliminarCita(String _idCita) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();

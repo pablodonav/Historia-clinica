@@ -1,7 +1,7 @@
 /**
  * ServidorSanitarios.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package control;
 
@@ -63,7 +63,7 @@ public class ServidorSanitarios extends Thread {
     private int puertoServidor = 15000;
 
     /**
-     *  Construye el servidor de sanitarios.
+     * Construye el servidor de sanitarios.
      * 
      * @throws java.sql.SQLException
      */   
@@ -77,9 +77,8 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Lee configuración.
-     * 
-     */ 
+     * Lee configuración.
+     */
     private void leerConfiguracion() {
         try {
             propiedades = new Properties();
@@ -101,7 +100,6 @@ public class ServidorSanitarios extends Thread {
     /**
      * Envía tests periódicos para mantener lista conexiones
      * push con sanitarios.
-     *  
      */
     private void envioTestPeriodicosConexionesPushSanitarios() {  
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -135,9 +133,8 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Ejecuta bucle espera conexiones.
-     * 
-     */   
+     * Ejecuta bucle espera conexiones.
+     */
     @Override
     public void run() { 
         System.out.println(VERSION);  
@@ -182,8 +179,10 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Obtiene conexión push hospital por id conexión.
+     * Obtiene conexión push hospital por id conexión.
      * 
+     * @param _idConexion
+     * @return 
      */
     ConexionPushHospital obtenerConexionPushHospital (
             String _idConexion) {
@@ -207,7 +206,7 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     *  Elimina conexión push hospital.
+     * Elimina conexión push hospital.
      * 
      * @param _idConexion
      */   
@@ -295,7 +294,8 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     * Método que obtiene la lista de sanitarios registrados en el sistema.
+     * Método que obtiene la lista de sanitarios 
+     * registrados en el sistema.
      * 
      * @return
      */
@@ -313,7 +313,8 @@ public class ServidorSanitarios extends Thread {
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean añadirPaciente(PacienteDTO _paciente) throws IOException, SQLException {
+    synchronized boolean añadirPaciente(PacienteDTO _paciente) 
+            throws IOException, SQLException {
         if( ! database.addPaciente(_paciente)) {
             return false;
         }
@@ -332,7 +333,8 @@ public class ServidorSanitarios extends Thread {
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean eliminarSanitario(String _dni) throws IOException, SQLException {
+    synchronized boolean eliminarSanitario(String _dni) 
+            throws IOException, SQLException {
         if( ! database.eliminarSanitario(_dni)) {
             return false;
         }
@@ -344,7 +346,8 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     * Método que crea un nuevo episodio de un paciente en el sistema.
+     * Método que crea un nuevo episodio de 
+     * un paciente en el sistema.
      * 
      * @param _episodio
      * @param _nss
@@ -352,7 +355,8 @@ public class ServidorSanitarios extends Thread {
      * @throws IOException
      * @throws SQLException 
      */
-    synchronized boolean nuevoEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws IOException, SQLException {
+    synchronized boolean nuevoEpisodio(EpisodioAtencionDTO _episodio, String _nss) 
+            throws IOException, SQLException {
         int cuenta = database.obtenerIndiceNuevoEpisodio();
         _episodio.setId(cuenta);
         
@@ -399,6 +403,14 @@ public class ServidorSanitarios extends Thread {
         return database.obtenerCitasPaciente(_nss);
     }
     
+    /**
+     * Elimina la cita de un paciente.
+     * 
+     * @param _idCita
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     synchronized boolean eliminarCita(String _idCita) throws IOException, SQLException {
         if( ! database.eliminarCita(_idCita)) {
             return false;
@@ -411,7 +423,8 @@ public class ServidorSanitarios extends Thread {
     }
     
     /**
-     * Método que obtiene la lista de pacientes registrados en el sistema.
+     * Método que obtiene la lista de pacientes 
+     * registrados en el sistema.
      * 
      * @return
      */

@@ -1,7 +1,7 @@
 /**
  * PrimitivaComunicacion.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package control;
 
@@ -10,8 +10,9 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- *  Primitiva de comunicación cliente-servidor.
+ * Primitiva de comunicación cliente-servidor.
  * 
+ * @author pablo
  */
 public enum PrimitivaComunicacion {  
     CONECTAR_PUSH("connect"), 
@@ -42,17 +43,19 @@ public enum PrimitivaComunicacion {
     private String simbolo;
 
     /**
-     *  Construye una primitiva.
+     * Construye una primitiva.
      * 
-     */   
+     * @param simbolo 
+     */  
     PrimitivaComunicacion(String simbolo) {
         this.simbolo = simbolo;   
     }  
 
     /**
-     *  Obtiene sintaxis primitiva comunicación.
-     *
-     */  
+     * Obtiene sintaxis primitiva comunicación.
+     * 
+     * @return 
+     */ 
     private static Pattern obtenerSintaxisPrimitiva() {
         String expresionRegular = "";
     

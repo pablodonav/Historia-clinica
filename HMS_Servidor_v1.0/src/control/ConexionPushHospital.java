@@ -1,7 +1,7 @@
 /**
  * ConexionPushHospital.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package control;
 
@@ -48,16 +48,21 @@ public class ConexionPushHospital {
     }
     
     /**
-     *  Obtiene identificador de conexión.
+     * Obtiene identificador de conexión.
      * 
-     */  
+     * @return 
+     */
     String obtenerIdConexion() {
         return idConexion;
     }
     
     /**
-     *  Envia solicitud.
+     * Envia solicitud.
      * 
+     * @param _solicitud
+     * @param _tiempoEspera
+     * @param _parametros
+     * @throws IOException 
      */
     private void enviar(PrimitivaComunicacion _solicitud,
             int _tiempoEspera, String _parametros) throws IOException {
@@ -73,8 +78,11 @@ public class ConexionPushHospital {
     }
   
     /**
-     *  Recibe respuesta.
+     * Recibe respuesta.
      * 
+     * @param _resultados
+     * @return
+     * @throws IOException 
      */
     private PrimitivaComunicacion recibir(List<String> _resultados) 
             throws IOException {
@@ -96,8 +104,14 @@ public class ConexionPushHospital {
     }
     
     /**
-     *  Envía solicitud a hospital.
+     * Envía solicitud a hospital.
      * 
+     * @param _solicitud
+     * @param _tiempoEspera
+     * @param _parametros
+     * @param _resultados
+     * @return
+     * @throws IOException 
      */
     synchronized PrimitivaComunicacion enviarSolicitud(
         PrimitivaComunicacion _solicitud, int _tiempoEspera,
@@ -110,8 +124,13 @@ public class ConexionPushHospital {
     }
   
     /**
-     *  Envía solicitud a hospital sin esperar resultados.
+     * Envía solicitud a hospital sin esperar resultados.
      * 
+     * @param _solicitud
+     * @param _tiempoEspera
+     * @param _parametros
+     * @return
+     * @throws IOException 
      */
     synchronized PrimitivaComunicacion enviarSolicitud(
         PrimitivaComunicacion _solicitud, int _tiempoEspera,
@@ -125,6 +144,10 @@ public class ConexionPushHospital {
      *  Envía solicitud a hospital sin parámetros y
      *  sin esperar resultados.
      * 
+     * @param _solicitud
+     * @param _tiempoEspera
+     * @return
+     * @throws IOException 
      */
     synchronized PrimitivaComunicacion enviarSolicitud(
         PrimitivaComunicacion _solicitud, int _tiempoEspera) 
@@ -136,9 +159,10 @@ public class ConexionPushHospital {
   
   
     /**
-     *  Cierra la conexión.
+     * Cierra la conexión.
      * 
-     */  
+     * @throws IOException 
+     */ 
     synchronized void cerrar() throws IOException {
         entrada.close();
         salida.close();
@@ -148,8 +172,9 @@ public class ConexionPushHospital {
     }
   
     /**
-     *  toString.
+     * toString.
      * 
+     * @return 
      */
     @Override
     public String toString() {

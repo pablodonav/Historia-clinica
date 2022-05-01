@@ -1,7 +1,7 @@
 /**
  * ServidorHospital.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package control;
 
@@ -43,8 +43,11 @@ public class ServidorHospital implements Runnable {
     private Gson gson;
     
     /**
-     *  Construye el servidor de hospital.
+     * Construye el servidor de hospital.
      * 
+     * @param _servidorSanitarios
+     * @param _socket
+     * @throws IOException 
      */
     ServidorHospital(ServidorSanitarios _servidorSanitarios,
             Socket _socket) throws IOException {
@@ -63,9 +66,8 @@ public class ServidorHospital implements Runnable {
     } 
 
     /**
-     *  Atiende las solicitudes de un sanitario..
-     * 
-     */  
+     * Atiende las solicitudes de un sanitario.
+     */
     @Override
     public void run() {
         try {        
@@ -157,6 +159,9 @@ public class ServidorHospital implements Runnable {
     /**
      * Muestra el identificador de conexión de cada sanitario conectado.
      * 
+     * @param _primitivaComunicacion
+     * @param _identificador
+     * @throws IOException 
      */
     private void mostrarIdConexion(
             PrimitivaComunicacion _primitivaComunicacion, 
@@ -168,9 +173,11 @@ public class ServidorHospital implements Runnable {
     }
     
     /**
-     *  Conecta hospital push.
+     * Conecta hospital push.
      * 
-     */    
+     * @throws IOException
+     * @throws InterruptedException 
+     */  
     private void conectarPushHospital() throws IOException,
         InterruptedException { 
         
@@ -203,9 +210,10 @@ public class ServidorHospital implements Runnable {
     }
     
     /**
-     *  Desconecta hospital push.
+     * Desconecta hospital push.
      * 
-     */    
+     * @throws IOException 
+     */  
     private void desconectarPushHospital() throws IOException {
         String idConexion = entrada.readLine();    
         
@@ -480,6 +488,14 @@ public class ServidorHospital implements Runnable {
         cerrarConexion();  
     }
     
+    /**
+     * Elimina la cita de un paciente.
+     * Si lo puede eliminar, devuelve OK.
+     * En caso contrario, devuelve NOK.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
     private void eliminarCitaPaciente() throws IOException, SQLException {
         System.out.println(SOLICITUD + PrimitivaComunicacion.ELIMINAR_CITA);
         
@@ -574,6 +590,8 @@ public class ServidorHospital implements Runnable {
         
         String episodioJSON = entrada.readLine();
         String nss = entrada.readLine();
+        
+        System.out.println("Info de entrada: " + episodioJSON + " Nss - " + nss);
         
         EpisodioAtencionDTO episodio = gson.fromJson(episodioJSON, EpisodioAtencionDTO.class);
         
@@ -673,8 +691,9 @@ public class ServidorHospital implements Runnable {
     }
     
     /**
-     *  Cierra conexión.
+     * Cierra conexión.
      * 
+     * @throws IOException 
      */
     private void cerrarConexion() throws IOException {
         entrada.close();

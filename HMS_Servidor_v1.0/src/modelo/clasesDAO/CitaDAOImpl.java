@@ -1,7 +1,7 @@
 /**
  * CitaDAOImpl.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -45,8 +45,8 @@ public class CitaDAOImpl implements CitaDAO {
     private static final String GET_COUNT = "SELECT COUNT(*) FROM CITA";
     
     /**
-     *  Crea una cita, donde define la estructura
-     *  de sus operaciones.
+     * Crea una cita, donde define la estructura
+     * de sus operaciones.
      *
      * @param _conn
      * @throws java.sql.SQLException

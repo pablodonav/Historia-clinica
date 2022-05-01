@@ -1,7 +1,7 @@
 /**
  * EpisodioAtencionDTO.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package modelo.clasesDTOs;
 

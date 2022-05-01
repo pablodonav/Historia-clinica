@@ -1,7 +1,7 @@
 /**
  * EpisodioAtencionDAOImpl.java
  * Pablo Doñate Navarro
- * v1.0 29/04/2022.
+ * v1.0 01/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -30,9 +30,9 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
 
     private static final String INSERT = "INSERT INTO EPISODIO_DE_ATENCION(id, fecha, motivo, diagnostico, nss_pac) VALUES(?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM EPISODIO_DE_ATENCION WHERE id=? AND nss_pac=?";
-    private static final String UPDATE = "UPDATE EPISODIO_DE_ATENCION SET fecha=?, motivo=?, diagnostico=? WHERE id=? AND nss_pac=?";
+    private static final String UPDATE = "UPDATE EPISODIO_DE_ATENCION SET diagnostico=? WHERE id=? AND nss_pac=?";
     private static final String GET_EPISODIO = "SELECT * FROM EPISODIO_DE_ATENCION WHERE nss_pac=? AND id=?";
-    private static final String GET_ALL = "SELECT * FROM EPISODIO_DE_ATENCION";
+    private static final String GET_ALL = "SELECT * FROM EPISODIO_DE_ATENCION WHERE nss_pac=?";
     private static final String GET_COUNT = "SELECT COUNT(*) FROM EPISODIO_DE_ATENCION";
     
     private Connection connection;
@@ -125,15 +125,9 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
      */
     @Override
     public boolean updateEpisodio(EpisodioAtencionDTO _episodio, String _nss) throws SQLException {
-        
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = simpleDateFormat.format(_episodio.getFecha());
-       
-        stmt_add.setDate(1, java.sql.Date.valueOf(formattedDate));
-        stmt_upd.setString(2, _episodio.getMotivo());
-        stmt_upd.setString(3, _episodio.getDiagnostico());
-        stmt_upd.setInt(4, _episodio.getId());
-        stmt_upd.setString(5, _nss);
+        stmt_upd.setString(1, _episodio.getDiagnostico());
+        stmt_upd.setInt(2, _episodio.getId());
+        stmt_upd.setString(3, _nss);
 
         return stmt_upd.executeUpdate() > 0;
     }
@@ -178,6 +172,8 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     public List<EpisodioAtencionDTO> getEpisodios(String _nss) throws SQLException {
         EpisodioAtencionDTO episodio = null;
 
+        stmt_getAll.setString(1, _nss);
+        
         ResultSet rs = stmt_getAll.executeQuery();
         List<EpisodioAtencionDTO> episodios = new ArrayList<EpisodioAtencionDTO>();
 
