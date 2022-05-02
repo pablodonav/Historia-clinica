@@ -365,10 +365,12 @@ public class ServidorHospital implements Runnable {
         UsuarioDTO usuarioRes = servidorSanitarios.verificarUsuario(usuario);
         
         if (usuarioRes != null) {
-            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString() + "\n");
-            System.out.println("Salida: " + usuarioRes);
+            salida.println(PrimitivaComunicacion.VERIFICAR_USUARIO.toString());
+            salida.println(usuario.toJson());
+            System.out.println("Salida: " + usuarioRes + "\n");
         } else {
-            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
+            salida.println(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString() + "\n");
         }
         
         cerrarConexion();
