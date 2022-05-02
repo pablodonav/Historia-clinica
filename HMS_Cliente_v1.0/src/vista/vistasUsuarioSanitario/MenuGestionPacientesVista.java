@@ -385,7 +385,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         String pacientesToReceive;
         
         try {
-            pacientesToReceive = pxPaciente.obtenerPacientesTest();
+            pacientesToReceive = pxPaciente.obtenerPacientes();
             
             if(pacientesToReceive != null){
                 /* Permite obtener los pacientes en un List con PacienteDTO*/

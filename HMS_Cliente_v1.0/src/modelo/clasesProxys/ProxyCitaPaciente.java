@@ -42,7 +42,7 @@ public class ProxyCitaPaciente extends Comms{
         if (! conectado){
             return;
         }
-        
+                
         List<String> resultados =  new ArrayList<>();
         
         String parametros = _jsonCita + "\n" + _idPaciente;

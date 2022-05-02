@@ -14,8 +14,8 @@ import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
-import java.sql.Time;
-import java.time.LocalTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.clasesDTOs.CitaPacienteDTO;
@@ -45,6 +45,7 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
     private final int INDEX_NOMBRE_MEDICO = 0;
     private final int INDEX_APELLIDO_1_MEDICO = 1;
     private final int INDEX_APELLIDO_2_MEDICO = 2;
+    private final int INDEX_MEDICO_NO_SELECCIONADO = -1;
     
     /* Mensajes de Error */
     public final static String ERROR_NUEVA_CITA = 
@@ -585,6 +586,10 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
             }   
         }
         medico_comboBox.setEditable(false);
+        
+        /* No muestra ninguna selección en el comboBox sin entrada del usuario */
+        medico_comboBox.setSelectedIndex(INDEX_MEDICO_NO_SELECCIONADO);
+        medico_comboBox.setSelectedItem(null);
     }
     
     /**
@@ -600,7 +605,6 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
             b_connected.setText("Disconnected");
             b_connected.setBackground(Color.YELLOW);
         } else{
-            System.out.println("id " + _idConexion);
             b_connected.setEnabled(true);
             b_connected.setText("Connected with id " + _idConexion);
             b_connected.setBackground(Color.GREEN);
@@ -714,7 +718,7 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
      * 
      * @return String
      */
-    private String crearJsonCitaNueva(){
+    private String crearJsonCitaNueva() throws ParseException{
         int id = 0;
         String datosMedicoComboBox[] = String.valueOf(medico_comboBox.getSelectedItem()).split(" ");
         SanitarioDTO medicoAtiendeCita  = obtenerMedicoDeComboBox(datosMedicoComboBox[INDEX_NOMBRE_MEDICO], 
@@ -728,8 +732,11 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         Date fecha = fecha_chooser.getDate();
         int hora = hora_input_field.getValue();
         int minutos = minutos_input_field.getValue();
-        Time tiempo = Time.valueOf(LocalTime.of(hora, minutos));
+        String fechaStr = "Jul 27, 2000 " + hora + ":" + minutos;
+        SimpleDateFormat readFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
         String descripcion = descripcion_input_field.getText();
+        
+        Date tiempo = readFormat.parse(fechaStr);
         
         CitaPacienteDTO cita = new CitaPacienteDTO(id, dniMedico, ubicacion, fecha, tiempo, descripcion);
         
@@ -742,15 +749,18 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
      * @param evt 
      */
     private void b_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_GuardarActionPerformed
-        String citaJsonToSend = crearJsonCitaNueva();
-        
-        if (citaJsonToSend != null){
-            System.out.println("Cita json: " + citaJsonToSend);
-            oyenteVista.eventoProducido(OyenteVista.Evento.NUEVA_CITA, 
-                new Tupla <String, String>(citaJsonToSend,
+        try {
+            String citaJsonToSend = crearJsonCitaNueva();
+            
+            if (citaJsonToSend != null){
+                oyenteVista.eventoProducido(OyenteVista.Evento.NUEVA_CITA, 
+                    new Tupla <String, String>(citaJsonToSend,
                                            pacienteSeleccionado.getNss()));
-        } else{
-            mensajeDialogo(ERROR_NUEVA_CITA, JOptionPane.ERROR_MESSAGE);
+            } else{
+                throw new Exception(ERROR_NUEVA_CITA);
+            }
+        } catch (Exception ex) {
+            mensajeDialogo(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_b_GuardarActionPerformed
 

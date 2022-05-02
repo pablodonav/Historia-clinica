@@ -791,6 +791,13 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             
             if (sanitarioJsonToSend != null){
                 oyenteVista.eventoProducido(OyenteVista.Evento.EDITAR_SANITARIO, sanitarioJsonToSend); 
+                
+                /* Borra entrada de los campos de la contraseña para la próxima modificación */
+                pwd1_input_field.setText("");
+                pwd2_input_field.setText("");
+                
+                /* Deshabilita botones hasta la próxima selección */
+                b_GuardarCambios.setEnabled(false);
             } else{
                 throw new Exception(ERROR_EDITAR_SANITARIO);
             }   

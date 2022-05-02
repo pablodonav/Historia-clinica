@@ -473,7 +473,6 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             b_connected.setText("Disconnected");
             b_connected.setBackground(Color.YELLOW);
         } else{
-            System.out.println("id " + _idConexion);
             b_connected.setEnabled(true);
             b_connected.setText("Connected with id " + _idConexion);
             b_connected.setBackground(Color.GREEN);
@@ -574,7 +573,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             _indexEpisodioSeleccionado);
            
         id_input_field.setText(String.valueOf(episodioSeleccionado.getId()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
         String strFecha= formatter.format(episodioSeleccionado.getFecha()); 
         fecha_input_field.setText(strFecha);
         motivo_input_field.setText(episodioSeleccionado.getMotivo());
@@ -634,6 +633,9 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             if (episodioJsonToSend != null){
                 oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_DIAGNOSTICO, 
                     new Tupla <String, String>(episodioJsonToSend, pacienteSeleccionado.getNss()));
+                
+                /* Deshabilita botón hasta la próxima selección */
+                b_GuardarCambios.setEnabled(false);
             } else{
                 throw new Exception(ERROR_EDITAR_EPISODIO);
             }

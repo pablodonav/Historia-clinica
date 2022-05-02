@@ -60,8 +60,6 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         this.idConexion = _idConexion;
         this.pacienteSeleccionado = _paciente;
         comms.nuevoObservador(this);
-        
-        System.out.println("idCone: " + idConexion);
        
         initComponents();
         setResizable(false);  //Deshabilita la opción de maximizar-minimizar 
@@ -388,7 +386,6 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
             b_connected.setText("Disconnected");
             b_connected.setBackground(Color.YELLOW);
         } else{
-            System.out.println("id " + _idConexion);
             b_connected.setEnabled(true);
             b_connected.setText("Connected with id " + _idConexion);
             b_connected.setBackground(Color.GREEN);

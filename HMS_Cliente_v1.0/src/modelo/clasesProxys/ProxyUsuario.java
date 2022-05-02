@@ -62,7 +62,7 @@ public class ProxyUsuario extends Comms{
                                                                   tiempoEsperaServidor,
                                                                   _jsonUsuario,
                                                                   resultados);
-        if (resultados.isEmpty() || 
+        if (resultados.isEmpty()|| 
                 respuesta.equals(PrimitivaComunicacion.NOK.toString()) ||
                 respuesta.equals(PrimitivaComunicacion.USUARIO_NO_ENCONTRADO.toString())){
             return null;

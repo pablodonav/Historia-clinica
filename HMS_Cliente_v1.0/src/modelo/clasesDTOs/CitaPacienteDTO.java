@@ -8,7 +8,6 @@ package modelo.clasesDTOs;
 
 import com.google.gson.Gson;
 import java.util.Date;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class CitaPacienteDTO {
     private String dniMedico;
     private Ubicacion ubicacion;
     private Date fecha;
-    private Time hora;
+    private Date tiempo;
     private String descripcion;
 
     /**
@@ -32,15 +31,15 @@ public class CitaPacienteDTO {
      * @param _dniMedico
      * @param _ubicacion
      * @param _fecha
-     * @param _hora
+     * @param _tiempo
      * @param _descripcion 
      */
-    public CitaPacienteDTO(int _identificador, String _dniMedico, Ubicacion _ubicacion, Date _fecha, Time _hora, String _descripcion) {
+    public CitaPacienteDTO(int _identificador, String _dniMedico, Ubicacion _ubicacion, Date _fecha, Date _tiempo, String _descripcion) {
         this.identificador = _identificador;
         this.dniMedico = _dniMedico;
         this.ubicacion = _ubicacion;
         this.fecha = _fecha;
-        this.hora = _hora;
+        this.tiempo = _tiempo;
         this.descripcion = _descripcion;
     }
 
@@ -118,21 +117,21 @@ public class CitaPacienteDTO {
     }
 
     /**
-     * Obtiene la hora de una cita
+     * Obtiene el tiempo de una cita
      * 
-     * @return Time
+     * @return Date
      */
-    public Time getHora() {
-        return hora;
+    public Date getTiempo() {
+        return tiempo;
     }
 
     /**
      * Asigna la hora de una cita
      * 
-     * @param hora 
+     * @param _tiempo 
      */
-    public void setHora(Time hora) {
-        this.hora = hora;
+    public void setTiempo(Date _tiempo) {
+        this.tiempo = _tiempo;
     }
 
     /**
@@ -163,11 +162,14 @@ public class CitaPacienteDTO {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
         String strFecha= formatter.format(fecha); 
         
+        SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");  
+        String strTime= formatterTime.format(tiempo); 
+        
         object.add(identificador);
         object.add(dniMedico);
         object.add(ubicacion.getCentroHospitalario());
         object.add(strFecha);
-        object.add(hora);
+        object.add(strTime);
         object.add(descripcion);
                 
         return object.toArray();
@@ -181,7 +183,7 @@ public class CitaPacienteDTO {
     @Override
     public String toString() {
         return identificador + " " + dniMedico + " " + ubicacion + 
-            " " + fecha + " " + hora + " " + descripcion;
+            " " + fecha + " " + tiempo + " " + descripcion;
     }  
     
     /**

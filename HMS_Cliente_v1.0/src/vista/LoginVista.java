@@ -427,9 +427,9 @@ public class LoginVista extends javax.swing.JFrame{
     }
     
     /**
-     * Envía el json del usuarioSended a verficar al servidor, y en el caso 
+     * Envía el json del usuario a verficar al servidor, y en el caso 
      * en el que las credenciales son válidas habilita la siguiente 
-     * pantalla en función del usuarioSended que ha iniciado sesión.
+     * pantalla en función del usuario que ha iniciado sesión.
      * 
      * @param evt 
      */
@@ -437,10 +437,10 @@ public class LoginVista extends javax.swing.JFrame{
         try {
             String usuarioJsonSended = crearJsonUsuarioAVerificar();
             
-            if (usuarioJsonSended != null){
-                String usuarioJsonReceived = pxUsuario.verificarUsuarioTest(usuarioJsonSended); 
+            if (usuarioJsonSended != null && ! usuarioJsonSended.isBlank()){
+                String usuarioJsonReceived = pxUsuario.verificarUsuario(usuarioJsonSended); 
 
-                if(usuarioJsonReceived != null){
+                if(usuarioJsonReceived != null && ! usuarioJsonReceived.isBlank()){
                     UsuarioDTO usuario = gson.fromJson(usuarioJsonReceived, UsuarioDTO.class);
                     this.dispose();
 

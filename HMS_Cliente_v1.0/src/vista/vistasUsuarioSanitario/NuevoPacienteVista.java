@@ -446,7 +446,6 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
             b_connected.setText("Disconnected");
             b_connected.setBackground(Color.YELLOW);
         } else{
-            System.out.println("id " + _idConexion);
             b_connected.setEnabled(true);
             b_connected.setText("Connected with id " + _idConexion);
             b_connected.setBackground(Color.GREEN);

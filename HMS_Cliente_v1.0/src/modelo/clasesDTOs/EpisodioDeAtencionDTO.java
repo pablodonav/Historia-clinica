@@ -116,7 +116,7 @@ public class EpisodioDeAtencionDTO {
      */
     public Object[] toArray(){
         List<Object> object = new ArrayList();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
         String strFecha= formatter.format(fecha);  
         
         object.add(id);
