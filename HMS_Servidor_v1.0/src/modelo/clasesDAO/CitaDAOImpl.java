@@ -78,7 +78,7 @@ public class CitaDAOImpl implements CitaDAO {
         String formattedDate = simpleDateFormat.format(_cita.getFecha());
         
         SimpleDateFormat simpleHourFormat = new SimpleDateFormat("HH:mm:ss");
-        String formattedHour = simpleHourFormat.format(_cita.getHora());
+        String formattedHour = simpleHourFormat.format(_cita.getTiempo());
         
         stmt_add.setString(1, _cita.getDescripcion());
         stmt_add.setString(2, _cita.getUbicacion().getSala());
@@ -143,7 +143,7 @@ public class CitaDAOImpl implements CitaDAO {
         String formattedDate = simpleDateFormat.format(_cita.getFecha());
         
         SimpleDateFormat simpleHourFormat = new SimpleDateFormat("HH:mm:ss");
-        String formattedHour = simpleHourFormat.format(_cita.getHora());
+        String formattedHour = simpleHourFormat.format(_cita.getTiempo());
         
         stmt_upd.setString(1, _cita.getDescripcion());
         stmt_upd.setString(2, _cita.getUbicacion().getSala());

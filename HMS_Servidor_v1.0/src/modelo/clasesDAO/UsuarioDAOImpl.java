@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class UsuarioDAOImpl implements UsuarioDAO {
     private PreparedStatement stmt_add;
+    private PreparedStatement stmt_add_admin;
     private PreparedStatement stmt_del;
     private PreparedStatement stmt_upd;
     private PreparedStatement stmt_getAll;
@@ -25,6 +26,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     private PreparedStatement stmt_getAdm;
 
     private static final String INSERT = "INSERT INTO USUARIO(dni, correo, contraseña) VALUES(?, ?, ?)";
+    private static final String INSERT_ADMIN = "INSERT INTO ADMINISTRADOR (dni) VALUES (?)";
     private static final String DELETE = "DELETE FROM USUARIO WHERE dni=?";
     private static final String UPDATE = "UPDATE USUARIO SET correo=?, contraseña=? WHERE dni=?";
     private static final String FIND_ALL = "SELECT * FROM USUARIO";
@@ -44,6 +46,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public UsuarioDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
         this.stmt_add = _conn.prepareStatement(INSERT);
+        this.stmt_add_admin = _conn.prepareStatement(INSERT_ADMIN);
         this.stmt_del = _conn.prepareStatement(DELETE);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAll = _conn.prepareStatement(FIND_ALL);
@@ -78,6 +81,19 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Da de alta un nuevo administrador.
+     * 
+     * @param _dni
+     * @return
+     * @throws SQLException 
+     */
+    public boolean addAdmin(String _dni) throws SQLException {
+        stmt_add_admin.setString(1, _dni);
+        
+        return stmt_add_admin.executeUpdate() > 0;
     }
     
     /**
@@ -122,6 +138,29 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         return usuarioEncontrado;
+    }
+    
+    /**
+     * Devuelve cierto si existe un administrador con el dni indicado.
+     * 
+     * @param _dniAdmin
+     * @return
+     * @throws SQLException 
+     */
+    @Override
+    public boolean existeAdmin(String _dniAdmin) throws SQLException {
+        int cuenta = 0;
+        
+        stmt_getAdm.setString(1, _dniAdmin);
+        ResultSet rs = stmt_getAdm.executeQuery();
+        
+        if (rs.next()) {
+            return true;
+        }
+        
+        rs.close();
+            
+        return cuenta > 0;
     }
 
     /**

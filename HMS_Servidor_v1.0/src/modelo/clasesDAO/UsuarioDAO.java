@@ -17,8 +17,12 @@ import java.util.List;
 public interface UsuarioDAO {
     
     public boolean addUsuario(UsuarioDTO _usuario) throws SQLException;
+    
+    public boolean addAdmin(String _dni) throws SQLException;
 
     public UsuarioDTO checkUser(UsuarioDTO _usuario) throws SQLException;
+    
+    public boolean existeAdmin(String _dniAdmin) throws SQLException;
     
     public boolean deleteUsuario(String _dni) throws SQLException;
 

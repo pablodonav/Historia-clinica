@@ -84,6 +84,18 @@ public class DataBaseControl {
         medImpl = new MedicamentoDAOImpl(conexion);
     }
     
+    public boolean existeAdmin(String _dniAdmin) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        if (usImpl.getUsuario(_dniAdmin) != null) {
+            return usImpl.existeAdmin(_dniAdmin);
+        }
+        
+        return false;
+    }
+    
     /**
      * Añade un nuevo usuario a la DB.
      * 
@@ -101,6 +113,21 @@ public class DataBaseControl {
         UsuarioDTO usuario = new UsuarioDTO(_dni, _email, _pwd);
         
         return usImpl.addUsuario(usuario);
+    }
+    
+    /**
+     * Añade un nuevo administrador a la DB.
+     * 
+     * @param _dniAdmin
+     * @return
+     * @throws SQLException 
+     */
+    public boolean addAdmin(String _dniAdmin) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return usImpl.addAdmin(_dniAdmin);
     }
     
     /**

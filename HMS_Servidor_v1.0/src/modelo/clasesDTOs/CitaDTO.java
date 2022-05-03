@@ -17,7 +17,7 @@ public class CitaDTO {
     private String dniMedico;
     private UbicacionDTO ubicacion;
     private Date fecha;
-    private Date hora;
+    private Date tiempo;
     private String descripcion;
 
     /**
@@ -35,7 +35,7 @@ public class CitaDTO {
         this.dniMedico = _dniMedico;
         this.ubicacion = _ubicacion;
         this.fecha = _fecha;
-        this.hora = _hora;
+        this.tiempo = _hora;
         this.descripcion = _descripcion;
     }
 
@@ -113,21 +113,21 @@ public class CitaDTO {
     }
 
     /**
-     * Obtiene la hora de una cita
+     * Obtiene la tiempo de una cita
      * 
      * @return Date
      */
-    public Date getHora() {
-        return hora;
+    public Date getTiempo() {
+        return tiempo;
     }
 
     /**
-     * Asigna la hora de una cita
+     * Asigna la tiempo de una cita
      * 
-     * @param hora 
+     * @param tiempo 
      */
-    public void setHora(Date hora) {
-        this.hora = hora;
+    public void setTiempo(Date tiempo) {
+        this.tiempo = tiempo;
     }
 
     /**
@@ -156,7 +156,7 @@ public class CitaDTO {
     @Override
     public String toString() {
         return identificador + " " + dniMedico + " " + ubicacion + 
-            " " + fecha + " " + hora + " " + descripcion;
+            " " + fecha + " " + tiempo + " " + descripcion;
     }  
     
     /**

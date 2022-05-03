@@ -5,14 +5,12 @@
  */
 package control;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,31 +34,18 @@ import modelo.clasesDTOs.UsuarioDTO;
 public class ServidorSanitarios extends Thread {
     private static int TIEMPO_TEST_CONEXIONES = 10 * 1000;
     public static int TIEMPO_ESPERA_CLIENTE = 1000;  
+    
+    private static String ERROR_EJECUCION_SERVIDOR = 
+        "Error: Server running in ";   
+    private static String ERROR_CREANDO_CONEXION_SANITARIO = 
+        "Failed to create health worker connection";
 
     private Map<String, ConexionPushHospital> 
         conexionesPushSanitarios;
     private int numConexion = 0;
     private DataBaseControl database;
     
-     /** Configuración */  
-    private Properties propiedades; 
-    private static final String FICHERO_CONFIG = 
-        "config.properties";
-    public static String VERSION = "Hospital Server 1.0";
-    
-    private static String FICHERO_CONFIG_ERRONEO = 
-        "Config file is wrong. Set default values";
-    private static String ESPERANDO_SOLICITUD_SANITARIO = 
-        "Waiting for health worker request...";
-    private static String ERROR_EJECUCION_SERVIDOR = 
-        "Error: Server running in ";   
-    private static String ERROR_CREANDO_CONEXION_SANITARIO = 
-            "Failed to create health worker connection";    
-
-    private static final String NUM_THREADS = "threadsNumber";
-    private int numThreads = 30;
-    private static final String PUERTO_SERVIDOR = "serverPort";
-    private int puertoServidor = 15000;
+    private Config configuracion;
 
     /**
      * Construye el servidor de sanitarios.
@@ -68,33 +53,18 @@ public class ServidorSanitarios extends Thread {
      * @throws java.sql.SQLException
      */   
     public ServidorSanitarios() throws SQLException {
-        leerConfiguracion();
+        this.configuracion = Config.getInstance();
+        configuracion.load();
         database = DataBaseControl.getInstance();
+        
+        if ( ! database.existeAdmin(configuracion.getDniAdmin())) {
+            database.addUsuario(configuracion.getDniAdmin(), configuracion.getEmailAdmin(), configuracion.getPwdAdmin());
+            database.addAdmin(configuracion.getDniAdmin());
+        }
         
         conexionesPushSanitarios = new ConcurrentHashMap<>();
         envioTestPeriodicosConexionesPushSanitarios();
         start();
-    }
-    
-    /**
-     * Lee configuración.
-     */
-    private void leerConfiguracion() {
-        try {
-            propiedades = new Properties();
-            propiedades.load(new FileInputStream(FICHERO_CONFIG));
-
-            numThreads = Integer.parseInt(
-                    propiedades.getProperty(NUM_THREADS));
-            puertoServidor = Integer.parseInt(
-                    propiedades.getProperty(PUERTO_SERVIDOR));
-            
-        } catch (IOException | NumberFormatException e) {
-            System.out.println(FICHERO_CONFIG_ERRONEO);
-            System.out.println(NUM_THREADS + " = " + numThreads);
-            System.out.println(PUERTO_SERVIDOR + " = " + 
-                puertoServidor);
-        }
     }
     
     /**
@@ -137,13 +107,13 @@ public class ServidorSanitarios extends Thread {
      */
     @Override
     public void run() { 
-        System.out.println(VERSION);  
+        System.out.println(configuracion.VERSION);  
         try {
             ExecutorService poolThreads = 
-                    Executors.newFixedThreadPool(numThreads);
+                    Executors.newFixedThreadPool(configuracion.getNumThreads());
       
             ServerSocket serverSocket = 
-                new ServerSocket(puertoServidor);
+                new ServerSocket(configuracion.getPuertoServidor());
       
             while(true) {
                 Socket socket = serverSocket.accept();
@@ -154,7 +124,7 @@ public class ServidorSanitarios extends Thread {
       
         } catch (BindException e) {
             System.out.println(ERROR_EJECUCION_SERVIDOR + 
-                puertoServidor);
+                configuracion.getPuertoServidor());
         } catch (IOException e) {
             System.out.println(ERROR_CREANDO_CONEXION_SANITARIO);
         }
