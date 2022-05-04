@@ -29,7 +29,6 @@ import modelo.clasesDTOs.UsuarioDTO;
  * Será el encargado de recibir todas las conexiones de los sanitarios.
  * Para cada conexión, creará un ServidorHospital, que recibirá las peticiones
  * de cada sanitario.
- * 
  */
 public class ServidorSanitarios extends Thread {
     private static int TIEMPO_TEST_CONEXIONES = 10 * 1000;

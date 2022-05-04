@@ -106,7 +106,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public UsuarioDTO checkUser(UsuarioDTO _usuario) throws SQLException {
         UsuarioDTO usuarioEncontrado = null;
-        int cuenta = 0;
+        String resultado = "";
         
         stmt_verifyUs.setString(1, _usuario.getDni());
         stmt_verifyUs.setString(2, _usuario.getEmail());
@@ -114,24 +114,24 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         ResultSet rs = stmt_verifyUs.executeQuery();
         if (rs.next()) {
-            cuenta = rs.getInt(1);
+            resultado = rs.getString(1);
         }
         rs.close();
         
-        if (cuenta > 0) {
+        if (! "".equals(resultado)) {
             // Se ha encontrado un usuario con esas credenciales.
             //Se va a verificar si es un usuario administrador.
-            cuenta = 0;
+            resultado = "";
             usuarioEncontrado = _usuario;
             usuarioEncontrado.setAdmin(false);
             stmt_getAdm.setString(1, _usuario.getDni());
             rs = stmt_getAdm.executeQuery();
             if (rs.next()) {
-                cuenta = rs.getInt(1);
+                resultado = rs.getString(1);
             }
             rs.close();
             
-            if (cuenta > 0) {
+            if (! "".equals(resultado)) {
                 //Se ha verificado que el usuario es admin.
                 _usuario.setAdmin(true);
             }
@@ -149,18 +149,22 @@ public class UsuarioDAOImpl implements UsuarioDAO {
      */
     @Override
     public boolean existeAdmin(String _dniAdmin) throws SQLException {
-        int cuenta = 0;
+        String resultado = "";
         
         stmt_getAdm.setString(1, _dniAdmin);
         ResultSet rs = stmt_getAdm.executeQuery();
         
         if (rs.next()) {
-            return true;
+            resultado = rs.getString(1);
         }
         
         rs.close();
             
-        return cuenta > 0;
+        if (! "".equals(resultado)) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
