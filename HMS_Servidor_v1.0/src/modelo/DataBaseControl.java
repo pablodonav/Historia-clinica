@@ -284,7 +284,7 @@ public class DataBaseControl {
             connectDB();
         }
         
-        return citImpl.getCount();
+        return citImpl.getNewIndex();
     }
     
     /**
@@ -421,7 +421,7 @@ public class DataBaseControl {
             connectDB();
         }
         
-        return medImpl.getCount(_nss);
+        return medImpl.getNewIndex(_nss);
     }
     
     /**

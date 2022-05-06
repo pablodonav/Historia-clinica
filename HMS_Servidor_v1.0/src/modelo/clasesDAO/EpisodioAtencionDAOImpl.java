@@ -26,14 +26,14 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     private PreparedStatement stmt_upd;
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getEp;
-    private PreparedStatement stmt_getCount;
+    private PreparedStatement stmt_getNewIndex;
 
     private static final String INSERT = "INSERT INTO EPISODIO_DE_ATENCION(id, fecha, motivo, diagnostico, nss_pac) VALUES(?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM EPISODIO_DE_ATENCION WHERE id=? AND nss_pac=?";
     private static final String UPDATE = "UPDATE EPISODIO_DE_ATENCION SET diagnostico=? WHERE id=? AND nss_pac=?";
     private static final String GET_EPISODIO = "SELECT * FROM EPISODIO_DE_ATENCION WHERE nss_pac=? AND id=?";
     private static final String GET_ALL = "SELECT * FROM EPISODIO_DE_ATENCION WHERE nss_pac=?";
-    private static final String GET_COUNT = "SELECT COUNT(*) FROM EPISODIO_DE_ATENCION";
+    private static final String GET_NEW_INDEX = "SELECT max(id) + 1 FROM EPISODIO_DE_ATENCION";
     
     private Connection connection;
 
@@ -51,7 +51,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
         this.stmt_del = _conn.prepareStatement(DELETE);
         this.stmt_getAll = _conn.prepareStatement(GET_ALL);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
-        this.stmt_getCount = _conn.prepareStatement (GET_COUNT);
+        this.stmt_getNewIndex = _conn.prepareStatement(GET_NEW_INDEX);
     }
 
     /**
@@ -87,13 +87,15 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
     public int getCount() throws SQLException {
         int cuenta = 0;
         
-        ResultSet rs = stmt_getCount.executeQuery();
+        ResultSet rs = stmt_getNewIndex.executeQuery();
 
         while (rs.next()) {
-            cuenta = rs.getInt("COUNT(*)");
+            cuenta = rs.getInt(1);
         }
         
-        cuenta += 1;
+        if (cuenta == 0) {
+            cuenta = 1;
+        }
         
         return cuenta;
     }

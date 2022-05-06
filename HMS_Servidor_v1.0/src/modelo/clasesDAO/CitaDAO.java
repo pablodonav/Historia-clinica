@@ -17,7 +17,7 @@ import modelo.clasesDTOs.CitaDTO;
 public interface CitaDAO {
     public boolean addCita(CitaDTO _cita, String nss_pac) throws SQLException;
     
-    public int getCount() throws SQLException;
+    public int getNewIndex() throws SQLException;
 
     public boolean deleteCita(String _codigo) throws SQLException;
 

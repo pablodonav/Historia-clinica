@@ -28,7 +28,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
     private PreparedStatement stmt_upd;
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getReceta;
-    private PreparedStatement stmt_getCount;
+    private PreparedStatement stmt_getNewIndex;
 
     private Connection connection;
     
@@ -36,7 +36,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
     private static final String DELETE = "DELETE FROM MEDICAMENTO_PACIENTE WHERE id=? AND codigo_medic=? AND nss_pac=?";
     private static final String UPDATE = "UPDATE MEDICAMENTO_PACIENTE SET fecha_inicio=?, fecha_fin=? WHERE id=? AND codigo_medic=? AND nss_pac=?";
     private static final String GET_RECETA_PACIENTE = "SELECT * FROM MEDICAMENTO_PACIENTE WHERE nss_pac=?";
-    private static final String GET_COUNT = "SELECT COUNT(*) FROM MEDICAMENTO_PACIENTE WHERE nss_pac=?";
+    private static final String GET_NEW_INDEX = "SELECT max(id) + 1 FROM MEDICAMENTO_PACIENTE";
     private static final String GET_MEDICAMENTOS = "SELECT * FROM MEDICAMENTO";
     
     public MedicamentoDAOImpl(Connection _conn) throws SQLException {
@@ -47,7 +47,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
         this.stmt_getReceta = _conn.prepareStatement(GET_RECETA_PACIENTE);
         this.stmt_getAll = _conn.prepareStatement(GET_MEDICAMENTOS);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
-        this.stmt_getCount = _conn.prepareStatement (GET_COUNT);
+        this.stmt_getNewIndex = _conn.prepareStatement (GET_NEW_INDEX);
     }
 
     /**
@@ -80,17 +80,18 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
      * @throws SQLException 
      */
     @Override
-    public int getCount(String _nss) throws SQLException {
+    public int getNewIndex(String _nss) throws SQLException {
         int cuenta = 0;
         
-        stmt_getCount.setString(1, _nss);
-        ResultSet rs = stmt_getCount.executeQuery();
+        ResultSet rs = stmt_getNewIndex.executeQuery();
 
         while (rs.next()) {
-            cuenta = rs.getInt("COUNT(*)");
+            cuenta = rs.getInt(1);
         }
         
-        cuenta += 1;
+        if (cuenta == 0) {
+            cuenta = 1;
+        }
         
         return cuenta;
     }

@@ -18,7 +18,7 @@ import modelo.clasesDTOs.MedicamentoPacienteDTO;
 public interface MedicamentoDAO {
     public boolean addMedicineToPatient(MedicamentoPacienteDTO _medicamento) throws SQLException;
     
-    public int getCount(String _nss) throws SQLException;
+    public int getNewIndex(String _nss) throws SQLException;
 
     public boolean deleteMedicineFromPatient(int _codigo_medic, String _nss, int _id) throws SQLException;
 

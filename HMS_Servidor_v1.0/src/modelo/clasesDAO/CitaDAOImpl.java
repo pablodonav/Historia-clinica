@@ -31,18 +31,18 @@ public class CitaDAOImpl implements CitaDAO {
     private PreparedStatement stmt_getCit;
     private PreparedStatement stmt_getAllSanit;
     private PreparedStatement stmt_getAllPac;
-    private PreparedStatement stmt_getCount;
+    private PreparedStatement stmt_getNewIndex;
 
     private Connection connection;
     
-    private static final String INSERT = "INSERT INTO CITA(descripcion, sala, centro, localidad, hora, fecha, nss_pac, dni_sanit) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO CITA(codigo, descripcion, sala, centro, localidad, hora, fecha, nss_pac, dni_sanit) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM CITA WHERE codigo=?";
     private static final String UPDATE = "UPDATE CITA SET descripcion=?, sala=?, centro=?, localidad=?, hora=?, fecha=?, nss_pac=?, dni_sanit=? WHERE codigo=?";
     private static final String GET_CITA = "SELECT * FROM CITA WHERE codigo=?";
     private static final String GET_ALL = "SELECT * FROM CITA";
     private static final String GET_ALL_SANIT = "SELECT * FROM CITA WHERE dni_sanit=?";
     private static final String GET_ALL_PAC = "SELECT * FROM CITA WHERE nss_pac=?";
-    private static final String GET_COUNT = "SELECT COUNT(*) FROM CITA";
+    private static final String GET_NEW_INDEX = "SELECT max(codigo) + 1 FROM CITA";
     
     /**
      * Crea una cita, donde define la estructura
@@ -60,7 +60,7 @@ public class CitaDAOImpl implements CitaDAO {
         this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getAllPac = _conn.prepareStatement(GET_ALL_PAC);
         this.stmt_getAllSanit = _conn.prepareStatement(GET_ALL_SANIT);
-        this.stmt_getCount = _conn.prepareStatement(GET_COUNT);
+        this.stmt_getNewIndex = _conn.prepareStatement(GET_NEW_INDEX);
     }
  
     /**
@@ -80,14 +80,15 @@ public class CitaDAOImpl implements CitaDAO {
         SimpleDateFormat simpleHourFormat = new SimpleDateFormat("HH:mm:ss");
         String formattedHour = simpleHourFormat.format(_cita.getTiempo());
         
-        stmt_add.setString(1, _cita.getDescripcion());
-        stmt_add.setString(2, _cita.getUbicacion().getSala());
-        stmt_add.setString(3, _cita.getUbicacion().getCentroHospitalario());
-        stmt_add.setString(4, _cita.getUbicacion().getLocalidad());
-        stmt_add.setTime(5, java.sql.Time.valueOf(formattedHour));
-        stmt_add.setDate(6, java.sql.Date.valueOf(formattedDate));
-        stmt_add.setString(7, _nss_pac);
-        stmt_add.setString(8, _cita.getDniMedico());
+        stmt_add.setInt(1, _cita.getIdentificador());
+        stmt_add.setString(2, _cita.getDescripcion());
+        stmt_add.setString(3, _cita.getUbicacion().getSala());
+        stmt_add.setString(4, _cita.getUbicacion().getCentroHospitalario());
+        stmt_add.setString(5, _cita.getUbicacion().getLocalidad());
+        stmt_add.setTime(6, java.sql.Time.valueOf(formattedHour));
+        stmt_add.setDate(7, java.sql.Date.valueOf(formattedDate));
+        stmt_add.setString(8, _nss_pac);
+        stmt_add.setString(9, _cita.getDniMedico());
         
         return stmt_add.executeUpdate() > 0;
     }
@@ -99,16 +100,18 @@ public class CitaDAOImpl implements CitaDAO {
      * @throws SQLException 
      */
     @Override
-    public int getCount() throws SQLException {
+    public int getNewIndex() throws SQLException {
         int cuenta = 0;
         
-        ResultSet rs = stmt_getCount.executeQuery();
+        ResultSet rs = stmt_getNewIndex.executeQuery();
 
         while (rs.next()) {
-            cuenta = rs.getInt("COUNT(*)");
+            cuenta = rs.getInt(1);
         }
         
-        cuenta += 1;
+        if (cuenta == 0) {
+            cuenta = 1;
+        }
         
         return cuenta;
     }
