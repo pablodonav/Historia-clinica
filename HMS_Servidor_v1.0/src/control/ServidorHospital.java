@@ -1,7 +1,7 @@
 /**
  * ServidorHospital.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package control;
 
@@ -24,6 +24,7 @@ import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
+import modelo.clasesDTOs.VacunaPacienteDTO;
 
 /**
  * Servidor de Hospital.
@@ -137,7 +138,7 @@ public class ServidorHospital implements Runnable {
                     obtenerRecetaPaciente();
                     break;
                     
-                case OBTENER_MEDICAMENTOS:
+                case OBTENER_MEDICAMENTOS_DISPONIBLES:
                     obtenerMedicamentosDisponibles();
                     break;
                     
@@ -147,6 +148,18 @@ public class ServidorHospital implements Runnable {
                     
                 case ELIMINAR_CITA:
                     eliminarCitaPaciente();
+                    break;
+                    
+                case NUEVA_VACUNA_PACIENTE:
+                    nuevaVacunaPaciente();
+                    break;
+                    
+                case OBTENER_VACUNAS_PACIENTE:
+                    obtenerVacunasPaciente();
+                    break;
+                    
+                case OBTENER_VACUNAS_DISPONIBLES:
+                    obtenerVacunasDisponibles();
                     break;
             }  
             
@@ -674,15 +687,99 @@ public class ServidorHospital implements Runnable {
      * @throws SQLException 
      */
     private void obtenerMedicamentosDisponibles()throws IOException, SQLException {
-        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_MEDICAMENTOS);
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_MEDICAMENTOS_DISPONIBLES);
         
-        salida.println(PrimitivaComunicacion.OBTENER_MEDICAMENTOS);
+        salida.println(PrimitivaComunicacion.OBTENER_MEDICAMENTOS_DISPONIBLES);
         
         String medicamentosJSON = servidorSanitarios.obtenerMedicamentosDisponibles();
         
         if (medicamentosJSON != null) {
             salida.println(medicamentosJSON); 
             System.out.println("Salida: " + medicamentosJSON + "\n");
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
+        }
+        
+        cerrarConexion();    
+    }
+    
+    /**
+     * Recibe la vacuna, y 
+     * añade esa vacuna a la historia
+     * del paciente asociado.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void nuevaVacunaPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.NUEVA_VACUNA_PACIENTE);
+        
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        String vacunaPacienteJSON = entrada.readLine();
+        
+        VacunaPacienteDTO vacuna = gson.fromJson(vacunaPacienteJSON, VacunaPacienteDTO.class);
+        
+        if (servidorSanitarios.añadirVacuna(vacuna)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        System.out.println(respuesta + "\n");
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();  
+    }
+    
+    /**
+     * Método que obtiene la historia de vacunas de un paciente.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerVacunasPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_VACUNAS_PACIENTE);
+        
+        salida.println(PrimitivaComunicacion.OBTENER_VACUNAS_PACIENTE);
+        
+        String nss_pac = entrada.readLine();
+        
+        String vacunasJSON = servidorSanitarios.obtenerVacunasPaciente(nss_pac);
+        
+        if (vacunasJSON != null) {
+            salida.println(vacunasJSON); 
+            System.out.println("Salida: " + vacunasJSON + "\n");
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
+        }
+        
+        cerrarConexion();    
+    }
+    
+    /**
+     * Método que obtiene la lista de vacunas disponibles.
+     * Si no encuentra, devuelve NOK.
+     * En caso contrario, los devuelve.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerVacunasDisponibles()throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_VACUNAS_DISPONIBLES);
+        
+        salida.println(PrimitivaComunicacion.OBTENER_VACUNAS_DISPONIBLES);
+        
+        String vacunasJSON = servidorSanitarios.obtenerVacunasDisponibles();
+        
+        if (vacunasJSON != null) {
+            salida.println(vacunasJSON); 
+            System.out.println("Salida: " + vacunasJSON + "\n");
         } 
         else {
             salida.println(PrimitivaComunicacion.NOK.toString());

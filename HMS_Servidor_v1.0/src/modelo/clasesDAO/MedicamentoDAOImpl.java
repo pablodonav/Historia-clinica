@@ -1,7 +1,7 @@
 /**
  * MedicamentoDAOImpl.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -75,12 +75,11 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
     /**
      * Devuelve el valor del indice del próximo medicamento de paciente a insertar.
      * 
-     * @param _nss
      * @return
      * @throws SQLException 
      */
     @Override
-    public int getNewIndex(String _nss) throws SQLException {
+    public int getNewIndex() throws SQLException {
         int cuenta = 0;
         
         ResultSet rs = stmt_getNewIndex.executeQuery();

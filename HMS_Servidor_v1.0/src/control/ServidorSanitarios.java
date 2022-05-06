@@ -1,7 +1,7 @@
 /**
  * ServidorSanitarios.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package control;
 
@@ -23,6 +23,7 @@ import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesDTOs.UsuarioDTO;
+import modelo.clasesDTOs.VacunaPacienteDTO;
 
 /**
  * Clase asociada al servidor de sanitarios.
@@ -442,7 +443,7 @@ public class ServidorSanitarios extends Thread {
      */
     synchronized boolean añadirMedicamento(MedicamentoPacienteDTO _medicamento) 
                 throws SQLException, IOException {
-        _medicamento.setId(database.obtenerIndiceNuevoMedicamento(_medicamento.getNss_pac()));
+        _medicamento.setId(database.obtenerIndiceNuevoMedicamento());
         
         if ( ! database.añadirMedicamentoAPaciente(_medicamento)) {
             return false;
@@ -475,6 +476,52 @@ public class ServidorSanitarios extends Thread {
      */
     synchronized String obtenerMedicamentosDisponibles() throws SQLException {
         return database.obtenerMedicamentosDisponibles();
+    }
+    
+    /**
+     * Devuelve cierto si se ha podido añadir una nueva vacuna a la historia de
+     * un paciente.
+     * 
+     * @param _vacuna
+     * @return
+     * @throws SQLException
+     * @throws IOException 
+     */
+    synchronized boolean añadirVacuna(VacunaPacienteDTO _vacuna) 
+                throws SQLException, IOException {
+        _vacuna.setId(database.obtenerIndiceNuevaVacuna());
+        
+        if ( ! database.añadirVacunaAPaciente(_vacuna)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.NUEVA_VACUNA_PACIENTE, 
+                String.valueOf(_vacuna.toJson()));
+        
+        return true;
+    }
+    
+    /**
+     * Método que obtiene la historia de vacunas
+     * de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerVacunasPaciente(String _nss) throws SQLException {
+        return database.obtenerVacunasPaciente(_nss);
+    }
+    
+    /**
+     * Método que devuelve la lista de 
+     * vacunas disponibles (dadas de alta).
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerVacunasDisponibles() throws SQLException {
+        return database.obtenerVacunasDisponibles();
     }
     
     /**

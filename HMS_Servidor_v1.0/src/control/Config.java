@@ -1,7 +1,7 @@
 /**
  * Config.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package control;
 
@@ -22,7 +22,7 @@ public class Config {
     private Properties propiedades; 
     private static final String FICHERO_CONFIG = 
         "config.properties";
-    public static String VERSION = "Hospital Server 2.4";
+    public static String VERSION = "Hospital Server 2.5";
     
     private static String FICHERO_CONFIG_ERRONEO = 
         "Config file is wrong. Set default values";

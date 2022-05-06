@@ -1,15 +1,15 @@
 /**
  * DataBaseControl.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package modelo;
 
 import com.google.gson.Gson;
+import java.sql.Connection;
 import modelo.clasesDAO.SanitarioDAOImpl;
 import modelo.clasesDTOs.SanitarioDTO;
 import java.sql.SQLException;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.clasesDAO.CitaDAOImpl;
@@ -17,12 +17,15 @@ import modelo.clasesDAO.EpisodioAtencionDAOImpl;
 import modelo.clasesDAO.MedicamentoDAOImpl;
 import modelo.clasesDAO.PacienteDAOImpl;
 import modelo.clasesDAO.UsuarioDAOImpl;
+import modelo.clasesDAO.VacunaDAOImpl;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
 import modelo.clasesDTOs.MedicamentoDTO;
 import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.UsuarioDTO;
+import modelo.clasesDTOs.VacunaDTO;
+import modelo.clasesDTOs.VacunaPacienteDTO;
 
 /**
  * Clase que contiene las operaciones asociadas
@@ -40,6 +43,7 @@ public class DataBaseControl {
     private EpisodioAtencionDAOImpl epImpl;
     private CitaDAOImpl citImpl;
     private MedicamentoDAOImpl medImpl;
+    private VacunaDAOImpl vacImpl;
     
     /**
      * Crea la conexión con la DB.
@@ -82,6 +86,7 @@ public class DataBaseControl {
         citImpl = new CitaDAOImpl(conexion);
         epImpl = new EpisodioAtencionDAOImpl(conexion);
         medImpl = new MedicamentoDAOImpl(conexion);
+        vacImpl = new VacunaDAOImpl(conexion);
     }
     
     public boolean existeAdmin(String _dniAdmin) throws SQLException {
@@ -412,16 +417,15 @@ public class DataBaseControl {
     /**
      * Método que devuelve el índice que debe ocupar el nuevo medicamento en la receta del paciente.
      * 
-     * @param _nss
      * @return
      * @throws SQLException 
      */
-    public int obtenerIndiceNuevoMedicamento(String _nss) throws SQLException {
+    public int obtenerIndiceNuevoMedicamento() throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return medImpl.getNewIndex(_nss);
+        return medImpl.getNewIndex();
     }
     
     /**
@@ -461,5 +465,74 @@ public class DataBaseControl {
         medicamentos = medImpl.getMedicamentos();
        
         return gson.toJson(medicamentos);
+    }
+    
+    /**
+     * Método que añade una vacuna a la historia de un paciente.
+     * 
+     * @param _vacuna
+     * @return
+     * @throws SQLException 
+     */
+    public boolean añadirVacunaAPaciente(VacunaPacienteDTO _vacuna) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return vacImpl.addVaccineToPatient(_vacuna);
+    }
+    
+    /**
+     * Método que devuelve el índice que debe ocupar la nueva 
+     * vacuna en la historia del paciente.
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    public int obtenerIndiceNuevaVacuna() throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return vacImpl.getNewIndex();
+    }
+    
+    /**
+     * Devuelve las vacunas de un paciente en formato JSON.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerVacunasPaciente(String _nss) throws SQLException {
+        Gson gson = new Gson();
+        
+        List<VacunaPacienteDTO> vacunas = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        vacunas = vacImpl.getVacunasPaciente(_nss);
+       
+        return gson.toJson(vacunas);
+    }
+    
+    /**
+     * Devuelve las vacunas disponibles en formato JSON.
+     * 
+     * @return
+     * @throws SQLException 
+     */
+    public String obtenerVacunasDisponibles() throws SQLException {
+        Gson gson = new Gson();
+        
+        List<VacunaDTO> vacunas = new ArrayList<>();
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        vacunas = vacImpl.getVacunas();
+       
+        return gson.toJson(vacunas);
     }
 }

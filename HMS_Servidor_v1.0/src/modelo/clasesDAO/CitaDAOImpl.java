@@ -1,7 +1,7 @@
 /**
  * CitaDAOImpl.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package modelo.clasesDAO;
 

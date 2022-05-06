@@ -1,9 +1,11 @@
 /**
  * VacunaDTO.java
  * Pablo Doñate Navarro
- * v2.4 01/05/2022.
+ * v2.5 06/05/2022.
  */
 package modelo.clasesDTOs;
+
+import com.google.gson.Gson;
 
 /**
  * Clase que contiene los atributos y getter-setter de una vacuna.
@@ -52,5 +54,15 @@ public class VacunaDTO {
         String s = codigo + " " + nombre + "\n";
         return s;
     }
+    
+    /**
+     * Obtiene el JSON de la vacuna
+     * 
+     * @return String
+     */
+    public String toJson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    } 
 }
 
