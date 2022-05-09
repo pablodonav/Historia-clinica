@@ -16,8 +16,12 @@ import java.util.Date;
 import java.util.List;
 import modelo.clasesDTOs.CitaPacienteDTO;
 import modelo.clasesDTOs.EpisodioDeAtencionDTO;
+import modelo.clasesDTOs.MedicamentoDTO;
+import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.Ubicacion;
+import modelo.clasesDTOs.VacunaDTO;
+import modelo.clasesDTOs.VacunaPacienteDTO;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
@@ -226,4 +230,115 @@ public class ProxyPaciente extends Comms{
         }
     }
     
+    /**
+     * Obtiene todas las vacunas de un paciente
+     * 
+     * @param _idPaciente
+     * @return String
+     * @throws Exception 
+     */
+    public String obtenerVacunasPaciente(String _idPaciente) throws Exception{
+        if (! conectado){
+            return null;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        
+        PrimitivaComunicacion respuesta = 
+                cliente.enviarSolicitud(PrimitivaComunicacion.OBTENER_VACUNAS_PACIENTE, 
+                                        tiempoEsperaServidor,
+                                        _idPaciente,
+                                        resultados);
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+            return null;
+        } else {
+            return resultados.get(0);
+        }
+    }
+    
+    public String obtenerVacunasPacienteTest(String _idPaciente) throws Exception{
+        String respuestaJson = "";
+        Gson gson = new Gson();
+       
+        String oldstring = "2011-01-18";
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring);
+        
+        VacunaDTO vacuna1 = new VacunaDTO(1111, "Prueba1");
+        VacunaDTO vacuna2 = new VacunaDTO(1111, "Prueba2");
+        
+        List<VacunaPacienteDTO> vacunas = new ArrayList();
+        vacunas.add(new VacunaPacienteDTO(vacuna1, date));
+        vacunas.add(new VacunaPacienteDTO(vacuna2, date));
+        String vacunasToSend = gson.toJson(vacunas);
+    
+        System.out.println("Vacunas enviadas: " + vacunasToSend);
+        
+        for(VacunaPacienteDTO vacuna: vacunas){
+            System.out.println(vacuna.toString());
+        }
+        
+        if (vacunasToSend.isEmpty()){
+            return null;
+        } else {
+            return vacunasToSend;
+        }
+    }
+    
+    /**
+     * Obtiene todos los medicamentos de un paciente
+     * 
+     * @param _idPaciente
+     * @return String
+     * @throws Exception 
+     */
+    public String obtenerMedicamentosPaciente(String _idPaciente) throws Exception{
+        if (! conectado){
+            return null;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        
+        PrimitivaComunicacion respuesta = 
+                cliente.enviarSolicitud(PrimitivaComunicacion.OBTENER_RECETA_PACIENTE, 
+                                        tiempoEsperaServidor,
+                                        _idPaciente,
+                                        resultados);
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+            return null;
+        } else {
+            return resultados.get(0);
+        }
+    }
+    
+    public String obtenerMedicamentosPacienteTest(String _idPaciente) throws Exception{
+        String respuestaJson = "";
+        Gson gson = new Gson();
+       
+        String oldstring1 = "2022-01-18";
+        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring1);
+        String oldstring2 = "2022-03-12";
+        Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring2);
+        
+        MedicamentoDTO medicamento1 = new MedicamentoDTO(1111, "Prueba 1");
+        MedicamentoDTO medicamento2 = new MedicamentoDTO(2222, "Prueba 2");
+        
+        List<MedicamentoPacienteDTO> medicamentos = new ArrayList();
+        medicamentos.add(new MedicamentoPacienteDTO(1, medicamento1, date1, date2));
+        medicamentos.add(new MedicamentoPacienteDTO(2, medicamento2, date1, date2));
+        String medicamentosToSend = gson.toJson(medicamentos);
+    
+        System.out.println("Medicamentos enviados: " + medicamentosToSend);
+        
+        for(MedicamentoPacienteDTO medicamento: medicamentos){
+            System.out.println(medicamento.toString());
+        }
+        
+        if (medicamentosToSend.isEmpty()){
+            return null;
+        } else {
+            return medicamentosToSend;
+        }
+    }
 }

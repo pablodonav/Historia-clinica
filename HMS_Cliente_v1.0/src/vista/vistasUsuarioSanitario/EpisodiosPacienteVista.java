@@ -454,7 +454,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
                 throw new Exception(ERROR_OBTENER_EPISODIOS);
             }
         } catch (Exception ex) {
-            mensajeDialogo(ex.getMessage(), JOptionPane.ERROR);
+            mensajeDialogo(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
         
         return episodios;

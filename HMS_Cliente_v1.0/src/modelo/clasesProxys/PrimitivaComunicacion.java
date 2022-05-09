@@ -36,7 +36,15 @@ public enum PrimitivaComunicacion {
     OBTENER_EPISODIOS_PACIENTE("get_patient_episodes"),
     NUEVA_CITA("new_medical_appointment"),
     ELIMINAR_CITA("remove_medical_appointment"),
-    OBTENER_CITAS_PACIENTE("get_medical_appointments");
+    OBTENER_CITAS_PACIENTE("get_medical_appointments"),
+    NUEVA_VACUNA_PACIENTE("new_patient_vaccine"),
+    OBTENER_VACUNAS_PACIENTE("get_patient_vaccines"),
+    OBTENER_VACUNAS_DISPONIBLES("get_vaccines"),
+    OBTENER_MEDICAMENTOS_DISPONIBLES("get_medicines"),
+    NUEVO_MEDICAMENTO_PACIENTE("new_patient_medicine"),
+    ELIMINAR_MEDICAMENTO_PACIENTE("remove_patient_medicine"),
+    OBTENER_RECETA_PACIENTE("get_patient_medicines"),
+    OBTENER_HISTORIA_PACIENTE("get_patient_medical_record");
     
     private String simbolo;
 

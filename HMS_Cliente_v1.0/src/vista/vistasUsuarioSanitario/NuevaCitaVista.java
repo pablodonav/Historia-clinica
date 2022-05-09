@@ -280,9 +280,9 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                medico_comboBoxPopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                medico_comboBoxPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -293,9 +293,9 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         asterisco_label_fecha.setForeground(new java.awt.Color(255, 0, 0));
         asterisco_label_fecha.setText("*");
 
-        fecha_chooser.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                fecha_chooserComponentAdded(evt);
+        fecha_chooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                fecha_chooserPropertyChange(evt);
             }
         });
 
@@ -556,7 +556,7 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         String sanitariosToReceive = null;
         
         try {
-            sanitariosToReceive = pxSanitario.obtenerSanitarios();
+            sanitariosToReceive = pxSanitario.obtenerSanitariosTest();
             
             if (sanitariosToReceive != null){
                 /* Permite obtener los sanitarios en un List con SanitarioDTO*/
@@ -655,24 +655,6 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         }
     }
     
-    /**
-     * Captura los eventos relacionados con la modificación del campo "médico".
-     * 
-     * @param evt
-     */
-    private void medico_comboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_medico_comboBoxPopupMenuWillBecomeVisible
-        changed();
-    }//GEN-LAST:event_medico_comboBoxPopupMenuWillBecomeVisible
-
-    /**
-     * Captura los eventos relacionados con la modificación del campo "fecha".
-     * 
-     * @param evt
-     */
-    private void fecha_chooserComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_fecha_chooserComponentAdded
-        changed();
-    }//GEN-LAST:event_fecha_chooserComponentAdded
-
     /**
      * Captura los eventos relacionados con la modificación del campo "descripción".
      * 
@@ -801,6 +783,24 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
     private void sala_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sala_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_sala_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "fecha".
+     * 
+     * @param evt
+     */
+    private void fecha_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_chooserPropertyChange
+        changed();
+    }//GEN-LAST:event_fecha_chooserPropertyChange
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "medico".
+     * 
+     * @param evt
+     */
+    private void medico_comboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_medico_comboBoxPopupMenuWillBecomeInvisible
+        changed();
+    }//GEN-LAST:event_medico_comboBoxPopupMenuWillBecomeInvisible
 
     /**
      * Recibe evento añadir nueva cita

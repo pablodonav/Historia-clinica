@@ -11,8 +11,10 @@ import modelo.clasesDTOs.Tupla;
 import modelo.clasesProxys.Comms;
 import modelo.clasesProxys.ProxyCitaPaciente;
 import modelo.clasesProxys.ProxyEpisodio;
+import modelo.clasesProxys.ProxyMedicamento;
 import modelo.clasesProxys.ProxyPaciente;
 import modelo.clasesProxys.ProxySanitario;
+import modelo.clasesProxys.ProxyVacuna;
 import vista.vistasUsuarioAdmin.EditarSanitarioVista;
 import vista.vistasUsuarioSanitario.NuevoPacienteVista;
 import vista.vistasUsuarioAdmin.NuevoSanitarioVista;
@@ -21,6 +23,8 @@ import vista.vistasUsuarioSanitario.CitasPacienteVista;
 import vista.vistasUsuarioSanitario.EpisodiosPacienteVista;
 import vista.vistasUsuarioSanitario.NuevaCitaVista;
 import vista.vistasUsuarioSanitario.NuevoEpisodioVista;
+import vista.vistasUsuarioSanitario.RecetaElectronicaVista;
+import vista.vistasUsuarioSanitario.RegistroVacunacionVista;
 
 /**
  * Clase que recibe los eventos de vista y llama a los métodos 
@@ -37,6 +41,8 @@ public class Hospital implements OyenteVista{
     private ProxyPaciente pxPaciente = null;
     private ProxyEpisodio pxEpisodio = null;
     private ProxyCitaPaciente pxCita = null;
+    private ProxyVacuna pxVacuna = null;
+    private ProxyMedicamento pxMedicamento = null;
     
     /**
      * Crea un Hospital.
@@ -48,6 +54,8 @@ public class Hospital implements OyenteVista{
         this.pxPaciente = ProxyPaciente.getInstance();
         this.pxEpisodio = ProxyEpisodio.getInstance();
         this.pxCita = ProxyCitaPaciente.getInstance();
+        this.pxVacuna = ProxyVacuna.getInstance();
+        this.pxMedicamento = ProxyMedicamento.getInstance();
         this.welcomeVista = new WelcomeVista(this, comms);
         
         comms.conectar();
@@ -112,7 +120,7 @@ public class Hospital implements OyenteVista{
             case NUEVA_CITA:
                 try {
                     Tupla<String, String> tupla = (Tupla<String, String>)obj;
-                    pxCita.anyadirCita(tupla.a, tupla.b);
+                    pxCita.anyadirCitaPacienteTest(tupla.a, tupla.b);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(NuevaCitaVista.ERROR_NUEVA_CITA); 
                 }
@@ -124,6 +132,33 @@ public class Hospital implements OyenteVista{
                     pxCita.eliminarCita(tupla.a, tupla.b);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(CitasPacienteVista.ERROR_ELIMINAR_CITA); 
+                }
+                break;
+                
+            case NUEVA_VACUNA:
+                try {
+                    Tupla<String, String> tupla = (Tupla<String, String>)obj;
+                    pxVacuna.anyadirVacunaAPaciente(tupla.a, tupla.b);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(RegistroVacunacionVista.ERROR_NUEVA_VACUNA); 
+                }
+                break;
+                
+            case NUEVO_MEDICAMENTO:
+                try {
+                    Tupla<String, String> tupla = (Tupla<String, String>)obj;
+                    pxMedicamento.anyadirMedicamentoAPaciente(tupla.a, tupla.b);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(RecetaElectronicaVista.ERROR_NUEVO_MEDICAMENTO); 
+                }
+                break;
+                
+            case ELIMINAR_MEDICAMENTO:
+                try {
+                    Tupla<String, String> tupla = (Tupla<String, String>)obj;
+                    pxMedicamento.eliminarMedicamentoDePaciente(tupla.a, tupla.b);
+                } catch (Exception ex) {
+                    welcomeVista.mensajeDialogo(RecetaElectronicaVista.ERROR_ELIMINAR_MEDICAMENTO); 
                 }
                 break;
 

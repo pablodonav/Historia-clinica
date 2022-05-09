@@ -6,10 +6,8 @@
  */
 package vista.vistasUsuarioSanitario;
 
-import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
-import javax.swing.JOptionPane;
 import modelo.clasesProxys.Comms;
 
 /**
@@ -230,18 +228,7 @@ public class MenuSanitarioVista extends javax.swing.JFrame {
             b_connected.setBackground(Color.GREEN);
         }
     }
-    
-    /**
-     * Escribe mensaje con diálogo modal.
-     * 
-     * @param _mensaje
-     */    
-    public void mensajeDialogo(String _mensaje) {
-        JOptionPane.showMessageDialog(this, _mensaje, 
-            Hospital.TITULO + " " + Hospital.VERSION, 
-            JOptionPane.ERROR_MESSAGE,  null);    
-    }
-    
+        
     /**
      * Provoca el cierre de la IU de la app, y envía el evento a 
      * la capa control para realizar las acciones

@@ -311,9 +311,9 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                puesto_comboBoxPopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                puesto_comboBoxPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -955,15 +955,6 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     }//GEN-LAST:event_pwd1_input_fieldKeyTyped
         
     /**
-     * Captura los eventos relacionados con la modificación del campo "puesto".
-     * 
-     * @param evt 
-     */
-    private void puesto_comboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_puesto_comboBoxPopupMenuWillBecomeVisible
-        changed();
-    }//GEN-LAST:event_puesto_comboBoxPopupMenuWillBecomeVisible
-
-    /**
      * Captura los eventos relacionados con la modificación del campo "Repite Contraseña".
      * 
      * @param evt 
@@ -971,6 +962,15 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private void pwd2_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwd2_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_pwd2_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "puesto".
+     * 
+     * @param evt 
+     */
+    private void puesto_comboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_puesto_comboBoxPopupMenuWillBecomeInvisible
+        changed();
+    }//GEN-LAST:event_puesto_comboBoxPopupMenuWillBecomeInvisible
     
     /**
      * Recibe evento dar baja sanitario

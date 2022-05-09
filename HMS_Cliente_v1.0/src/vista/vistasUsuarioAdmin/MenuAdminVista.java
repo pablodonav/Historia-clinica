@@ -9,7 +9,6 @@ package vista.vistasUsuarioAdmin;
 import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
-import javax.swing.JOptionPane;
 import modelo.clasesProxys.Comms;
 
 /**
@@ -233,18 +232,7 @@ public class MenuAdminVista extends javax.swing.JFrame {
             b_connected.setBackground(Color.GREEN);
         }
     }
-    
-    /**
-     * Escribe mensaje con diálogo modal.
-     * 
-     * @param _mensaje
-     */    
-    public void mensajeDialogo(String _mensaje) {
-        JOptionPane.showMessageDialog(this, _mensaje, 
-            Hospital.TITULO + " " + Hospital.VERSION, 
-            JOptionPane.ERROR_MESSAGE,  null);    
-    }
-        
+            
     /**
      * Habilita la pantalla con sanitarios existentes en el sistema
      * para poder eliminar o editar un sanitario

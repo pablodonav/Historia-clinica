@@ -165,7 +165,15 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Apellido 1", "NSS", "Edad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabla_con_pacientes.setFocusable(false);
         tabla_con_pacientes.setGridColor(new java.awt.Color(0, 153, 153));
         tabla_con_pacientes.setRowHeight(30);
@@ -532,7 +540,10 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
      * @param evt 
      */
     private void b_RegistroVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RegistroVacunacionActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+
+        this.setVisible(false);
+        new RegistroVacunacionVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_RegistroVacunacionActionPerformed
 
     /**
@@ -542,7 +553,10 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
      * @param evt 
      */
     private void b_RecetaElectronicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RecetaElectronicaActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+
+        this.setVisible(false);
+        new RecetaElectronicaVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_RecetaElectronicaActionPerformed
 
     /**

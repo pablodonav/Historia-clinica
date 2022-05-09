@@ -216,9 +216,9 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         fecha_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         fecha_label.setText("Fecha");
 
-        fecha_chooser.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                fecha_chooserComponentAdded(evt);
+        fecha_chooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                fecha_chooserPropertyChange(evt);
             }
         });
 
@@ -444,15 +444,6 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
     }//GEN-LAST:event_formWindowClosing
 
     /**
-     * Captura los eventos relacionados con la modificación del campo "fecha".
-     * 
-     * @param evt
-     */
-    private void fecha_chooserComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_fecha_chooserComponentAdded
-       changed();
-    }//GEN-LAST:event_fecha_chooserComponentAdded
-
-    /**
      * Captura la información de los campos rellenados por el usuario y
      * crea el json de un episodio nuevo
      * 
@@ -513,6 +504,15 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
     private void motivo_input_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_motivo_input_fieldKeyTyped
         changed();
     }//GEN-LAST:event_motivo_input_fieldKeyTyped
+
+    /**
+     * Captura los eventos relacionados con la modificación del campo "fecha".
+     * 
+     * @param evt
+     */
+    private void fecha_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_chooserPropertyChange
+        changed();
+    }//GEN-LAST:event_fecha_chooserPropertyChange
   
     /**
      * Recibe evento añadir nuevo episodio

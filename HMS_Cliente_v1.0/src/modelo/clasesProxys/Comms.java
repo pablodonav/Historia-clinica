@@ -345,6 +345,81 @@ public class Comms implements OyenteServidor{
         return true;
     }
     
+    /**
+     * Recibe del servidor el resultado añadir una nueva vacuna
+     * a un paciente.
+     * 
+     * @param _propiedad
+     * @param _resultados
+     * @return
+     * @throws IOException 
+     */
+    private boolean solicitudServidorAnyadirVacunaPaciente(
+            String _propiedad, List<String> _resultados)
+            throws IOException {
+        String vacunaJsonToReceive = _resultados.get(0);
+        
+        if (vacunaJsonToReceive == null ||
+            vacunaJsonToReceive.isBlank() ||
+            vacunaJsonToReceive.isEmpty()) {
+            
+            return false;
+        }
+
+        observadores.firePropertyChange(_propiedad, null, vacunaJsonToReceive);  
+        return true;
+    }
+    
+    /**
+     * Recibe del servidor el resultado añadir un nuevo medicamento
+     * a la receta de un paciente.
+     * 
+     * @param _propiedad
+     * @param _resultados
+     * @return
+     * @throws IOException 
+     */
+    private boolean solicitudServidorAnyadirMedicamentoPaciente(
+            String _propiedad, List<String> _resultados)
+            throws IOException {
+        String medicamentoJsonToReceive = _resultados.get(0);
+        
+        if (medicamentoJsonToReceive == null ||
+            medicamentoJsonToReceive.isBlank() ||
+            medicamentoJsonToReceive.isEmpty()) {
+            
+            return false;
+        }
+
+        observadores.firePropertyChange(_propiedad, null, medicamentoJsonToReceive);  
+        return true;
+    }
+    
+    /**
+     * Recibe del servidor el resultado de eliminar un medicamento  
+     * de la receta electrónica de un paciente.
+     * 
+     * @param _propiedad
+     * @param _resultados
+     * @return
+     * @throws IOException 
+     */
+    private boolean solicitudServidorEliminarMedicamentoDePaciente(
+            String _propiedad, List<String> _resultados)
+            throws IOException {
+        String codigoMedicamentoToReceive = _resultados.get(0);
+        
+        if (codigoMedicamentoToReceive == null ||
+            codigoMedicamentoToReceive.isBlank() ||
+            codigoMedicamentoToReceive.isEmpty()) {
+            
+            return false;
+        }
+
+        observadores.firePropertyChange(_propiedad, null, codigoMedicamentoToReceive);  
+        return true;
+    }
+    
     public void darAltaSanitarioTest(String _jsonSanitario) throws Exception{               
         if (_jsonSanitario == null ||
             _jsonSanitario.isBlank() ||
@@ -451,6 +526,46 @@ public class Comms implements OyenteServidor{
         return;
     }
     
+    public void anyadirVacunaPacienteTest(String _jsonNuevaVacuna, String idPaciente) throws Exception{  
+        if (_jsonNuevaVacuna == null ||
+            _jsonNuevaVacuna.isBlank() ||
+            _jsonNuevaVacuna.isEmpty()) {
+            return;
+        }
+        
+        System.out.println("jsonRecibido:" + _jsonNuevaVacuna);
+        
+        observadores.firePropertyChange(ProxyVacuna.PROPIEDAD_NUEVA_VACUNA, null, _jsonNuevaVacuna);  
+        return;
+    }
+    
+    public void anyadirMedicamentoPacienteTest(String _jsonNuevoMedicamento, String idPaciente) throws Exception{  
+        if (_jsonNuevoMedicamento == null ||
+            _jsonNuevoMedicamento.isBlank() ||
+            _jsonNuevoMedicamento.isEmpty()) {
+            return;
+        }
+        
+        System.out.println("jsonRecibido:" + _jsonNuevoMedicamento);
+        
+        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_NUEVO_MEDICAMENTO, null, _jsonNuevoMedicamento);  
+        return;
+    }
+    
+    public void eliminarMedicamentoDePacienteTest(String _codigoMedicamento, String _idPaciente) throws Exception{  
+        if (_codigoMedicamento == null ||
+            _codigoMedicamento.isBlank() ||
+            _codigoMedicamento.isEmpty()) {
+            return;
+        }
+        
+        System.out.println("codigoMedicamento:" + _codigoMedicamento);
+        System.out.println("idPaciente:" + _idPaciente);
+        
+        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_ELIMINAR_MEDICAMENTO, null, _codigoMedicamento);  
+        return;
+    }
+    
     /**
      * Recibe solicitudes del servidor
      * 
@@ -492,10 +607,18 @@ public class Comms implements OyenteServidor{
                     ProxyCitaPaciente.PROPIEDAD_NUEVA_CITA, _resultados);
             case ELIMINAR_CITA:
                 return solicitudServidorEliminarCita(
-                    ProxyCitaPaciente.PROPIEDAD_ELIMINAR_CITA, _resultados); 
+                    ProxyCitaPaciente.PROPIEDAD_ELIMINAR_CITA, _resultados);
+            case NUEVA_VACUNA_PACIENTE:
+                return solicitudServidorAnyadirVacunaPaciente(
+                    ProxyVacuna.PROPIEDAD_NUEVA_VACUNA, _resultados);     
+            case NUEVO_MEDICAMENTO_PACIENTE:
+                return solicitudServidorAnyadirMedicamentoPaciente(
+                    ProxyMedicamento.PROPIEDAD_NUEVO_MEDICAMENTO, _resultados);
+            case ELIMINAR_MEDICAMENTO_PACIENTE:
+                return solicitudServidorEliminarMedicamentoDePaciente(
+                    ProxyMedicamento.PROPIEDAD_ELIMINAR_MEDICAMENTO, _resultados);
             default:
                 return false;
         }   
     }
-
 }

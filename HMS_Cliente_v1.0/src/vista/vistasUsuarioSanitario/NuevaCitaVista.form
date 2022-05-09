@@ -526,7 +526,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="medico_comboBoxPopupMenuWillBecomeVisible"/>
+            <EventHandler event="popupMenuWillBecomeInvisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="medico_comboBoxPopupMenuWillBecomeInvisible"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -553,7 +553,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="fecha_chooser">
           <Events>
-            <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="fecha_chooserComponentAdded"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="fecha_chooserPropertyChange"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="asterisco_label_hora">
