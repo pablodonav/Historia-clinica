@@ -22,7 +22,7 @@ public class Config {
     private Properties propiedades; 
     private static final String FICHERO_CONFIG = 
         "config.properties";
-    public static String VERSION = "Hospital Server 2.5";
+    public static String VERSION = "Hospital Server 2.6";
     
     private static String FICHERO_CONFIG_ERRONEO = 
         "Config file is wrong. Set default values";
