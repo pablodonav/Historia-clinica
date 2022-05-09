@@ -1,7 +1,7 @@
 /**
  * DataBaseControl.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo;
 
@@ -20,6 +20,7 @@ import modelo.clasesDAO.UsuarioDAOImpl;
 import modelo.clasesDAO.VacunaDAOImpl;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
+import modelo.clasesDTOs.HistoriaPacienteDTO;
 import modelo.clasesDTOs.MedicamentoDTO;
 import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
@@ -406,12 +407,28 @@ public class DataBaseControl {
      * @return
      * @throws SQLException 
      */
-    public boolean añadirMedicamentoAPaciente(MedicamentoPacienteDTO _medicamento) throws SQLException {
+    public boolean añadirMedicamentoAPaciente(MedicamentoPacienteDTO _medicamento, String _nss_pac) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return medImpl.addMedicineToPatient(_medicamento);
+        return medImpl.addMedicineToPatient(_medicamento, _nss_pac);
+    }
+    
+    /**
+     * Método que elimina un medicamento de la receta de un paciente.
+     * 
+     * @param _id
+     * @param _nss_pac
+     * @return
+     * @throws SQLException 
+     */
+    public boolean eliminarMedicamentoDePaciente(int _id, String _nss_pac) throws SQLException {
+        if (conexion.isClosed()) {
+            connectDB();
+        }
+        
+        return medImpl.deleteMedicineFromPatient(_nss_pac, _id);
     }
     
     /**
@@ -471,15 +488,16 @@ public class DataBaseControl {
      * Método que añade una vacuna a la historia de un paciente.
      * 
      * @param _vacuna
+     * @param _nss_pac
      * @return
      * @throws SQLException 
      */
-    public boolean añadirVacunaAPaciente(VacunaPacienteDTO _vacuna) throws SQLException {
+    public boolean añadirVacunaAPaciente(VacunaPacienteDTO _vacuna, String _nss_pac) throws SQLException {
         if (conexion.isClosed()) {
             connectDB();
         }
         
-        return vacImpl.addVaccineToPatient(_vacuna);
+        return vacImpl.addVaccineToPatient(_vacuna, _nss_pac);
     }
     
     /**
@@ -534,5 +552,19 @@ public class DataBaseControl {
         vacunas = vacImpl.getVacunas();
        
         return gson.toJson(vacunas);
+    }
+    
+    public String obtenerHistoriaPaciente(String _nss) throws SQLException {
+        List<EpisodioAtencionDTO> episodios = new ArrayList<>();
+        List<MedicamentoPacienteDTO> medicamentos = new ArrayList<>();
+        List<VacunaPacienteDTO> vacunas = new ArrayList<>();
+        
+        episodios = epImpl.getEpisodios(_nss);
+        medicamentos = medImpl.getMedicamentosPaciente(_nss);
+        vacunas = vacImpl.getVacunasPaciente(_nss);
+        
+        HistoriaPacienteDTO historiaPaciente = new HistoriaPacienteDTO(episodios, medicamentos, vacunas);
+        
+        return historiaPaciente.toJson();
     }
 }

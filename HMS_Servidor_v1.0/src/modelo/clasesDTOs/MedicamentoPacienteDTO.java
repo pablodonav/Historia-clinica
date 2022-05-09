@@ -1,7 +1,7 @@
 /**
  * MedicamentoPacienteDTO.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDTOs;
 
@@ -15,26 +15,22 @@ import java.util.Date;
  */
 public class MedicamentoPacienteDTO {
     private int id;
-    private Date fecha_inicio;
-    private Date fecha_fin;
-    private String nss_pac;
-    private int codigo_medic;
-
+    private MedicamentoDTO medicamento;
+    private Date fechaInicio;
+    private Date fechaFin;
     /**
      * Crea un nuevo medicamento de un paciente.
      * 
      * @param id
+     * @param medicamento
      * @param fecha_inicio
-     * @param fecha_fin
-     * @param nss_pac
-     * @param codigo_medic 
+     * @param fecha_fin 
      */
-    public MedicamentoPacienteDTO(int id, Date fecha_inicio, Date fecha_fin, String nss_pac, int codigo_medic) {
+    public MedicamentoPacienteDTO(int id, MedicamentoDTO medicamento, Date fecha_inicio, Date fecha_fin) {
         this.id = id;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
-        this.nss_pac = nss_pac;
-        this.codigo_medic = codigo_medic;
+        this.fechaInicio = fecha_inicio;
+        this.fechaFin = fecha_fin;
+        this.medicamento = medicamento;
     }
 
     /**
@@ -64,7 +60,7 @@ public class MedicamentoPacienteDTO {
      * @return 
      */
     public Date getFecha_inicio() {
-        return fecha_inicio;
+        return fechaInicio;
     }
 
     /**
@@ -74,26 +70,16 @@ public class MedicamentoPacienteDTO {
      * @return 
      */
     public Date getFecha_fin() {
-        return fecha_fin;
+        return fechaFin;
     }
 
     /**
-     * Devuelve el nss del paciente asociado.
+     * Devuelve el medicamento de la receta del paciente.
      * 
      * @return 
      */
-    public String getNss_pac() {
-        return nss_pac;
-    }
-
-    /**
-     * Devuelve el codigo del medicamento 
-     * que está en la receta del paciente.
-     * 
-     * @return 
-     */
-    public int getCodigo_medic() {
-        return codigo_medic;
+    public MedicamentoDTO getMedicamento() {
+        return medicamento;
     }
     
     /**

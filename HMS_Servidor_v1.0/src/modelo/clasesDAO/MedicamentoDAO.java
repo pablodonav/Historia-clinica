@@ -1,7 +1,7 @@
 /**
  * MedicamentoDAO.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -16,13 +16,13 @@ import modelo.clasesDTOs.MedicamentoPacienteDTO;
  * 
  */
 public interface MedicamentoDAO {
-    public boolean addMedicineToPatient(MedicamentoPacienteDTO _medicamento) throws SQLException;
+    public boolean addMedicineToPatient(MedicamentoPacienteDTO _medicamento, String _nss_pac) throws SQLException;
     
     public int getNewIndex() throws SQLException;
 
-    public boolean deleteMedicineFromPatient(int _codigo_medic, String _nss, int _id) throws SQLException;
+    public boolean deleteMedicineFromPatient(String _nss, int _id) throws SQLException;
 
-    public boolean updateMedicineFromPatient(MedicamentoPacienteDTO _medicamento) throws SQLException;
+    public boolean updateMedicineFromPatient(MedicamentoPacienteDTO _medicamento, String _nss_pac) throws SQLException;
 
     public List<MedicamentoPacienteDTO> getMedicamentosPaciente(String _nss) throws SQLException;
     

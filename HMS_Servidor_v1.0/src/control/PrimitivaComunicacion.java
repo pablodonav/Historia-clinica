@@ -1,7 +1,7 @@
 /**
  * PrimitivaComunicacion.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package control;
 
@@ -35,13 +35,15 @@ public enum PrimitivaComunicacion {
     OBTENER_EPISODIOS_PACIENTE("get_patient_episodes"),
     NUEVO_DIAGNOSTICO("new_diagnosis"),
     NUEVO_MEDICAMENTO_PACIENTE("new_patient_medicine"),
+    ELIMINAR_MEDICAMENTO_PACIENTE("remove_patient_medicine"),
     OBTENER_RECETA_PACIENTE("get_patient_medicines"),
     OBTENER_MEDICAMENTOS_DISPONIBLES("get_medicines"),
     OBTENER_CITAS_PACIENTE("get_medical_appointments"),
     ELIMINAR_CITA("remove_medical_appointment"),
     NUEVA_VACUNA_PACIENTE("new_patient_vaccine"),
     OBTENER_VACUNAS_PACIENTE("get_patient_vaccines"),
-    OBTENER_VACUNAS_DISPONIBLES("get_vaccines");
+    OBTENER_VACUNAS_DISPONIBLES("get_vaccines"), 
+    OBTENER_HISTORIA_PACIENTE("get_patient_medical_record");
     
     private String simbolo;
 

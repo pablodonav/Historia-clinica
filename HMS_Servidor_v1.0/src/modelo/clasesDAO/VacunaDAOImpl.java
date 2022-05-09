@@ -1,7 +1,7 @@
 /**
  * VacunaDAOImpl.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -29,6 +29,7 @@ public class VacunaDAOImpl implements VacunaDAO {
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getVacunasPac;
     private PreparedStatement stmt_getNewIndex;
+    private PreparedStatement stmt_getVacunaName;
 
     private Connection connection;
     
@@ -37,7 +38,8 @@ public class VacunaDAOImpl implements VacunaDAO {
     private static final String UPDATE = "UPDATE VACUNA_PACIENTE SET fecha=? WHERE id=? AND codigo_vacuna=? AND nss_pac=?";
     private static final String GET_VACUNAS_PACIENTE = "SELECT * FROM VACUNA_PACIENTE WHERE nss_pac=?";
     private static final String GET_NEW_INDEX = "SELECT max(id) + 1 FROM VACUNA_PACIENTE";
-    private static final String GET_MEDICAMENTOS = "SELECT * FROM VACUNA";
+    private static final String GET_VACUNAS = "SELECT * FROM VACUNA";
+    private static final String GET_VACUNA = "SELECT nombre FROM VACUNA WHERE codigo=?";
     
     public VacunaDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
@@ -45,27 +47,29 @@ public class VacunaDAOImpl implements VacunaDAO {
         this.stmt_add = _conn.prepareStatement(INSERT);
         this.stmt_del = _conn.prepareStatement(DELETE);
         this.stmt_getVacunasPac = _conn.prepareStatement(GET_VACUNAS_PACIENTE);
-        this.stmt_getAll = _conn.prepareStatement(GET_MEDICAMENTOS);
+        this.stmt_getAll = _conn.prepareStatement(GET_VACUNAS);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
-        this.stmt_getNewIndex = _conn.prepareStatement (GET_NEW_INDEX);
+        this.stmt_getNewIndex = _conn.prepareStatement(GET_NEW_INDEX);
+        this.stmt_getVacunaName = _conn.prepareStatement(GET_VACUNA);
     }
 
     /**
      * Añade una vacuna al historial de un paciente.
      * 
      * @param _vacuna
+     * @param _nss_pac
      * @return
      * @throws SQLException 
      */
     @Override
-    public boolean addVaccineToPatient(VacunaPacienteDTO _vacuna) throws SQLException {
+    public boolean addVaccineToPatient(VacunaPacienteDTO _vacuna, String _nss_pac) throws SQLException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateada = simpleDateFormat.format(_vacuna.getFecha());
        
         stmt_add.setInt(1, _vacuna.getId());
         stmt_add.setDate(2, java.sql.Date.valueOf(fechaFormateada));
-        stmt_add.setString(3, _vacuna.getNss_pac());
-        stmt_add.setInt(4, _vacuna.getCodigo_vac());
+        stmt_add.setString(3, _nss_pac);
+        stmt_add.setInt(4, _vacuna.getVacuna().getCodigo());
         
         return stmt_add.executeUpdate() > 0;
     }
@@ -122,14 +126,14 @@ public class VacunaDAOImpl implements VacunaDAO {
      * @throws SQLException 
      */
     @Override
-    public boolean updateVaccineFromPatient(VacunaPacienteDTO _vacuna) throws SQLException {
+    public boolean updateVaccineFromPatient(VacunaPacienteDTO _vacuna, String _nss_pac) throws SQLException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateada = simpleDateFormat.format(_vacuna.getFecha());
         
         stmt_upd.setDate(1, java.sql.Date.valueOf(fechaFormateada));
         stmt_upd.setInt(2, _vacuna.getId());
-        stmt_upd.setInt(3, _vacuna.getCodigo_vac());
-        stmt_upd.setString(4, _vacuna.getNss_pac());
+        stmt_upd.setInt(3, _vacuna.getVacuna().getCodigo());
+        stmt_upd.setString(4, _nss_pac);
 
         return stmt_upd.executeUpdate() > 0;
     }
@@ -152,8 +156,19 @@ public class VacunaDAOImpl implements VacunaDAO {
             Date fecha = rs.getDate("fecha");
             String nss_pac = rs.getString("nss_pac");
             int codigo_vac = rs.getInt("codigo_vacuna");
-
-            VacunaPacienteDTO vacuna = new VacunaPacienteDTO(id, fecha, nss_pac, codigo_vac);
+            String nombre_vac = "";
+            
+            stmt_getVacunaName.setInt(1, codigo_vac);
+            ResultSet rsv = stmt_getVacunaName.executeQuery();
+            
+            while(rsv.next()) {
+                nombre_vac = rsv.getString("nombre");
+            }
+   
+            java.util.Date fec = new java.util.Date(fecha.getYear(), fecha.getMonth(), fecha.getDay());
+            
+            VacunaDTO vac = new VacunaDTO(codigo_vac, nombre_vac);
+            VacunaPacienteDTO vacuna = new VacunaPacienteDTO(id, vac, fec);
             vacunas.add(vacuna);
         }
 

@@ -1,7 +1,7 @@
 /**
  * SanitarioDAOImpl.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDAO;
 

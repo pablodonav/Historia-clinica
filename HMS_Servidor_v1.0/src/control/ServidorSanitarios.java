@@ -1,7 +1,7 @@
 /**
  * ServidorSanitarios.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package control;
 
@@ -441,16 +441,38 @@ public class ServidorSanitarios extends Thread {
      * @throws SQLException
      * @throws IOException 
      */
-    synchronized boolean añadirMedicamento(MedicamentoPacienteDTO _medicamento) 
+    synchronized boolean añadirMedicamento(MedicamentoPacienteDTO _medicamento, String _nss_pac) 
                 throws SQLException, IOException {
         _medicamento.setId(database.obtenerIndiceNuevoMedicamento());
         
-        if ( ! database.añadirMedicamentoAPaciente(_medicamento)) {
+        if ( ! database.añadirMedicamentoAPaciente(_medicamento, _nss_pac)) {
             return false;
         }
         
         notificarSanitariosPush(PrimitivaComunicacion.NUEVO_MEDICAMENTO_PACIENTE, 
                 String.valueOf(_medicamento.toJson()));
+        
+        return true;
+    }
+    
+    /**
+     * Devuelve cierto si se ha podido eliminar un medicamento de la receta de un paciente.
+     * 
+     * @param _id
+     * @param _nss_pac
+     * @return
+     * @throws SQLException
+     * @throws IOException 
+     */
+    synchronized boolean eliminarMedicamento(int _id, String _nss_pac) 
+            throws SQLException, IOException {
+        
+        if ( ! database.eliminarMedicamentoDePaciente(_id, _nss_pac)) {
+            return false;
+        }
+        
+        notificarSanitariosPush(PrimitivaComunicacion.ELIMINAR_MEDICAMENTO_PACIENTE, 
+                String.valueOf(_id));
         
         return true;
     }
@@ -487,11 +509,11 @@ public class ServidorSanitarios extends Thread {
      * @throws SQLException
      * @throws IOException 
      */
-    synchronized boolean añadirVacuna(VacunaPacienteDTO _vacuna) 
+    synchronized boolean añadirVacuna(VacunaPacienteDTO _vacuna, String _nss_pac) 
                 throws SQLException, IOException {
         _vacuna.setId(database.obtenerIndiceNuevaVacuna());
         
-        if ( ! database.añadirVacunaAPaciente(_vacuna)) {
+        if ( ! database.añadirVacunaAPaciente(_vacuna, _nss_pac)) {
             return false;
         }
         
@@ -522,6 +544,18 @@ public class ServidorSanitarios extends Thread {
      */
     synchronized String obtenerVacunasDisponibles() throws SQLException {
         return database.obtenerVacunasDisponibles();
+    }
+    
+    /**
+     * Método que devuelve la historia médica completa
+     * de un paciente.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
+    synchronized String obtenerHistoriaPaciente(String _nss) throws SQLException {
+        return database.obtenerHistoriaPaciente(_nss);
     }
     
     /**

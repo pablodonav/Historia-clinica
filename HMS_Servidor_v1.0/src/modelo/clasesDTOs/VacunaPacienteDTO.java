@@ -1,7 +1,7 @@
 /**
  * VacunaPacienteDTO.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDTOs;
 
@@ -15,23 +15,20 @@ import java.util.Date;
  */
 public class VacunaPacienteDTO {
     private int id;
+    private VacunaDTO vacuna;
     private Date fecha;
-    private String nss_pac;
-    private int codigo_vac;
 
     /**
      * Crea un nuevo medicamento de un paciente.
      * 
      * @param id
-     * @param fecha
-     * @param codigo_vac
-     * @param nss_pac 
+     * @param vacuna
+     * @param fecha 
      */
-    public VacunaPacienteDTO(int id, Date fecha, String nss_pac, int codigo_vac) {
+    public VacunaPacienteDTO(int id, VacunaDTO vacuna, Date fecha) {
         this.id = id;
         this.fecha = fecha;
-        this.nss_pac = nss_pac;
-        this.codigo_vac = codigo_vac;
+        this.vacuna = vacuna;
     }
 
     /**
@@ -75,39 +72,21 @@ public class VacunaPacienteDTO {
     }
 
     /**
-     * Devuelve el identficador del paciente asociado.
+     * Devuelve la vacuna del paciente.
      * 
      * @return 
      */
-    public String getNss_pac() {
-        return nss_pac;
+    public VacunaDTO getVacuna() {
+        return vacuna;
     }
 
     /**
-     * Modifica el identificador del paciente.
+     * Modifica la vacuna del paciente.
      * 
-     * @param nss_pac 
+     * @param vacuna 
      */
-    public void setNss_pac(String nss_pac) {
-        this.nss_pac = nss_pac;
-    }
-
-    /**
-     * Devuelve el codigo de la vacuna.
-     * 
-     * @return 
-     */
-    public int getCodigo_vac() {
-        return codigo_vac;
-    }
-
-    /**
-     * Modifica el codigo de la vacuna.
-     * 
-     * @param codigo_vac
-     */
-    public void setCodigo_vac(int codigo_vac) {
-        this.codigo_vac = codigo_vac;
+    public void setVacuna(VacunaDTO vacuna) {
+        this.vacuna = vacuna;
     }
     
     /**

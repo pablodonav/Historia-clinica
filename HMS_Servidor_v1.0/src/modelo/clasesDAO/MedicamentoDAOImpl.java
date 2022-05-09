@@ -1,7 +1,7 @@
 /**
  * MedicamentoDAOImpl.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package modelo.clasesDAO;
 
@@ -29,15 +29,17 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
     private PreparedStatement stmt_getAll;
     private PreparedStatement stmt_getReceta;
     private PreparedStatement stmt_getNewIndex;
+    private PreparedStatement stmt_getMedicamentoName;
 
     private Connection connection;
     
     private static final String INSERT = "INSERT INTO MEDICAMENTO_PACIENTE (id, fecha_inicio, fecha_fin, nss_pac, codigo_medic) VALUES(?, ?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM MEDICAMENTO_PACIENTE WHERE id=? AND codigo_medic=? AND nss_pac=?";
+    private static final String DELETE = "DELETE FROM MEDICAMENTO_PACIENTE WHERE id=? AND nss_pac=?";
     private static final String UPDATE = "UPDATE MEDICAMENTO_PACIENTE SET fecha_inicio=?, fecha_fin=? WHERE id=? AND codigo_medic=? AND nss_pac=?";
     private static final String GET_RECETA_PACIENTE = "SELECT * FROM MEDICAMENTO_PACIENTE WHERE nss_pac=?";
     private static final String GET_NEW_INDEX = "SELECT max(id) + 1 FROM MEDICAMENTO_PACIENTE";
     private static final String GET_MEDICAMENTOS = "SELECT * FROM MEDICAMENTO";
+    private static final String GET_MEDICAMENTO = "SELECT nombre FROM MEDICAMENTO WHERE codigo=?";
     
     public MedicamentoDAOImpl(Connection _conn) throws SQLException {
         this.connection = _conn;
@@ -48,6 +50,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
         this.stmt_getAll = _conn.prepareStatement(GET_MEDICAMENTOS);
         this.stmt_upd = _conn.prepareStatement(UPDATE);
         this.stmt_getNewIndex = _conn.prepareStatement (GET_NEW_INDEX);
+        this.stmt_getMedicamentoName = _conn.prepareStatement(GET_MEDICAMENTO);
     }
 
     /**
@@ -58,7 +61,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
      * @throws SQLException 
      */
     @Override
-    public boolean addMedicineToPatient(MedicamentoPacienteDTO _medicamento) throws SQLException {
+    public boolean addMedicineToPatient(MedicamentoPacienteDTO _medicamento, String _nss_pac) throws SQLException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateadaInicio = simpleDateFormat.format(_medicamento.getFecha_inicio());
         String fechaFormateadaFin = simpleDateFormat.format(_medicamento.getFecha_fin());
@@ -66,8 +69,8 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
         stmt_add.setInt(1, _medicamento.getId());
         stmt_add.setDate(2, java.sql.Date.valueOf(fechaFormateadaInicio));
         stmt_add.setDate(3, java.sql.Date.valueOf(fechaFormateadaFin));
-        stmt_add.setString(4, _medicamento.getNss_pac());
-        stmt_add.setInt(5, _medicamento.getCodigo_medic());
+        stmt_add.setString(4, _nss_pac);
+        stmt_add.setInt(5, _medicamento.getMedicamento().obtenerCodigo());
         
         return stmt_add.executeUpdate() > 0;
     }
@@ -97,20 +100,18 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
 
     /**
      * Devuelve cierto si se ha conseguido borrar
-     * el medicamento "_codigo_medic" con numero "id" en la receta del paciente
+     * el medicamento con numero "_id" en la receta del paciente
      * con identificador "_nss".
      * 
-     * @param _codigo_medic
      * @param _nss
      * @param _id
      * @return
      * @throws SQLException 
      */
     @Override
-    public boolean deleteMedicineFromPatient(int _codigo_medic, String _nss, int _id) throws SQLException {
+    public boolean deleteMedicineFromPatient(String _nss, int _id) throws SQLException {
         stmt_del.setInt(1, _id);
-        stmt_del.setInt(2, _codigo_medic);
-        stmt_del.setString(3, _nss);
+        stmt_del.setString(2, _nss);
         
         return (stmt_del.executeUpdate() > 0);
     }
@@ -124,7 +125,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
      * @throws SQLException 
      */
     @Override
-    public boolean updateMedicineFromPatient(MedicamentoPacienteDTO _medicamento) throws SQLException {
+    public boolean updateMedicineFromPatient(MedicamentoPacienteDTO _medicamento, String _nss_pac) throws SQLException {
         
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateadaInicio = simpleDateFormat.format(_medicamento.getFecha_inicio());
@@ -133,8 +134,8 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
         stmt_upd.setDate(1, java.sql.Date.valueOf(fechaFormateadaInicio));
         stmt_upd.setDate(2, java.sql.Date.valueOf(fechaFormateadaFin));
         stmt_upd.setInt(3, _medicamento.getId());
-        stmt_upd.setInt(4, _medicamento.getCodigo_medic());
-        stmt_upd.setString(5, _medicamento.getNss_pac());
+        stmt_upd.setInt(4, _medicamento.getMedicamento().obtenerCodigo());
+        stmt_upd.setString(5, _nss_pac);
 
         return stmt_upd.executeUpdate() > 0;
     }
@@ -158,8 +159,21 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             Date fecha_fin = rs.getDate("fecha_fin");
             String nss_pac = rs.getString("nss_pac");
             int codigo_medic = rs.getInt("codigo_medic");
+            String nombre_medic = "";
+            
+            stmt_getMedicamentoName.setInt(1, codigo_medic);
+            ResultSet rsm = stmt_getMedicamentoName.executeQuery();
+            
+            while(rsm.next()) {
+                nombre_medic = rsm.getString("nombre");
+            }
+            
+            java.util.Date fechaInicio = new java.util.Date(fecha_fin.getYear(), fecha_fin.getMonth(), fecha_fin.getDay());
+            java.util.Date fechaFin = new java.util.Date(fecha_fin.getYear(), fecha_fin.getMonth(), fecha_fin.getDay());
+            
 
-            MedicamentoPacienteDTO medicamento = new MedicamentoPacienteDTO(id, fecha_inicio, fecha_fin, nss_pac, codigo_medic);
+            MedicamentoDTO med = new MedicamentoDTO(codigo_medic, nombre_medic);
+            MedicamentoPacienteDTO medicamento = new MedicamentoPacienteDTO(id, med, fechaInicio, fechaFin);
             receta.add(medicamento);
         }
 

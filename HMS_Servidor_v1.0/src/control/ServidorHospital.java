@@ -1,7 +1,7 @@
 /**
  * ServidorHospital.java
  * Pablo Doñate Navarro
- * v2.5 06/05/2022.
+ * v2.6 09/05/2022.
  */
 package control;
 
@@ -20,6 +20,7 @@ import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
+import modelo.clasesDTOs.HistoriaPacienteDTO;
 import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
@@ -134,6 +135,10 @@ public class ServidorHospital implements Runnable {
                     nuevoMedicamentoPaciente();
                     break;
                     
+                case ELIMINAR_MEDICAMENTO_PACIENTE:
+                    eliminarMedicamentoPaciente();
+                    break;
+                    
                 case OBTENER_RECETA_PACIENTE:
                     obtenerRecetaPaciente();
                     break;
@@ -160,6 +165,10 @@ public class ServidorHospital implements Runnable {
                     
                 case OBTENER_VACUNAS_DISPONIBLES:
                     obtenerVacunasDisponibles();
+                    break;
+                    
+                case OBTENER_HISTORIA_PACIENTE:
+                    obtenerHistoriaPaciente();
                     break;
             }  
             
@@ -635,10 +644,41 @@ public class ServidorHospital implements Runnable {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String medicamentoPacienteJSON = entrada.readLine();
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: Medicamento - " + medicamentoPacienteJSON + " Nss - " + nss_pac);
         
         MedicamentoPacienteDTO medicamento = gson.fromJson(medicamentoPacienteJSON, MedicamentoPacienteDTO.class);
         
-        if (servidorSanitarios.añadirMedicamento(medicamento)) {
+        if (servidorSanitarios.añadirMedicamento(medicamento, nss_pac)) {
+            respuesta = PrimitivaComunicacion.OK;
+        }
+        
+        System.out.println(respuesta + "\n");
+        
+        salida.println(respuesta);
+        
+        cerrarConexion();  
+    }
+    
+    /**
+     * Recibe el identificador del medicamento y el paciente asociado
+     * y lo elimina de su receta.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void eliminarMedicamentoPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.ELIMINAR_MEDICAMENTO_PACIENTE);
+        
+        PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
+        
+        int id = Integer.parseInt(entrada.readLine());
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: idMedicamento - " + id + " Nss - " + nss_pac);
+        
+        if (servidorSanitarios.eliminarMedicamento(id, nss_pac)) {
             respuesta = PrimitivaComunicacion.OK;
         }
         
@@ -719,10 +759,13 @@ public class ServidorHospital implements Runnable {
         PrimitivaComunicacion respuesta = PrimitivaComunicacion.NOK;
         
         String vacunaPacienteJSON = entrada.readLine();
+        String nss_pac = entrada.readLine();
+        
+        System.out.println("Info de entrada: Vacuna - " + vacunaPacienteJSON + " Nss - " + nss_pac);
         
         VacunaPacienteDTO vacuna = gson.fromJson(vacunaPacienteJSON, VacunaPacienteDTO.class);
         
-        if (servidorSanitarios.añadirVacuna(vacuna)) {
+        if (servidorSanitarios.añadirVacuna(vacuna, nss_pac)) {
             respuesta = PrimitivaComunicacion.OK;
         }
         
@@ -787,6 +830,33 @@ public class ServidorHospital implements Runnable {
         }
         
         cerrarConexion();    
+    }
+    
+    /**
+     * Método que devuelve la historia completa de un paciente.
+     * 
+     * @throws IOException
+     * @throws SQLException 
+     */
+    private void obtenerHistoriaPaciente() throws IOException, SQLException {
+        System.out.println(SOLICITUD + PrimitivaComunicacion.OBTENER_HISTORIA_PACIENTE);
+        
+        salida.println(PrimitivaComunicacion.OBTENER_HISTORIA_PACIENTE);
+        
+        String nss_pac = entrada.readLine();
+        
+        String historiaPacienteJSON = servidorSanitarios.obtenerHistoriaPaciente(nss_pac);
+        
+        if (historiaPacienteJSON != null) {
+            salida.println(historiaPacienteJSON); 
+            System.out.println("Salida: " + historiaPacienteJSON + "\n");
+        } 
+        else {
+            salida.println(PrimitivaComunicacion.NOK.toString());
+            System.out.println("Salida: " + PrimitivaComunicacion.NOK.toString() + "\n");
+        }
+        
+        cerrarConexion(); 
     }
     
     /**
