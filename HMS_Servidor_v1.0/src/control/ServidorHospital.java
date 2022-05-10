@@ -56,12 +56,12 @@ public class ServidorHospital implements Runnable {
         this.socket = _socket;  
 
         entrada = new BufferedReader(
-            new InputStreamReader(socket.getInputStream()));
+            new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         // Autoflush!!
         salida = new PrintWriter(new BufferedWriter(
             new OutputStreamWriter(
-                socket.getOutputStream())), true);  
+                socket.getOutputStream(), "UTF-8")), true);  
         
         gson = new Gson();
     } 

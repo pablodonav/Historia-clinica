@@ -112,7 +112,7 @@ public class UsuarioDTO {
     @Override
     public String toString() {
         return "UsuarioDTO{" + "correoElectronico=" + correoElectronico + 
-            "," + "contrasenia=" + contraseña + ", admin=" + admin + '}';
+            "," + "contraseña=" + contraseña + ", admin=" + admin + '}';
     }
     
     /**
