@@ -24,7 +24,15 @@
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
  
   4. Objetivos.
- 
+     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Issue #25 --> Implementación cliente: Prototipo 3.1: Crear vistas de Menú Paciente y Nuevo Paciente
+      * Issue #26 --> Implementación cliente: Prototipo 3.2: Permitir añadir nuevo paciente
+      * Issue #27 --> Implementación cliente: Prototipo 3.3: Crear vista Gestión De Pacientes y permitir obtener lista de pacientes
+      * Issue #28 --> Implementación cliente: Prototipo 3.4: Crear vista Nuevo Episodio y permitir añadir un nuevo episodio
+      * Issue #29 --> Implementación cliente: Prototipo 3.5: Crear vista Episodios Paciente y permitir añadir un diagnóstico
+      * Issue #44 --> Implementación servidor: Prototipo 2.1: Permitir añadir nuevo paciente
+      * Issue #45 --> Implementación servidor: Prototipo 2.2: Permitir añadir un nuevo episodio a un paciente
+  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
        con la funcionalidad de añadir pacientes y añadir episodios de atención a dicho paciente.
