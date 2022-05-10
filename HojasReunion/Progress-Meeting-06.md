@@ -25,6 +25,7 @@
  
   4. Objetivos.
      <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+  
       * Issue #25 --> Implementación cliente: Prototipo 3.1: Crear vistas de Menú Paciente y Nuevo Paciente
       * Issue #26 --> Implementación cliente: Prototipo 3.2: Permitir añadir nuevo paciente
       * Issue #27 --> Implementación cliente: Prototipo 3.3: Crear vista Gestión De Pacientes y permitir obtener lista de pacientes
