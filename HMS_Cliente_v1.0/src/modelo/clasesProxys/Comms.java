@@ -407,16 +407,17 @@ public class Comms implements OyenteServidor{
     private boolean solicitudServidorEliminarMedicamentoDePaciente(
             String _propiedad, List<String> _resultados)
             throws IOException {
-        String codigoMedicamentoToReceive = _resultados.get(0);
+        String idMedicamentoToReceive = _resultados.get(0);
+        System.out.println(idMedicamentoToReceive);
         
-        if (codigoMedicamentoToReceive == null ||
-            codigoMedicamentoToReceive.isBlank() ||
-            codigoMedicamentoToReceive.isEmpty()) {
+        if (idMedicamentoToReceive == null ||
+            idMedicamentoToReceive.isBlank() ||
+            idMedicamentoToReceive.isEmpty()) {
             
             return false;
         }
 
-        observadores.firePropertyChange(_propiedad, null, codigoMedicamentoToReceive);  
+        observadores.firePropertyChange(_propiedad, null, idMedicamentoToReceive);  
         return true;
     }
     
@@ -552,17 +553,17 @@ public class Comms implements OyenteServidor{
         return;
     }
     
-    public void eliminarMedicamentoDePacienteTest(String _codigoMedicamento, String _idPaciente) throws Exception{  
-        if (_codigoMedicamento == null ||
-            _codigoMedicamento.isBlank() ||
-            _codigoMedicamento.isEmpty()) {
+    public void eliminarMedicamentoDePacienteTest(String _idMedicamento, String _idPaciente) throws Exception{  
+        if (_idMedicamento == null ||
+            _idMedicamento.isBlank() ||
+            _idMedicamento.isEmpty()) {
             return;
         }
         
-        System.out.println("codigoMedicamento:" + _codigoMedicamento);
+        System.out.println("codigoMedicamento:" + _idMedicamento);
         System.out.println("idPaciente:" + _idPaciente);
         
-        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_ELIMINAR_MEDICAMENTO, null, _codigoMedicamento);  
+        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_ELIMINAR_MEDICAMENTO, null, _idMedicamento);  
         return;
     }
     

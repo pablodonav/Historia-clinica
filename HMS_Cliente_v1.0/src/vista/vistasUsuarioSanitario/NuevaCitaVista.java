@@ -556,7 +556,7 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         String sanitariosToReceive = null;
         
         try {
-            sanitariosToReceive = pxSanitario.obtenerSanitariosTest();
+            sanitariosToReceive = pxSanitario.obtenerSanitarios();
             
             if (sanitariosToReceive != null){
                 /* Permite obtener los sanitarios en un List con SanitarioDTO*/

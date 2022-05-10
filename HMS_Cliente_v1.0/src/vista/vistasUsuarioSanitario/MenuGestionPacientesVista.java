@@ -566,7 +566,10 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
      * @param evt 
      */
     private void b_VerHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_VerHistoriaActionPerformed
-        // TODO add your handling code here:
+        PacienteDTO pacienteSeleccionado = pacientes.get(indexPacienteSeleccionado);
+
+        this.setVisible(false);
+        new HistoriaCompletaVista(this, oyenteVista, comms, idConexion, pacienteSeleccionado).setVisible(true);
     }//GEN-LAST:event_b_VerHistoriaActionPerformed
     
     /**

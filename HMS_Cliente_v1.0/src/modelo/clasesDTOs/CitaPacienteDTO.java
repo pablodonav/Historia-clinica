@@ -166,8 +166,8 @@ public class CitaPacienteDTO {
         String strTime= formatterTime.format(tiempo); 
         
         object.add(identificador);
-        object.add(dniMedico);
         object.add(ubicacion.getCentroHospitalario());
+        object.add(dniMedico);
         object.add(strFecha);
         object.add(strTime);
         object.add(descripcion);

@@ -1,7 +1,7 @@
 /**
  * RecetaElectrónicaVista.java
  * Adnana Catrinel Dragut
- * v1.0 07/04/2022.
+ * v1.0 07/05/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -46,7 +46,6 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     private int indexMedicamentoSeleccionado;
     
     private final int INDEX_MEDICAMENTO_NO_SELECCIONADA = -1;
-    private final int INDEX_TABLA_ID_MEDICAMENTO_PACIENTE = 0;
     private final int INDEX_COMBO_BOX_CODIGO_MEDICAMENTO = 0;
     private final int INDEX_COMBO_BOX_NOMBRE_MEDICAMENTO = 1;
     
@@ -715,8 +714,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      * @return String
      */
     private String obtenerIdMedicamentoSeleccionado(int _indexMedicamentoSeleccionado){
-        return  String.valueOf(tabla_con_medicamentos.getValueAt(
-                    _indexMedicamentoSeleccionado, INDEX_TABLA_ID_MEDICAMENTO_PACIENTE));
+        return String.valueOf(medicamentosPaciente.get(_indexMedicamentoSeleccionado).getId());
     }
     
     /**
@@ -796,8 +794,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      * @param evt 
      */
     private void propiedadEliminarMedicamento(PropertyChangeEvent evt){
-        int idMedicamento = Integer.parseInt((String)evt.getNewValue());
-        String codigoMedicamento = String.valueOf(medicamentosPaciente.get(idMedicamento).getMedicamento().getCodigo());
+        String codigoMedicamento = String.valueOf(medicamentosPaciente.get(indexMedicamentoSeleccionado).getMedicamento().getCodigo());
 
         mensajeDialogo(EXITO_ELIMINAR_MEDICAMENTO + 
         codigoMedicamento, JOptionPane.INFORMATION_MESSAGE);

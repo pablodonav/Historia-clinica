@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import modelo.clasesDTOs.CitaPacienteDTO;
 import modelo.clasesDTOs.EpisodioDeAtencionDTO;
+import modelo.clasesDTOs.HistoriaPacienteDTO;
 import modelo.clasesDTOs.MedicamentoDTO;
 import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
@@ -328,7 +329,7 @@ public class ProxyPaciente extends Comms{
         medicamentos.add(new MedicamentoPacienteDTO(1, medicamento1, date1, date2));
         medicamentos.add(new MedicamentoPacienteDTO(2, medicamento2, date1, date2));
         String medicamentosToSend = gson.toJson(medicamentos);
-    
+       
         System.out.println("Medicamentos enviados: " + medicamentosToSend);
         
         for(MedicamentoPacienteDTO medicamento: medicamentos){
@@ -339,6 +340,76 @@ public class ProxyPaciente extends Comms{
             return null;
         } else {
             return medicamentosToSend;
+        }
+    }
+    
+    /**
+     * Obtiene la historia completa de un paciente
+     * 
+     * @param _idPaciente
+     * @return String
+     * @throws Exception 
+     */
+    public String obtenerHistoriaPaciente(String _idPaciente) throws Exception{
+        if (! conectado){
+            return null;
+        }
+        
+        List<String> resultados =  new ArrayList<>();
+        
+        PrimitivaComunicacion respuesta = 
+                cliente.enviarSolicitud(PrimitivaComunicacion.OBTENER_HISTORIA_PACIENTE, 
+                                        tiempoEsperaServidor,
+                                        _idPaciente,
+                                        resultados);
+        if (resultados.isEmpty() || 
+                respuesta.equals(PrimitivaComunicacion.NOK.toString())){
+            return null;
+        } else {
+            return resultados.get(0);
+        }
+    }
+    
+    public String obtenerHistoriaPacienteTest(String _idPaciente) throws Exception{
+        String respuestaJson = "";
+        Gson gson = new Gson();
+        
+        String oldstring = "2011-01-18 18:30:78.99";
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(oldstring);
+
+        List<EpisodioDeAtencionDTO> episodios = new ArrayList();
+        episodios.add(new EpisodioDeAtencionDTO(1, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(2, date, "Dolor garganta y tos", ""));
+        episodios.add(new EpisodioDeAtencionDTO(3, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(4, date, "Dolor garganta y tos", "Resfriado común"));
+        episodios.add(new EpisodioDeAtencionDTO(5, date, "Dolor garganta y tos", ""));
+       
+        String oldstring1 = "2022-01-18";
+        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring1);
+        String oldstring2 = "2022-03-12";
+        Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring2);
+        
+        MedicamentoDTO medicamento1 = new MedicamentoDTO(1111, "Prueba 1");
+        MedicamentoDTO medicamento2 = new MedicamentoDTO(2222, "Prueba 2");
+        
+        List<MedicamentoPacienteDTO> medicamentos = new ArrayList();
+        medicamentos.add(new MedicamentoPacienteDTO(1, medicamento1, date1, date2));
+        medicamentos.add(new MedicamentoPacienteDTO(2, medicamento2, date1, date2));
+            
+        VacunaDTO vacuna1 = new VacunaDTO(1111, "Prueba1");
+        VacunaDTO vacuna2 = new VacunaDTO(1111, "Prueba2");
+        
+        List<VacunaPacienteDTO> vacunas = new ArrayList();
+        vacunas.add(new VacunaPacienteDTO(vacuna1, date));
+        vacunas.add(new VacunaPacienteDTO(vacuna2, date));
+        
+        HistoriaPacienteDTO historia = new HistoriaPacienteDTO(episodios, medicamentos, vacunas);
+        String historiaToSend = gson.toJson(historia);
+        
+        if (historiaToSend.isEmpty()){
+            return null;
+        } else {
+            return historiaToSend;
         }
     }
 }

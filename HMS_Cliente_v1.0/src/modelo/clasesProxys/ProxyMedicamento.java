@@ -112,18 +112,18 @@ public class ProxyMedicamento extends Comms {
      * Eliminar medicamento al que le pertenece el código
      * pasado por parámetro
      * 
-     * @param _codigoMedicamento
+     * @param _idMedicamento
      * @param _idPaciente
      * @throws Exception 
      */
-    public void eliminarMedicamentoDePaciente(String _codigoMedicamento, String _idPaciente) throws Exception{
+    public void eliminarMedicamentoDePaciente(String _idMedicamento, String _idPaciente) throws Exception{
         if (! conectado){
             return;
         }
         
         List<String> resultados =  new ArrayList<>();
         
-        String parametros = _codigoMedicamento + "\n" + _idPaciente;
+        String parametros = _idMedicamento + "\n" + _idPaciente;
         
         PrimitivaComunicacion respuesta = 
         cliente.enviarSolicitud(PrimitivaComunicacion.ELIMINAR_MEDICAMENTO_PACIENTE, 

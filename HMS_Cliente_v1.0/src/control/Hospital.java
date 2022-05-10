@@ -120,7 +120,7 @@ public class Hospital implements OyenteVista{
             case NUEVA_CITA:
                 try {
                     Tupla<String, String> tupla = (Tupla<String, String>)obj;
-                    pxCita.anyadirCitaPacienteTest(tupla.a, tupla.b);
+                    pxCita.anyadirCita(tupla.a, tupla.b);
                 } catch (Exception ex) {
                     welcomeVista.mensajeDialogo(NuevaCitaVista.ERROR_NUEVA_CITA); 
                 }
