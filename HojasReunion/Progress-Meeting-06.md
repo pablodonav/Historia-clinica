@@ -17,15 +17,14 @@
      * Se ha actualizado en el proyecto de GitHub los issues correspondientes a los prototipos que estaban en estado de implementación.
         
   2. Realización de pruebas
-     * Ambos miembros se han reunido para realizar pruebas de conexión entre la aplicación cliente y la aplicación servidor
-     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de modificar y eliminar un sanitario existente.
+     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de añadir un nuevo paciente.
      
   3. Corrección de errores y nuevas mejoras
-     * Se han corregido los errores visuales detectados en las pruebas realizadas, en concreto, los mensajes de confirmación cuando un sanitario existente era borrado o modificado exitosamente.
+     * Se han corregido los errores encontrados en las pruebas realizadas. En concreto, errores relacionados con claves ajenas ya existentes de la DB.
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
  
   4. Objetivos.
  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
-       con la funcionalidad de obtener sanitarios, dar de baja un sanitario y editar un sanitario.
+       con la funcionalidad de añadir episodios de atención a un paciente.
