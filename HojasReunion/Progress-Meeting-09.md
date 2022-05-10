@@ -17,7 +17,7 @@
      * Se ha actualizado en el proyecto de GitHub los issues correspondientes a los prototipos que estaban en estado de implementación.
         
   2. Realización de pruebas
-     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de añadir o eliminar medicamentos a al receta electrónica de un paciente. Dicho medicamento, tendrá un periodo de validez.
+     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de añadir o eliminar medicamentos a al receta electrónica de un paciente, así como la administración de vacunas de un paciente. Los medicamento de las recetas, tendrá un periodo de validez.
      
   3. Corrección de errores y nuevas mejoras
      * Se han corregido los errores visuales detectados en las pruebas realizadas.
@@ -27,4 +27,4 @@
  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
-       con la funcionalidad de asignar la administración de vacunas a un paciente existente.
+       con la funcionalidad de obtener la historia completa de un paciente.
