@@ -11,7 +11,8 @@
      * Identificación de los riesgos
     
   2. Actualización de la planificación
-  3. Otros (Ruegos y preguntas)
+  3. Objetivos
+  4. Otros (Ruegos y preguntas)
  --- 
   1. Elaboración del documento de análisis de requisitos
      * Creación del diagrama de CU
@@ -31,5 +32,7 @@
     <p>Debido a demoras en las actividades definidas en la primera versión de la planificación, ambos miembros han participado en la replanificación de las 
     actividades principales.
     
-  3. Otros (Ruegos y preguntas)
+  3. Objetivos
+  
+  4. Otros (Ruegos y preguntas)
     <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
