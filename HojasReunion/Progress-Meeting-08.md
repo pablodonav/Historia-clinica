@@ -24,7 +24,13 @@
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
      
   4. Objetivos
- 
+     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+  
+      * Issue #32 --> Implementación cliente: Prototipo 3.8: Crear vista Registro Vacunación y permitir añadir una nueva vacuna
+      * Issue #33 --> Implementación cliente: Prototipo 3.9: Crear vista Receta Electrónica y permitir añadir-eliminar un medicamento
+      * Issue #47 --> Implementación servidor: Prototipo 2.4: Permitir añadir un nuevo medicamento a la receta de un paciente
+      * Issue #48 --> Implementación servidor: Prototipo 2.5: Permitir añadir una nueva vacuna a un paciente
+  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
        con la funcionalidad de añadir medicamentos a la receta electrónica de un paciente, así como la administración de vacunas de un paciente.
