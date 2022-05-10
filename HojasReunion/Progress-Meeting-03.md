@@ -22,6 +22,8 @@
      * Prototipado de la aplicación: Realizado por Adnana.
     
   3. Objetivos
+    <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Creación de protoripos, milestones e issues.
     
   4. Otros (Ruegos y preguntas).
-     <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
+     <p>Los miembros del equipo han establecido la próxima reunión en la que se definirían los prototipos, milestones e issues.
