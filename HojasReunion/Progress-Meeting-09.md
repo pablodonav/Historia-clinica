@@ -1,7 +1,7 @@
 # Progress Meeting 09
 ### Proyecto: Historia Clínica
 ### Fecha: 05/05/2022 Lugar: Presencial
-### Asisten: Pablo Doñate, Adnana Dragut
+### Asisten: Pablo Doñate, Adnana Dragut, Félix Serna
 
 ### Orden del Día
 
@@ -21,7 +21,7 @@
      
   3. Corrección de errores y nuevas mejoras
      * Se han corregido los errores visuales detectados en las pruebas realizadas.
-     * Se han aportado mejoras para la interfaz de la aplicación cliente.
+     * Se han aportado diferentes mejoras en cuanto a la especificación de los prototipos existentes, y en la especificacion de los progress meetings, ya que no se incluían los objetivos.
  
   4. Objetivos
  
