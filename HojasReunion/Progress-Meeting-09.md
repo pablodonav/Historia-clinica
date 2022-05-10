@@ -24,7 +24,11 @@
      * Se han aportado diferentes mejoras en cuanto a la especificación de los prototipos existentes, y en la especificacion de los progress meetings, ya que no se incluían los objetivos.
  
   4. Objetivos
- 
-  5. Otros (Ruegos y preguntas).
+     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+  
+      * Issue #34 --> Implementación cliente: Prototipo 3.10: Crear vista Historia Completa y permitir obtener la info completa de un paciente
+      * Issue #49 --> Implementación servidor: Prototipo 2.6: Permitir obtener historia completa de un paciente
+  
+  6. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
        con la funcionalidad de obtener la historia completa de un paciente.
