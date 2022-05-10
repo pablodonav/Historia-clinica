@@ -28,6 +28,7 @@
     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
       * Issue #23 --> Implementación app cliente: Prototipo2.1:Crear vistas de MenúAdmin, NuevoSanitario y EditarSanitario.
       * Issue #24 --> Implementación app cliente: Prototipo2.3:Permitir editar un sanitario.
+      * Issue #55 --> Implementación servidor: Prototipo 1.2: Permitir editar sanitario existente.
  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
