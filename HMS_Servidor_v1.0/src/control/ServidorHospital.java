@@ -20,7 +20,6 @@ import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import modelo.clasesDTOs.CitaDTO;
 import modelo.clasesDTOs.EpisodioAtencionDTO;
-import modelo.clasesDTOs.HistoriaPacienteDTO;
 import modelo.clasesDTOs.MedicamentoPacienteDTO;
 import modelo.clasesDTOs.PacienteDTO;
 import modelo.clasesDTOs.SanitarioDTO;
