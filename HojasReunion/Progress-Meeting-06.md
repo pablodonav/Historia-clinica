@@ -18,7 +18,7 @@
         
   2. Realización de pruebas
      * Ambos miembros se han reunido para realizar pruebas de conexión entre la aplicación cliente y la aplicación servidor
-     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de modificar y eliminar un snaitario existente.
+     * Ambos miembros se han reunido para realizar pruebas correspondientes a la funcionalidad de modificar y eliminar un sanitario existente.
      
   3. Corrección de errores y nuevas mejoras
      * Se han corregido los errores visuales detectados en las pruebas realizadas, en concreto, los mensajes de confirmación cuando un sanitario existente era borrado o modificado exitosamente.
