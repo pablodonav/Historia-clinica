@@ -23,6 +23,7 @@
  
   3. Objetivos
     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Issue #16 --> Implementación: base de datos
       * Issue #21 --> Implementación cliente: Prototipo 1.1: Crear vista de Login y permitir obtener un sanitario.
       * Issue #40 --> Implementación servidor: Prototipo 1.3: Permitir inicio de sesión de un administrador.
       * Issue #56 --> Implementación servidor: Prototipo 1.4: Permitir inicio de sesión de un sanitario
