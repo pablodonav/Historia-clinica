@@ -24,8 +24,12 @@
      * Se han corregido los errores detectados en las pruebas realizadas.
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
  
-  4. Objetivos.
+  4. Objetivos
+    <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Issue #23 --> Implementación app cliente: Prototipo2.1:Crear vistas de MenúAdmin, NuevoSanitario y EditarSanitario.
+      * Issue #24 --> Implementación app cliente: Prototipo2.3:Permitir editar un sanitario.
+      * Issue #24 --> Implementación app cliente: Prototipo2.3:Permitir editar un sanitario.
  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
-       con la funcionalidad de obtener sanitarios, dar de baja un sanitario y editar un sanitario.
+       con la funcionalidad de obtener sanitarios y editar un sanitario.
