@@ -27,4 +27,4 @@
  
   5. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
-       con la funcionalidad de añadir medicamentos a la receta electrónica de un paciente.
+       con la funcionalidad de añadir medicamentos a la receta electrónica de un paciente, así como la administración de vacunas de un paciente.
