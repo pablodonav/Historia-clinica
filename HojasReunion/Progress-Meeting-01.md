@@ -33,6 +33,18 @@
     actividades principales.
     
   3. Objetivos
+    <p>Se han completado las actividades relacionadas con los issues:
+      * Issue #4 --> Análisis: Definición de propósito y ámbito.
+      * Issue #6 --> Análisis: Descripción genérica de la funcionalidad.
+      * Issue #7 --> Análisis: Definición de RQs específicos.
+      * Issue #9 --> Análisis: Definición de riesgos.
+      * Issue #10 --> Análisis: Documentación.
+      
+      Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Issue #3 --> Diseño: Diagrama clases app cliente.
+      * Issue #5 --> Diseño: Diagrama clases app servidor.
+      * Issue #8 --> Diseño: Diagramas de actividades y de despliegue.
+      * Issue #11 --> Diseño: Prototipado de la aplicación.
   
   4. Otros (Ruegos y preguntas)
     <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
