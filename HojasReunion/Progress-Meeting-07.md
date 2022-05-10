@@ -24,7 +24,12 @@
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
  
   4. Objetivos
- 
-  5. Otros (Ruegos y preguntas).
+     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+  
+      * Issue #30 --> Implementación cliente: Prototipo 3.6: Crear vista Nueva Cita y permitir añadir una nueva cita
+      * Issue #31 --> Implementación cliente: Prototipo 3.7: Crear vista Citas Paciente y permitir eliminar una cita
+      * Issue #46 --> Implementación servidor: Prototipo 2.3: Permitir añadir una nueva cita a un paciente
+  
+  6. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las próximas pruebas correspondientes
        con la funcionalidad de añadir o eliminar citas a pacientes.
