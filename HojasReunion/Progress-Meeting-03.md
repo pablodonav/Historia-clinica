@@ -7,7 +7,8 @@
 
   1. Actualización de la planificación
   2. Realización de la documentación de la parte de diseño.
-  3. Otros (Ruegos y preguntas)
+  3. Objetivos
+  4. Otros (Ruegos y preguntas)
 
  --- 
   1. Actualización de la planificación.
@@ -20,5 +21,7 @@
      * Diagrama de actividades y secuencia: Realizado por Pablo.
      * Prototipado de la aplicación: Realizado por Adnana.
     
-  3. Otros (Ruegos y preguntas).
+  3. Objetivos
+    
+  4. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
