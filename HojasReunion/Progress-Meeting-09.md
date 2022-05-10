@@ -1,6 +1,6 @@
 # Progress Meeting 09
 ### Proyecto: Historia Clínica
-### Fecha: 14/04/2022 Lugar: Presencial
+### Fecha: 05/05/2022 Lugar: Presencial
 ### Asisten: Pablo Doñate, Adnana Dragut
 
 ### Orden del Día
