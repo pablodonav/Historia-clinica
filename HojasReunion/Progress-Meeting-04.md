@@ -23,9 +23,10 @@
  
   3. Objetivos
     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
-      * Issue #21 --> Implementación cliente: Prototipo1.1:Crear vista de Login y permitir obtener un sanitario.
-      * Issue #40 --> Implementación servidor: Prototipo1.3:Permitir inicio de sesión de un administrador.
-      * Issue #43 --> Implementación servidor: Prototipo1.1:Permitir añadir nuevo sanitario.
+      * Issue #21 --> Implementación cliente: Prototipo 1.1: Crear vista de Login y permitir obtener un sanitario.
+      * Issue #40 --> Implementación servidor: Prototipo 1.3: Permitir inicio de sesión de un administrador.
+      * Issue #56 --> Implementación servidor: Prototipo 1.4: Permitir inicio de sesión de un sanitario
+      * Issue #43 --> Implementación servidor: Prototipo 1.1: Permitir añadir nuevo sanitario.
       
   4. Otros (Ruegos y preguntas).
      <p>Los miembros del equipo han establecido las primitivas de conexión y el formato json necesario para realizar las primeras pruebas correspondientes
