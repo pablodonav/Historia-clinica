@@ -20,6 +20,8 @@
 Adnana había realizado un diagrama de clases asociada a la parte Cliente de la aplicación, y Pablo la parte relacionada con el servidor.
    
   3. Objetivos
+    <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+      * Issue #12 --> Diseño: Documentación
       
   4. Otros (Ruegos y preguntas)
     <p>Los miembros del equipo han establecido la próxima reunión en la que se pondría en común las actividades relacionadas con el diseño.
