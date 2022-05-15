@@ -165,7 +165,7 @@ public class VacunaDAOImpl implements VacunaDAO {
                 nombre_vac = rsv.getString("nombre");
             }
    
-            java.util.Date fec = new java.util.Date(fecha.getYear(), fecha.getMonth(), fecha.getDay());
+            java.util.Date fec = new java.util.Date(fecha.getTime());
             
             VacunaDTO vac = new VacunaDTO(codigo_vac, nombre_vac);
             VacunaPacienteDTO vacuna = new VacunaPacienteDTO(id, vac, fec);

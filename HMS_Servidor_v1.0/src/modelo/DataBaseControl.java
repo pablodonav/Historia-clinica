@@ -554,6 +554,14 @@ public class DataBaseControl {
         return gson.toJson(vacunas);
     }
     
+    /**
+     * Devuelve la historia completa de un paciente
+     * en formato JSON.
+     * 
+     * @param _nss
+     * @return
+     * @throws SQLException 
+     */
     public String obtenerHistoriaPaciente(String _nss) throws SQLException {
         List<EpisodioAtencionDTO> episodios = new ArrayList<>();
         List<MedicamentoPacienteDTO> medicamentos = new ArrayList<>();

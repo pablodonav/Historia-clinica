@@ -168,8 +168,8 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
                 nombre_medic = rsm.getString("nombre");
             }
             
-            java.util.Date fechaInicio = new java.util.Date(fecha_fin.getYear(), fecha_fin.getMonth(), fecha_fin.getDay());
-            java.util.Date fechaFin = new java.util.Date(fecha_fin.getYear(), fecha_fin.getMonth(), fecha_fin.getDay());
+            java.util.Date fechaInicio = new java.util.Date(fecha_inicio.getTime());
+            java.util.Date fechaFin = new java.util.Date(fecha_fin.getTime());
             
 
             MedicamentoDTO med = new MedicamentoDTO(codigo_medic, nombre_medic);

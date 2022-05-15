@@ -186,7 +186,7 @@ public class EpisodioAtencionDAOImpl implements EpisodioAtencionDAO {
             String diagnostico = rs.getString("diagnostico");
             String nss_pac = rs.getString("nss_pac");
             
-            java.util.Date fecha = new java.util.Date(fec.getYear(), fec.getMonth(), fec.getDay());
+            java.util.Date fecha = new java.util.Date(fec.getTime());
 
             episodio = new EpisodioAtencionDTO(id, fecha, motivo, diagnostico);
             episodios.add(episodio);

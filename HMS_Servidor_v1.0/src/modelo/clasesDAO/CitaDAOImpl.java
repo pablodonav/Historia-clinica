@@ -290,8 +290,8 @@ public class CitaDAOImpl implements CitaDAO {
             String nss_pac = rs.getString("nss_pac");
             String dni_sanit = rs.getString("dni_sanit");
             
-            java.util.Date fecha = new java.util.Date(fec.getYear(), fec.getMonth(), fec.getDay());
-            java.util.Date tiempo = new java.util.Date(2000, 11, 1, hora.getHours(), hora.getMinutes());
+            java.util.Date fecha = new java.util.Date(fec.getTime());
+            java.util.Date tiempo = new java.util.Date(fec.getTime());
 
             UbicacionDTO ubicacion = new UbicacionDTO(localidad, centro, sala);
             CitaDTO cita = new CitaDTO(codigo, dni_sanit, ubicacion, fecha, tiempo, descripcion);
