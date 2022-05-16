@@ -1,7 +1,7 @@
 /**
  * EpisodiosPacienteVista.java
  * Adnana Catrinel Dragut
- * v1.0 29/04/2022.
+ * v2.0 29/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -16,6 +16,8 @@ import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.clasesDTOs.EpisodioDeAtencionDTO;
 import modelo.clasesDTOs.PacienteDTO;
@@ -39,9 +41,10 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
     private PacienteDTO pacienteSeleccionado = null;
     private List<EpisodioDeAtencionDTO> episodios = null;
     private DefaultTableModel tableModel = null;
-    private int indexEpisodioSeleccionado;
+    private boolean botonGuardarCambiosPulsado = false;
     
-    private static final int INDEX_SANITARIO_NO_SELECCIONADO = -1;
+    private static final int INDEX_EPISODIO_NO_SELECCIONADO = -1;
+    private static final int INDEX_COLUMNA_TABLA_DIAGNOSTICO = 3;
     
     /* Mensajes de Error */
     private final String ERROR_OBTENER_EPISODIOS = 
@@ -82,8 +85,33 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
         habilitarBotonConectado(idConexion);
         copiarInformaciónPacienteEnInputFields();
         cargarTablaConEpisodios();
+        
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        
+        /* Subraya el texto "Lista de Episodios" */
+        lista_de_episodios_label.setText("<HTML><U>Lista De Episodios</U></HTML>");
+        
+        b_AnyadirDiagnostico.setEnabled(false);
+        b_GuardarCambios.setEnabled(false);
+    }
+    
+    public EpisodiosPacienteVista(){
+        
     }
 
+    public void setTabla_con_episodios(JTable tabla_con_episodios) {
+        this.tabla_con_episodios = tabla_con_episodios;
+    }
+
+    public void setEpisodios(List<EpisodioDeAtencionDTO> episodios) {
+        this.episodios = episodios;
+    }
+
+    public void setDiagnostico_input_field(JTextField diagnostico_input_field) {
+        this.diagnostico_input_field = diagnostico_input_field;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +150,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
         diagnostico_label = new javax.swing.JLabel();
         diagnostico_input_field = new javax.swing.JTextField();
         b_GuardarCambios = new javax.swing.JButton();
+        b_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -312,6 +341,19 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             }
         });
 
+        b_Refresh.setBackground(new java.awt.Color(204, 204, 204));
+        b_Refresh.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_Refresh.setForeground(new java.awt.Color(0, 153, 153));
+        b_Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/refresh_icon.png"))); // NOI18N
+        b_Refresh.setActionCommand("   Nuevo Sanitario");
+        b_Refresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Refresh.setFocusable(false);
+        b_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -365,21 +407,23 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                                .addComponent(lista_de_episodios_label)
-                                .addGap(279, 279, 279))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                                .addComponent(datos_paciente_label)
-                                .addGap(288, 288, 288))))))
+                        .addComponent(lista_de_episodios_label)
+                        .addGap(279, 279, 279))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(b_Refresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(datos_paciente_label)
+                        .addGap(288, 288, 288))))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datos_paciente_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datos_paciente_label)
+                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
                     .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,7 +455,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
                 .addComponent(diagnostico_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(diagnostico_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_GuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -498,6 +542,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
      */
     private void cargarTablaConEpisodios(){
         tableModel = (DefaultTableModel) tabla_con_episodios.getModel();
+        tableModel.getDataVector().removeAllElements();
 
         for (int i = 0; i < episodios.size(); i++){
             EpisodioDeAtencionDTO episodio = episodios.get(i);
@@ -524,7 +569,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
      * @param evt 
      */
     private void tabla_con_episodiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_con_episodiosMouseClicked
-        if (tabla_con_episodios.getSelectedRow() != INDEX_SANITARIO_NO_SELECCIONADO){
+        if (tabla_con_episodios.getSelectedRow() != INDEX_EPISODIO_NO_SELECCIONADO){
             b_AnyadirDiagnostico.setEnabled(true);
         }
     }//GEN-LAST:event_tabla_con_episodiosMouseClicked
@@ -592,12 +637,12 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
      * @param evt 
      */
     private void b_AnyadirDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_AnyadirDiagnosticoActionPerformed
-        indexEpisodioSeleccionado = tabla_con_episodios.getSelectedRow();       
+        int indexEpisodioSeleccionado = tabla_con_episodios.getSelectedRow();       
 
         /* Habilita input para introducir un diagnóstico antes de copiar valores de la tabla */
         diagnostico_input_field.setEditable(true);
         
-        if (indexEpisodioSeleccionado != INDEX_SANITARIO_NO_SELECCIONADO){
+        if (indexEpisodioSeleccionado != INDEX_EPISODIO_NO_SELECCIONADO){
             copiarInformaciónEpisodioEnInputFields(indexEpisodioSeleccionado);
         }
         
@@ -612,7 +657,9 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
      * @return String
      * @throws Exception
      */
-    private String crearJsonEpisodioEditado() throws Exception{ 
+    public String crearJsonEpisodioEditado() throws Exception{ 
+        int indexEpisodioSeleccionado = tabla_con_episodios.getSelectedRow();
+        
         EpisodioDeAtencionDTO episodioSeleccionado = 
             episodios.get(indexEpisodioSeleccionado);
                         
@@ -631,6 +678,9 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             String episodioJsonToSend  = crearJsonEpisodioEditado();
             
             if (episodioJsonToSend != null){
+                /* Permite saber si el usuario actual es el que ha solicitado la operación de editar el episodio de un paciente */
+                botonGuardarCambiosPulsado = true;
+                
                 oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_DIAGNOSTICO, 
                     new Tupla <String, String>(episodioJsonToSend, pacienteSeleccionado.getNss()));
                 
@@ -656,6 +706,32 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
     }//GEN-LAST:event_formWindowClosing
 
     /**
+     * Refresca la lista de episodios
+     * 
+     * @param evt 
+     */
+    private void b_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RefreshActionPerformed
+        this.episodios = obtenerListaConEpisodios();
+        cargarTablaConEpisodios();
+    }//GEN-LAST:event_b_RefreshActionPerformed
+
+    /**
+     * Obtener el índice del episodioDeAtencionDTO seleccionado en la tabla
+     * 
+     * @param _idEpisodioPaciente
+     * @return int
+     */
+    public int obtenerIndexEpisodioPaciente(int _idEpisodioPaciente){
+        System.out.println("idEp " + _idEpisodioPaciente);
+        for(EpisodioDeAtencionDTO episodio: episodios){
+            if(episodio.getId() == _idEpisodioPaciente){
+                return episodios.indexOf(episodio);
+            }
+        }
+        return INDEX_EPISODIO_NO_SELECCIONADO;
+    }
+    
+    /**
      * Recibe evento añadir nuevo diagnóstico
      * 
      * @param evt 
@@ -663,12 +739,16 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
     private void propiedadNuevoDiagnostico(PropertyChangeEvent evt){
         String episodioConDiagnosticoJsonToReceive = (String)evt.getNewValue();
         EpisodioDeAtencionDTO episodioDTOReceived = gson.fromJson(episodioConDiagnosticoJsonToReceive, EpisodioDeAtencionDTO.class);
+        int indexEpisodioSeleccionado = obtenerIndexEpisodioPaciente(episodioDTOReceived.getId());
         
-        mensajeDialogo(EXITO_EDITAR_EPISODIO + episodioDTOReceived.getId(), 
-            JOptionPane.INFORMATION_MESSAGE);
+        if(botonGuardarCambiosPulsado){
+            mensajeDialogo(EXITO_EDITAR_EPISODIO + episodioDTOReceived.getId(), 
+                JOptionPane.INFORMATION_MESSAGE);
+            botonGuardarCambiosPulsado = false;
+        }
        
         /* Muestra los datos modificados en el episodio de la tabla*/
-        tableModel.setValueAt(episodioDTOReceived.getDiagnostico(), indexEpisodioSeleccionado, 3);  
+        tableModel.setValueAt(episodioDTOReceived.getDiagnostico(), indexEpisodioSeleccionado, INDEX_COLUMNA_TABLA_DIAGNOSTICO);  
         diagnostico_input_field.setEditable(false);
     }
     
@@ -692,6 +772,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
     private javax.swing.JButton b_AnyadirDiagnostico;
     private javax.swing.JButton b_Atrás;
     private javax.swing.JButton b_GuardarCambios;
+    private javax.swing.JButton b_Refresh;
     private javax.swing.JButton b_connected;
     private javax.swing.JLabel datos_paciente_label;
     private javax.swing.JTextField diagnostico_input_field;

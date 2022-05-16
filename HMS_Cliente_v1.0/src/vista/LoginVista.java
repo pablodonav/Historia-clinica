@@ -1,7 +1,7 @@
 /**
  * LoginVista.java
  * Adnana Catrinel Dragut
- * v1.0 28/03/2022.
+ * v2.0 28/03/2022.
  * 
  */
 
@@ -391,10 +391,9 @@ public class LoginVista extends javax.swing.JFrame{
      * Verifica que la sintaxis del email es correcta.
      * 
      * @param email
-     * @param pwd
      * @return boolean
      */
-    private boolean sintaxisCorreoCorrecta(String email){
+    public boolean sintaxisCorreoCorrecta(String email){
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
@@ -406,7 +405,7 @@ public class LoginVista extends javax.swing.JFrame{
      * @return String
      * @throws Exception
      */
-    private String crearJsonUsuarioAVerificar() throws Exception{
+    public String crearJsonUsuarioAVerificar() throws Exception{
         String usuarioJson = null;
         
         String dni = dni_input_field.getText();

@@ -1,7 +1,7 @@
 /**
  * CitasPacienteVista.java
  * Adnana Catrinel Dragut
- * v1.0 30/04/2022.
+ * v2.0 30/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -38,7 +38,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
     private PacienteDTO pacienteSeleccionado = null;
     private List<CitaPacienteDTO> citas = null;
     private DefaultTableModel tableModel = null;
-    private int indexCitaSeleccionada;
+    private boolean botonEliminarPulsado = false;
     
     private static final int INDEX_COLUMNA_ID = 0;
     private static final int INDEX_CITA_NO_SELECCIONADA = -1;
@@ -88,6 +88,8 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
         
         /* Subraya el texto "Lista Citas" */
         lista_de_citas_label.setText("<HTML><U>Lista Citas</U></HTML>");
+        
+        b_AnularCita.setEnabled(false);
     }
 
     /**
@@ -118,6 +120,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
         tabla_con_citas = new javax.swing.JTable();
         b_AnularCita = new javax.swing.JButton();
         b_Atrás = new javax.swing.JButton();
+        b_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -266,6 +269,19 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
             }
         });
 
+        b_Refresh.setBackground(new java.awt.Color(204, 204, 204));
+        b_Refresh.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_Refresh.setForeground(new java.awt.Color(0, 153, 153));
+        b_Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/refresh_icon.png"))); // NOI18N
+        b_Refresh.setActionCommand("   Nuevo Sanitario");
+        b_Refresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Refresh.setFocusable(false);
+        b_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -301,13 +317,14 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(b_AnularCita, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(b_Refresh)
+                                .addGap(233, 233, 233)
+                                .addComponent(datos_paciente_label)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(datos_paciente_label)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -319,8 +336,10 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(datos_paciente_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datos_paciente_label)
+                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
                     .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,7 +355,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                         .addComponent(lista_de_citas_label)
                         .addGap(116, 116, 116)
                         .addComponent(b_AnularCita, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 48, Short.MAX_VALUE))
+                        .addGap(0, 42, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,6 +447,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
      */
     private void cargarTablaConCitas(){
         tableModel = (DefaultTableModel) tabla_con_citas.getModel();
+        tableModel.getDataVector().removeAllElements();
 
         for (int i = 0; i < citas.size(); i++){
             CitaPacienteDTO cita = citas.get(i);
@@ -476,9 +496,12 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
      * @param evt 
      */
     private void b_AnularCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_AnularCitaActionPerformed
-        indexCitaSeleccionada = tabla_con_citas.getSelectedRow();
+        int indexCitaSeleccionada = tabla_con_citas.getSelectedRow();
                 
         if (indexCitaSeleccionada != INDEX_CITA_NO_SELECCIONADA){
+            /* Permite saber si el usuario actual es el que ha solicitado la operación de anular una cita */
+            botonEliminarPulsado = true;
+            
             String idCita = obtenerIdCitaSeleccionada(indexCitaSeleccionada);
 
             oyenteVista.eventoProducido(OyenteVista.Evento.ELIMINAR_CITA,
@@ -512,15 +535,45 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
     }//GEN-LAST:event_formWindowClosing
 
     /**
+     * Refresca la lista de citas
+     * 
+     * @param evt 
+     */
+    private void b_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RefreshActionPerformed
+        this.citas = obtenerListaConCitas();
+        cargarTablaConCitas();
+    }//GEN-LAST:event_b_RefreshActionPerformed
+
+    /**
+     * Obtener el índice del citaPacienteDTO seleccionado en la tabla
+     * 
+     * @param _idCitaPaciente
+     * @return int
+     */
+    private int obtenerIndexCitaPaciente(int _idCitaPaciente){
+        System.out.println("idCita " + _idCitaPaciente);
+        for(CitaPacienteDTO cita: citas){
+            if(cita.getIdentificador() == _idCitaPaciente){
+                return citas.indexOf(cita);
+            }
+        }
+        return INDEX_CITA_NO_SELECCIONADA;
+    }
+    
+    /**
      * Recibe evento eliminar cita
      * 
      * @param _evt 
      */
     private void propiedadEliminarCita(PropertyChangeEvent _evt){
         String idCitaToReceive = (String)_evt.getNewValue();
+        int indexCitaSeleccionada = obtenerIndexCitaPaciente(Integer.parseInt(idCitaToReceive));
         
-        mensajeDialogo(EXITO_ELIMINAR_CITA + idCitaToReceive,
-            JOptionPane.INFORMATION_MESSAGE);
+        if(botonEliminarPulsado){
+            mensajeDialogo(EXITO_ELIMINAR_CITA + idCitaToReceive,
+                JOptionPane.INFORMATION_MESSAGE);
+            botonEliminarPulsado = false; 
+        }
        
         citas.remove(indexCitaSeleccionada);
         tableModel.removeRow(indexCitaSeleccionada);      
@@ -545,6 +598,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
     private javax.swing.JLabel apellido1_label;
     private javax.swing.JButton b_AnularCita;
     private javax.swing.JButton b_Atrás;
+    private javax.swing.JButton b_Refresh;
     private javax.swing.JButton b_connected;
     private javax.swing.JLabel citasPaciente_label;
     private javax.swing.JLabel datos_paciente_label;

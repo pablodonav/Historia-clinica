@@ -1,7 +1,7 @@
 /**
  * NuevaCitaVista.java
  * Adnana Catrinel Dragut
- * v1.0 29/04/2022.
+ * v2.0 29/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -41,6 +41,7 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
     private PacienteDTO pacienteSeleccionado = null;
     private ProxySanitario pxSanitario = null;
     List<SanitarioDTO> sanitarios = null;
+    private boolean botonGuardarPulsado = false;
     
     private final int INDEX_NOMBRE_MEDICO = 0;
     private final int INDEX_APELLIDO_1_MEDICO = 1;
@@ -89,6 +90,14 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         habilitarBotonConectado(idConexion);
         copiarInformaciónPacienteEnInputFields();
         cargarMedicosEnComboBox();
+        
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        
+        /* Subraya el texto "Datos Cita" */
+        datos_cita_label.setText("<HTML><U>Datos Cita</U></HTML>");
+        
+        b_Guardar.setEnabled(false);
     }
 
     /**
@@ -735,6 +744,9 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
             String citaJsonToSend = crearJsonCitaNueva();
             
             if (citaJsonToSend != null){
+                /* Permite saber si el usuario actual es el que ha solicitado la operación de añadir nueva cita a un paciente */
+                botonGuardarPulsado = true;
+                
                 oyenteVista.eventoProducido(OyenteVista.Evento.NUEVA_CITA, 
                     new Tupla <String, String>(citaJsonToSend,
                                            pacienteSeleccionado.getNss()));
@@ -811,8 +823,10 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         String citaJsonToReceive = (String)_evt.getNewValue();
         CitaPacienteDTO citaDTOReceived = gson.fromJson(citaJsonToReceive, CitaPacienteDTO.class);
         
-        mensajeDialogo(EXITO_NUEVA_CITA + citaDTOReceived.getIdentificador(),
-            JOptionPane.INFORMATION_MESSAGE);
+        if(botonGuardarPulsado){
+            mensajeDialogo(EXITO_NUEVA_CITA + citaDTOReceived.getIdentificador(),
+                JOptionPane.INFORMATION_MESSAGE);
+        }
        
         comms.eliminarObservador(this);
         this.dispose();

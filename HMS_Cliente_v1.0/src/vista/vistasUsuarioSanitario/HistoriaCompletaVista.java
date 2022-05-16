@@ -1,7 +1,7 @@
 /**
  * HistoriaCompletaVista.java
  * Adnana Catrinel Dragut
- * v1.0 09/05/2022.
+ * v2.0 09/05/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -72,6 +72,9 @@ public class HistoriaCompletaVista extends javax.swing.JFrame {
         cargarTablaConEpisodios();
         cargarTablaConMedicamentos();
         cargarTablaConVacunas();
+        
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
     }
 
     /**

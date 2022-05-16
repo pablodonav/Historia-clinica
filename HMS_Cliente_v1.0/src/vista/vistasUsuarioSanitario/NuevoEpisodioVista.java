@@ -1,7 +1,7 @@
 /**
  * NuevoEpisodioVista.java
  * Adnana Catrinel Dragut
- * v1.0 21/04/2022.
+ * v2.0 21/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -32,6 +32,7 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
     private PacienteDTO pacienteSeleccionado = null;
+    private boolean botonGuardarPulsado = false;
     
     /* Mensajes de Error */
     public final static String ERROR_NUEVO_EPISODIO = 
@@ -67,6 +68,14 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         setLocationRelativeTo(null);  // centra en la pantalla
         habilitarBotonConectado(idConexion);
         copiarInformaciónPacienteEnInputFields();
+        
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        
+        /* Subraya el texto "Datos Episodio" */
+        datos_episodio_label.setText("<HTML><U>Datos Episodio</U></HTML>");
+        
+        b_Guardar.setEnabled(false);
     }
 
     /**
@@ -83,7 +92,7 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         nuevoEpisodio_label = new javax.swing.JLabel();
         hospital_icon = new javax.swing.JLabel();
         b_connected = new javax.swing.JButton();
-        lista_de_sanitarios_label = new javax.swing.JLabel();
+        datos_paciente_label = new javax.swing.JLabel();
         nombre_label = new javax.swing.JLabel();
         nombre_input_field = new javax.swing.JTextField();
         apellido1_label = new javax.swing.JLabel();
@@ -92,7 +101,7 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         nss_input_field = new javax.swing.JTextField();
         edad_label = new javax.swing.JLabel();
         edad_input_field = new javax.swing.JTextField();
-        lista_de_sanitarios_label1 = new javax.swing.JLabel();
+        datos_episodio_label = new javax.swing.JLabel();
         motivo_label = new javax.swing.JLabel();
         asterisco_label_motivo = new javax.swing.JLabel();
         motivo_input_field = new javax.swing.JTextField();
@@ -159,11 +168,11 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
                 .addComponent(b_connected))
         );
 
-        lista_de_sanitarios_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        lista_de_sanitarios_label.setForeground(new java.awt.Color(0, 153, 153));
-        lista_de_sanitarios_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lista_de_sanitarios_label.setText("Datos Paciente ");
-        lista_de_sanitarios_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        datos_paciente_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        datos_paciente_label.setForeground(new java.awt.Color(0, 153, 153));
+        datos_paciente_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        datos_paciente_label.setText("Datos Paciente ");
+        datos_paciente_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         nombre_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         nombre_label.setText("Nombre");
@@ -185,11 +194,11 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
 
         edad_input_field.setEditable(false);
 
-        lista_de_sanitarios_label1.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        lista_de_sanitarios_label1.setForeground(new java.awt.Color(0, 153, 153));
-        lista_de_sanitarios_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lista_de_sanitarios_label1.setText("Datos Episodio");
-        lista_de_sanitarios_label1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        datos_episodio_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        datos_episodio_label.setForeground(new java.awt.Color(0, 153, 153));
+        datos_episodio_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        datos_episodio_label.setText("Datos Episodio");
+        datos_episodio_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         motivo_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         motivo_label.setText("Motivo");
@@ -282,10 +291,10 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(asterisco_label_motivo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lista_de_sanitarios_label1))
+                                .addComponent(datos_episodio_label))
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lista_de_sanitarios_label))
+                                .addComponent(datos_paciente_label))
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addComponent(nombre_label)
                                 .addGap(18, 18, 18)
@@ -317,7 +326,7 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lista_de_sanitarios_label)
+                .addComponent(datos_paciente_label)
                 .addGap(18, 18, 18)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
@@ -343,7 +352,7 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
                                 .addComponent(fecha_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel_principalLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lista_de_sanitarios_label1)))
+                        .addComponent(datos_episodio_label)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(motivo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
@@ -470,6 +479,9 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         String episodioJsonToSend = crearJsonEpisodioNuevo();
 
         if (episodioJsonToSend != null){
+            /* Permite saber si el usuario actual es el que ha solicitado la operación de añadir un nuevo episodio a un paciente */
+            botonGuardarPulsado = true;
+            
             oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_EPISODIO, 
                 new Tupla <String, String>(episodioJsonToSend, pacienteSeleccionado.getNss()));
         } else{
@@ -523,9 +535,11 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         String episodioJsonToReceive = (String)evt.getNewValue();
         EpisodioDeAtencionDTO episodioDTOReceived = gson.fromJson(episodioJsonToReceive, EpisodioDeAtencionDTO.class);
         
-        mensajeDialogo(EXITO_NUEVO_EPISODIO + episodioDTOReceived.getId(), 
-            JOptionPane.INFORMATION_MESSAGE);
-       
+        if(botonGuardarPulsado){
+            mensajeDialogo(EXITO_NUEVO_EPISODIO + episodioDTOReceived.getId(), 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         comms.eliminarObservador(this);
         this.dispose();
         menuGestionPacientesVista.setVisible(true);      
@@ -554,6 +568,8 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
     private javax.swing.JButton b_Guardar;
     private javax.swing.JButton b_connected;
     private javax.swing.JLabel campo_obligatorio_label;
+    private javax.swing.JLabel datos_episodio_label;
+    private javax.swing.JLabel datos_paciente_label;
     private javax.swing.JTextField diagnostico_input_field;
     private javax.swing.JLabel diagnostico_label;
     private javax.swing.JTextField edad_input_field;
@@ -561,8 +577,6 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
     private com.toedter.calendar.JDateChooser fecha_chooser;
     private javax.swing.JLabel fecha_label;
     private javax.swing.JLabel hospital_icon;
-    private javax.swing.JLabel lista_de_sanitarios_label;
-    private javax.swing.JLabel lista_de_sanitarios_label1;
     private javax.swing.JTextField motivo_input_field;
     private javax.swing.JLabel motivo_label;
     private javax.swing.JTextField nombre_input_field;

@@ -1,7 +1,7 @@
 /**
  * Hospital.java
  * Adnana Catrinel Dragut
- * v1.0 02/04/2022.
+ * v2.0 02/04/2022.
  * 
  */
 

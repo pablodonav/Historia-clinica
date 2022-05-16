@@ -1,7 +1,7 @@
 /**
  * HistoriaDTO.java
  * Adnana Catrinel Dragut
- * v1.0 09/05/2022.
+ * v2.0 09/05/2022.
  * 
  */
 package modelo.clasesDTOs;

@@ -1,7 +1,7 @@
 /**
  * NuevoPacienteVista.java
  * Adnana Catrinel Dragut
- * v1.0 19/04/2022.
+ * v2.0 19/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -28,6 +28,7 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
     private Gson gson = null;
     private OyenteVista oyenteVista = null;
     private String idConexion = null;
+    private boolean botonGuardarPulsado = false;
     
     /* Mensajes de Error */
     public final static String ERROR_NUEVO_PACIENTE = 
@@ -60,6 +61,9 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
         habilitarBotonConectado(idConexion);
+        
+        /* Subraya el texto "Datos" */
+        datos_label.setText("<HTML><U>Datos</U></HTML>");
                     
         b_Guardar.setEnabled(false);
     }
@@ -505,6 +509,9 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         String pacienteJsonToSend = crearJsonPacienteNuevo();
 
         if (pacienteJsonToSend != null){
+            /* Permite saber si el usuario actual es el que ha solicitado la operación de añadir un nuevo paciente */
+            botonGuardarPulsado = true;
+                
             oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_PACIENTE, pacienteJsonToSend);
         } else{
             mensajeDialogo(ERROR_NUEVO_PACIENTE, JOptionPane.ERROR_MESSAGE);
@@ -624,8 +631,10 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         PacienteDTO pacienteDTOReceived = gson.fromJson(
            pacienteJsonToReceive, PacienteDTO.class);
 
-        mensajeDialogo(EXITO_NUEVO_PACIENTE + 
-           pacienteDTOReceived.getNss(), JOptionPane.INFORMATION_MESSAGE);
+        if(botonGuardarPulsado){
+            mensajeDialogo(EXITO_NUEVO_PACIENTE + 
+                pacienteDTOReceived.getNss(), JOptionPane.INFORMATION_MESSAGE);
+        }
 
         comms.eliminarObservador(this);
         this.dispose();

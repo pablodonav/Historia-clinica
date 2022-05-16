@@ -1,7 +1,7 @@
 /**
  * RecetaElectrónicaVista.java
  * Adnana Catrinel Dragut
- * v1.0 07/05/2022.
+ * v2.0 07/05/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -13,7 +13,6 @@ import control.OyenteVista;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -43,9 +42,10 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     private List<MedicamentoPacienteDTO> medicamentosPaciente = null;
     private List<MedicamentoDTO> medicamentosDisponibles = null;
     private DefaultTableModel tableModel = null;
-    private int indexMedicamentoSeleccionado;
+    private boolean botonAnyadirPulsado = false;
+    private boolean botonEliminarPulsado = false;
     
-    private final int INDEX_MEDICAMENTO_NO_SELECCIONADA = -1;
+    private final int INDEX_MEDICAMENTO_NO_SELECCIONADO = -1;
     private final int INDEX_COMBO_BOX_CODIGO_MEDICAMENTO = 0;
     private final int INDEX_COMBO_BOX_NOMBRE_MEDICAMENTO = 1;
     
@@ -57,6 +57,9 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
             "Vuelva a introducir los datos del nuevo medicamento.";
     public final static String ERROR_ELIMINAR_MEDICAMENTO = 
             "No se ha podido realizar la operación para eliminar un medicamento del paciente.";
+    public final static String ERROR_FECHAS_NUEVO_MEDICAMENTO = 
+            "No se ha podido realizar la operación, la fecha de fin debe ser posterior a la fecha de inicio.\n" +
+            "Vuelva a introducir los datos del nuevo medicamento.";
     
     /* Mensajes de Éxito */
     public final static String EXITO_NUEVO_MEDICAMENTO = 
@@ -97,8 +100,17 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         cargarTablaConMedicamentos();
         cargarMedicamentosEnComboBox();
         
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        
+        b_AnyadirMedicamento.setEnabled(false);
+        b_EliminarMedicamento.setEnabled(false);
     }
-
+    
+    public RecetaElectronicaVista(){
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,8 +142,8 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         asterisco_label_fecha_inicio = new javax.swing.JLabel();
         fecha_inicio_chooser = new com.toedter.calendar.JDateChooser();
         fecha_fin_label = new javax.swing.JLabel();
-        asterisco_label_fecha_fin = new javax.swing.JLabel();
         fecha_fin_chooser = new com.toedter.calendar.JDateChooser();
+        asterisco_label_fecha_fin = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_con_medicamentos = new javax.swing.JTable();
         nuevo_medicamento_label1 = new javax.swing.JLabel();
@@ -258,15 +270,15 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         fecha_fin_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         fecha_fin_label.setText(" Fecha Fin");
 
-        asterisco_label_fecha_fin.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        asterisco_label_fecha_fin.setForeground(new java.awt.Color(255, 0, 0));
-        asterisco_label_fecha_fin.setText("*");
-
         fecha_fin_chooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 fecha_fin_chooserPropertyChange(evt);
             }
         });
+
+        asterisco_label_fecha_fin.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        asterisco_label_fecha_fin.setForeground(new java.awt.Color(255, 0, 0));
+        asterisco_label_fecha_fin.setText("*");
 
         tabla_con_medicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -320,7 +332,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         b_EliminarMedicamento.setBackground(new java.awt.Color(204, 204, 204));
         b_EliminarMedicamento.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         b_EliminarMedicamento.setForeground(new java.awt.Color(0, 153, 153));
-        b_EliminarMedicamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/minus-146-475070(1).png"))); // NOI18N
+        b_EliminarMedicamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/minus_icon.png"))); // NOI18N
         b_EliminarMedicamento.setText("Eliminar Medicamento");
         b_EliminarMedicamento.setActionCommand("   Nuevo Sanitario");
         b_EliminarMedicamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -397,13 +409,13 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(asterisco_label_fecha_inicio)
                                                 .addGap(17, 17, 17)
-                                                .addComponent(fecha_fin_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(fecha_inicio_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(fecha_fin_label)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(asterisco_label_fecha_fin)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(fecha_inicio_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(fecha_fin_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(b_EliminarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(29, 29, 29))
                     .addGroup(panel_principalLayout.createSequentialGroup()
@@ -439,8 +451,8 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
                                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(asterisco_label_fecha_fin, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(fecha_fin_label))
-                                .addComponent(fecha_fin_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                                .addComponent(fecha_inicio_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(fecha_inicio_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                                .addComponent(fecha_fin_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(fecha_inicio_label)
                                 .addComponent(asterisco_label_fecha_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -598,7 +610,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         medicamento_comboBox.setEditable(false);
         
         /* No muestra ninguna selección en el comboBox sin entrada del usuario */
-        medicamento_comboBox.setSelectedIndex(INDEX_MEDICAMENTO_NO_SELECCIONADA);
+        medicamento_comboBox.setSelectedIndex(INDEX_MEDICAMENTO_NO_SELECCIONADO);
         medicamento_comboBox.setSelectedItem(null);
     }
     
@@ -609,8 +621,8 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      */
     private void changed(){  
         if (medicamento_comboBox.getSelectedItem() == null ||
-            fecha_inicio_chooser.getDate() == null ||
-            fecha_fin_chooser.getDate() == null){
+            fecha_fin_chooser.getDate() == null ||
+            fecha_inicio_chooser.getDate() == null){
             
             b_AnyadirMedicamento.setEnabled(false);
         }
@@ -633,18 +645,18 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      * 
      * @param evt
      */
-    private void fecha_inicio_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_inicio_chooserPropertyChange
+    private void fecha_fin_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_fin_chooserPropertyChange
         changed();
-    }//GEN-LAST:event_fecha_inicio_chooserPropertyChange
+    }//GEN-LAST:event_fecha_fin_chooserPropertyChange
 
     /**
      * Captura los eventos relacionados con la modificación del campo "fecha_fin".
      * 
      * @param evt
      */
-    private void fecha_fin_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_fin_chooserPropertyChange
+    private void fecha_inicio_chooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fecha_inicio_chooserPropertyChange
         changed();
-    }//GEN-LAST:event_fecha_fin_chooserPropertyChange
+    }//GEN-LAST:event_fecha_inicio_chooserPropertyChange
 
     /**
      * Obtiene el medicamentoDTO del medicamento seleccionado
@@ -665,21 +677,41 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     }
     
     /**
+     * Verificar si la fecha de fin de un medicamento es posterior 
+     * a la fecha de inicio
+     * 
+     * @param _fechaInicio
+     * @param _fechaFin
+     * @return 
+     */
+    public boolean fechaFinPosteriorAFechaInicio(Date _fechaInicio, Date _fechaFin){
+        if(_fechaInicio.compareTo(_fechaFin) < 0){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Captura la información de los campos rellenados por el usuario y
      * crea el json con un nuevo medicamento
      * 
      * @return String
      */
-    private String crearJsonMedicamentoNuevo() throws ParseException{
+    private String crearJsonMedicamentoNuevo() throws Exception{
+        String medicamentoPacienteJson = null;
         String datosMedicamentoComboBox[] = String.valueOf(medicamento_comboBox.getSelectedItem()).split("-");
         MedicamentoDTO medicamentoAdministrada  = obtenerMedicamentoDeComboBox(datosMedicamentoComboBox[INDEX_COMBO_BOX_CODIGO_MEDICAMENTO], 
                                                                 datosMedicamentoComboBox[INDEX_COMBO_BOX_NOMBRE_MEDICAMENTO]);
         Date fechaInicio = fecha_inicio_chooser.getDate();
         Date fechaFin = fecha_fin_chooser.getDate();
         
-        MedicamentoPacienteDTO medicamentoPaciente = new MedicamentoPacienteDTO(0, medicamentoAdministrada, fechaInicio, fechaFin);
-        
-        return medicamentoPaciente.toJson();
+        if(fechaFinPosteriorAFechaInicio(fechaInicio, fechaFin)){
+            MedicamentoPacienteDTO medicamentoPaciente = new MedicamentoPacienteDTO(0, medicamentoAdministrada, fechaInicio, fechaFin);
+            medicamentoPacienteJson = medicamentoPaciente.toJson();
+        }else{
+            throw new Exception(ERROR_FECHAS_NUEVO_MEDICAMENTO);
+        }
+        return medicamentoPacienteJson;
     }
     
     /**
@@ -690,9 +722,11 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     private void b_AnyadirMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_AnyadirMedicamentoActionPerformed
         try {
             String medicamentoJsonToSend = crearJsonMedicamentoNuevo();
-            System.out.println("medicamento to send: " +medicamentoJsonToSend);
             
             if (medicamentoJsonToSend != null){
+                /* Permite saber si el usuario actual es el que ha solicitado la operación de añadir un nuevo medicamento */
+                botonAnyadirPulsado = true;
+                
                 oyenteVista.eventoProducido(OyenteVista.Evento.NUEVO_MEDICAMENTO, 
                     new Tupla <String, String>(medicamentoJsonToSend,
                                            pacienteSeleccionado.getNss()));
@@ -704,6 +738,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
             }
         } catch (Exception ex) {
             mensajeDialogo(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_b_AnyadirMedicamentoActionPerformed
     
@@ -723,10 +758,13 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      * @param evt 
      */
     private void b_EliminarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EliminarMedicamentoActionPerformed
-        indexMedicamentoSeleccionado = tabla_con_medicamentos.getSelectedRow();
+        int indexMedicamentoSeleccionado = tabla_con_medicamentos.getSelectedRow();
                 
-        if (indexMedicamentoSeleccionado != INDEX_MEDICAMENTO_NO_SELECCIONADA){
-            String idMedicamentoPaciente = obtenerIdMedicamentoSeleccionado(indexMedicamentoSeleccionado);
+        if (indexMedicamentoSeleccionado != INDEX_MEDICAMENTO_NO_SELECCIONADO){
+            /* Permite saber si el usuario actual es el que ha solicitado la operación de eliminar un medicamento */
+            botonEliminarPulsado = true;
+            
+            String idMedicamentoPaciente = obtenerIdMedicamentoSeleccionado(tabla_con_medicamentos.getSelectedRow());
             
             oyenteVista.eventoProducido(OyenteVista.Evento.ELIMINAR_MEDICAMENTO, 
                     new Tupla <String, String>(String.valueOf(idMedicamentoPaciente),
@@ -766,7 +804,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
      * @param evt 
      */
     private void tabla_con_medicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_con_medicamentosMouseClicked
-        if (tabla_con_medicamentos.getSelectedRow() != INDEX_MEDICAMENTO_NO_SELECCIONADA){
+        if (tabla_con_medicamentos.getSelectedRow() != INDEX_MEDICAMENTO_NO_SELECCIONADO){
             b_EliminarMedicamento.setEnabled(true);
         }
     }//GEN-LAST:event_tabla_con_medicamentosMouseClicked
@@ -780,25 +818,53 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         String medicamentoJsonToReceive = (String)_evt.getNewValue();
         MedicamentoPacienteDTO medicamentoDTOReceived = gson.fromJson(medicamentoJsonToReceive, MedicamentoPacienteDTO.class);
         
-        System.out.println("Medicamento recibido: " + medicamentoJsonToReceive);
-        mensajeDialogo(EXITO_NUEVO_MEDICAMENTO + medicamentoDTOReceived.getMedicamento().getCodigo(),
-            JOptionPane.INFORMATION_MESSAGE);
+        if(botonAnyadirPulsado){
+            mensajeDialogo(EXITO_NUEVO_MEDICAMENTO + medicamentoDTOReceived.getMedicamento().getCodigo(),
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            botonAnyadirPulsado = false;
+        }
        
         medicamentosPaciente.add(medicamentoDTOReceived);
-        tableModel.addRow(medicamentoDTOReceived.toArray());     
+        tableModel.addRow(medicamentoDTOReceived.toArray());  
+        System.out.println("Medicamento index: " + medicamentosPaciente.indexOf(medicamentoDTOReceived));
+        System.out.println("Medicamento id: " + medicamentoDTOReceived.getId());
     }  
     
     /**
+     * Obtener el índice del medicamentoPacienteDTO seleccionado en la tabla
+     * 
+     * @param _idMedicamentoPaciente
+     * @return int
+     */
+    private int obtenerIndexMedicamentoPaciente(int _idMedicamentoPaciente){
+        System.out.println("idMed " + _idMedicamentoPaciente);
+        for(MedicamentoPacienteDTO medicamento: medicamentosPaciente){
+            if(medicamento.getId() == _idMedicamentoPaciente){
+                return medicamentosPaciente.indexOf(medicamento);
+            }
+        }
+        return INDEX_MEDICAMENTO_NO_SELECCIONADO;
+    }
+     
+    /**
      * Recibe evento eliminar un medicamento de la receta de un paciente
      * 
-     * @param evt 
+     * @param _evt 
      */
-    private void propiedadEliminarMedicamento(PropertyChangeEvent evt){
+    private void propiedadEliminarMedicamento(PropertyChangeEvent _evt){
+        String idMedicamentoJsonToReceive = (String)_evt.getNewValue();
+        int indexMedicamentoSeleccionado = obtenerIndexMedicamentoPaciente(Integer.parseInt(idMedicamentoJsonToReceive));
+
         String codigoMedicamento = String.valueOf(medicamentosPaciente.get(indexMedicamentoSeleccionado).getMedicamento().getCodigo());
 
-        mensajeDialogo(EXITO_ELIMINAR_MEDICAMENTO + 
-        codigoMedicamento, JOptionPane.INFORMATION_MESSAGE);
-
+        if (botonEliminarPulsado){
+            mensajeDialogo(EXITO_ELIMINAR_MEDICAMENTO + 
+                codigoMedicamento, JOptionPane.INFORMATION_MESSAGE);
+            
+            botonEliminarPulsado = false;
+        }
+        
         medicamentosPaciente.remove(indexMedicamentoSeleccionado);
         tableModel.removeRow(indexMedicamentoSeleccionado);
     }

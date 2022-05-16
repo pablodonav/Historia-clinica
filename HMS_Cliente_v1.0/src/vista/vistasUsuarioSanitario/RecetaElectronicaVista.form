@@ -96,13 +96,13 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="asterisco_label_fecha_inicio" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                                  <Component id="fecha_fin_chooser" min="-2" pref="118" max="-2" attributes="0"/>
+                                                  <Component id="fecha_inicio_chooser" min="-2" pref="118" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="fecha_fin_label" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="asterisco_label_fecha_fin" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="fecha_inicio_chooser" min="-2" pref="111" max="-2" attributes="0"/>
+                                                  <Component id="fecha_fin_chooser" min="-2" pref="111" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -151,8 +151,8 @@
                                       <Component id="asterisco_label_fecha_fin" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                       <Component id="fecha_fin_label" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="fecha_fin_chooser" alignment="0" pref="24" max="32767" attributes="0"/>
-                                  <Component id="fecha_inicio_chooser" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="fecha_inicio_chooser" alignment="0" pref="24" max="32767" attributes="0"/>
+                                  <Component id="fecha_fin_chooser" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="fecha_inicio_label" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -408,6 +408,11 @@
             <Property name="text" type="java.lang.String" value=" Fecha Fin"/>
           </Properties>
         </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="fecha_fin_chooser">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="fecha_fin_chooserPropertyChange"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JLabel" name="asterisco_label_fecha_fin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -418,11 +423,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="fecha_fin_chooser">
-          <Events>
-            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="fecha_fin_chooserPropertyChange"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -535,7 +535,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/vista/imgs/minus-146-475070(1).png"/>
+              <Image iconType="3" name="/vista/imgs/minus_icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar Medicamento"/>
             <Property name="actionCommand" type="java.lang.String" value="   Nuevo Sanitario"/>

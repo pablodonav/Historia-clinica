@@ -1,12 +1,11 @@
 /**
  * MenuAdminVista.java
  * Adnana Catrinel Dragut
- * v1.0 26/03/2022.
+ * v2.0 26/03/2022.
  * 
  */
 package vista.vistasUsuarioAdmin;
 
-import control.Hospital;
 import control.OyenteVista;
 import java.awt.Color;
 import modelo.clasesProxys.Comms;

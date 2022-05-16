@@ -1,7 +1,7 @@
 /**
  * ProxyMedicamento.java
  * Adnana Catrinel Dragut
- * v1.0 07/05/2022.
+ * v2.0 07/05/2022.
  * 
  */
 package modelo.clasesProxys;

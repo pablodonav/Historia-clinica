@@ -1,7 +1,7 @@
 /**
  * MenuSanitarioVista.java
  * Adnana Catrinel Dragut
- * v1.0 11/04/2022.
+ * v2.0 11/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;

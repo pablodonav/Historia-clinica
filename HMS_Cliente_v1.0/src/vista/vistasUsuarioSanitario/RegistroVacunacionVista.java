@@ -1,7 +1,7 @@
 /**
  * RegistroVacunacionVista.java
  * Adnana Catrinel Dragut
- * v1.0 02/04/2022.
+ * v2.0 02/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -43,6 +43,7 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
     private List<VacunaPacienteDTO> vacunasPaciente = null;
     private List<VacunaDTO> vacunasDisponibles = null;
     private DefaultTableModel tableModel = null;
+    private boolean botonAnyadirVacunaPulsado = false;
     
     private final int INDEX_VACUNA_NO_SELECCIONADA = -1;
     private final int INDEX_CODIGO_VACUNA = 0;
@@ -92,6 +93,11 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
         copiarInformaciónPacienteEnInputFields();
         cargarTablaConVacunas();
         cargarVacunasEnComboBox();
+        
+        /* Subraya el texto "Datos Paciente" */
+        datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        
+        b_AnyadirVacuna.setEnabled(false);
     }
 
     /**
@@ -638,6 +644,9 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
             String vacunaJsonToSend = crearJsonVacunaNueva();
             
             if (vacunaJsonToSend != null){
+                /* Permite saber si el usuario actual es el que ha solicitado la operación de añadir una nueva vacuna */
+                botonAnyadirVacunaPulsado = true;
+                
                 oyenteVista.eventoProducido(OyenteVista.Evento.NUEVA_VACUNA, 
                     new Tupla <String, String>(vacunaJsonToSend,
                                            pacienteSeleccionado.getNss()));
@@ -701,9 +710,11 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
         String vacunaJsonToReceive = (String)_evt.getNewValue();
         VacunaPacienteDTO vacunaDTOReceived = gson.fromJson(vacunaJsonToReceive, VacunaPacienteDTO.class);
         
-        System.out.println("Vacuna recibida: " + vacunaJsonToReceive);
-        mensajeDialogo(EXITO_NUEVA_VACUNA + vacunaDTOReceived.getVacuna().getCodigo(),
-            JOptionPane.INFORMATION_MESSAGE);
+        if(botonAnyadirVacunaPulsado){
+            mensajeDialogo(EXITO_NUEVA_VACUNA + vacunaDTOReceived.getVacuna().getCodigo(),
+                JOptionPane.INFORMATION_MESSAGE);
+            botonAnyadirVacunaPulsado = false;
+        }
        
         vacunasPaciente.add(vacunaDTOReceived);
         tableModel.addRow(vacunaDTOReceived.toArray());     

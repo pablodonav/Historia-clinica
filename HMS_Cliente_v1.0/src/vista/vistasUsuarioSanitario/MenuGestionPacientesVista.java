@@ -1,7 +1,7 @@
 /**
  * MenuGestionPacientesVista.java
  * Adnana Catrinel Dragut
- * v1.0 21/04/2022.
+ * v2.0 21/04/2022.
  * 
  */
 package vista.vistasUsuarioSanitario;
@@ -69,6 +69,14 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         /* Subraya el texto "Sanitario Seleccionado" */
         lista_de_pacientes_label.setText("<HTML><U>Lista De Pacientes</U></HTML>");
         lista_de_pacientes_label.setHorizontalAlignment(LEFT);
+        
+        b_NuevaCita.setEnabled(false);
+        b_NuevoEpisodio.setEnabled(false);
+        b_RecetaElectronica.setEnabled(false);
+        b_RegistroVacunacion.setEnabled(false);
+        b_VerCitas.setEnabled(false);
+        b_VerEpisodios.setEnabled(false);
+        b_VerHistoria.setEnabled(false);
     }
     
     /**
@@ -97,6 +105,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         b_RegistroVacunacion = new javax.swing.JButton();
         b_RecetaElectronica = new javax.swing.JButton();
         b_VerHistoria = new javax.swing.JButton();
+        b_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -305,18 +314,32 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
             }
         });
 
+        b_Refresh.setBackground(new java.awt.Color(204, 204, 204));
+        b_Refresh.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_Refresh.setForeground(new java.awt.Color(0, 153, 153));
+        b_Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/refresh_icon.png"))); // NOI18N
+        b_Refresh.setActionCommand("   Nuevo Sanitario");
+        b_Refresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Refresh.setFocusable(false);
+        b_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_principalLayout = new javax.swing.GroupLayout(panel_principal);
         panel_principal.setLayout(panel_principalLayout);
         panel_principalLayout.setHorizontalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(paner_superior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel_principalLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
                         .addComponent(lista_de_pacientes_label))
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -341,8 +364,10 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lista_de_pacientes_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lista_de_pacientes_label)
+                    .addComponent(b_Refresh))
                 .addGap(12, 12, 12)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
@@ -364,7 +389,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(b_RecetaElectronica, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(b_VerHistoria, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(71, Short.MAX_VALUE))))
+                        .addContainerGap(70, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -447,6 +472,7 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
      */
     private void cargarTablaConPacientes(){
         tableModel = (DefaultTableModel) tabla_con_pacientes.getModel();
+        tableModel.getDataVector().removeAllElements();
 
         for (int i = 0; i < pacientes.size(); i++){
             PacienteDTO paciente = pacientes.get(i);
@@ -582,11 +608,22 @@ public class MenuGestionPacientesVista extends javax.swing.JFrame {
         oyenteVista.eventoProducido(OyenteVista.Evento.SALIR, null);
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Refresca la lista con pacientes
+     * 
+     * @param evt 
+     */
+    private void b_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RefreshActionPerformed
+        this.pacientes = obtenerListaConPacientes();
+        cargarTablaConPacientes();
+    }//GEN-LAST:event_b_RefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_Atrás;
     private javax.swing.JButton b_NuevaCita;
     private javax.swing.JButton b_NuevoEpisodio;
     private javax.swing.JButton b_RecetaElectronica;
+    private javax.swing.JButton b_Refresh;
     private javax.swing.JButton b_RegistroVacunacion;
     private javax.swing.JButton b_VerCitas;
     private javax.swing.JButton b_VerEpisodios;

@@ -1,7 +1,7 @@
 /**
  * EditarSanitarioVista.java
  * Adnana Catrinel Dragut
- * v1.0 08/04/2022.
+ * v2.0 08/04/2022.
  * 
  */
 package vista.vistasUsuarioAdmin;
@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.Comms;
@@ -37,7 +39,8 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private ProxySanitario pxSanitario = null;
     private List<SanitarioDTO> sanitarios = null;
     private DefaultTableModel tableModel = null;
-    private int indexSanitarioSeleccionado;
+    private boolean botonGuardarCambiosPulsado = false;
+    private boolean botonEliminarPulsado = false;
     
     private static final int INDEX_COLUMNA_DNI = 3;
     private static final int INDEX_SANITARIO_NO_SELECCIONADO = -1;
@@ -97,7 +100,32 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         b_EliminarSanitario.setEnabled(false);
         b_GuardarCambios.setEnabled(false);
     }
-        
+    
+    /**
+     * Crea un EditarSanitarioVista vacío para realizar los tests con JUnit.
+     * 
+     */
+    public EditarSanitarioVista(){
+    }
+
+    /**
+     * Asigna una tabla con sanitarios para realizar tests con JUnit.
+     * 
+     * @param _tabla_con_sanitarios 
+     */
+    public void setTabla_con_sanitarios(JTable _tabla_con_sanitarios) {
+        this.tabla_con_sanitarios = _tabla_con_sanitarios;
+    }
+
+    /**
+     * Asigna el campo nombre para realizar tests con JUnit.
+     * 
+     * @param _nombre_input_field 
+     */
+    public void setNombre_input_field(JTextField _nombre_input_field) {
+        this.nombre_input_field = _nombre_input_field;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,6 +166,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         b_connecter = new javax.swing.JButton();
         repita_contraseña_label = new javax.swing.JLabel();
         pwd2_input_field = new javax.swing.JPasswordField();
+        b_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,7 +223,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         b_EliminarSanitario.setBackground(new java.awt.Color(204, 204, 204));
         b_EliminarSanitario.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         b_EliminarSanitario.setForeground(new java.awt.Color(0, 153, 153));
-        b_EliminarSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/minus-146-475070(1).png"))); // NOI18N
+        b_EliminarSanitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/minus_icon.png"))); // NOI18N
         b_EliminarSanitario.setText("Eliminar Sanitario");
         b_EliminarSanitario.setActionCommand("   Nuevo Sanitario");
         b_EliminarSanitario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -371,84 +400,102 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             }
         });
 
+        b_Refresh.setBackground(new java.awt.Color(204, 204, 204));
+        b_Refresh.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        b_Refresh.setForeground(new java.awt.Color(0, 153, 153));
+        b_Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/refresh_icon.png"))); // NOI18N
+        b_Refresh.setActionCommand("   Nuevo Sanitario");
+        b_Refresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        b_Refresh.setFocusable(false);
+        b_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_principalLayout = new javax.swing.GroupLayout(panel_principal);
         panel_principal.setLayout(panel_principalLayout);
         panel_principalLayout.setHorizontalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(b_ModificarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(b_EliminarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(sanitario_id_label, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                .addComponent(nombre_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(apellido1_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(apellido2_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                    .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(b_GuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                    .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                            .addComponent(nueva_contraseña_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(pwd1_input_field))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
-                                            .addComponent(dni_label)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(dni_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(tlfn_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(tlfn_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(panel_principalLayout.createSequentialGroup()
-                                            .addComponent(correo_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(correo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(puesto_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panel_principalLayout.createSequentialGroup()
-                                            .addComponent(repita_contraseña_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(pwd2_input_field))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(473, 473, 473))
-            .addGroup(panel_principalLayout.createSequentialGroup()
-                .addGap(277, 277, 277)
-                .addComponent(lista_de_sanitarios_label)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panel_principalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_principalLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(b_ModificarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(b_EliminarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(sanitario_id_label, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                        .addComponent(nombre_label)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(apellido1_label)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(apellido2_label)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(apellido2_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                            .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(b_GuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                            .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                                    .addComponent(nueva_contraseña_label)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(pwd1_input_field))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
+                                                    .addComponent(dni_label)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(dni_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(tlfn_label)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(tlfn_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(panel_principalLayout.createSequentialGroup()
+                                                    .addComponent(correo_label)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(correo_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(puesto_label)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(panel_principalLayout.createSequentialGroup()
+                                                    .addComponent(repita_contraseña_label)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(pwd2_input_field))))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(473, 473, 473))
+                    .addGroup(panel_principalLayout.createSequentialGroup()
+                        .addComponent(b_Refresh)
+                        .addGap(230, 230, 230)
+                        .addComponent(lista_de_sanitarios_label)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panel_principalLayout.setVerticalGroup(
             panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_principalLayout.createSequentialGroup()
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lista_de_sanitarios_label)
-                .addGap(18, 18, 18)
+                .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lista_de_sanitarios_label)
+                    .addComponent(b_Refresh))
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -568,9 +615,10 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * existentes en el sistema.
      * 
      */
-    private void cargarTablaConSanitarios(){
+    public void cargarTablaConSanitarios(){
         tableModel = (DefaultTableModel) tabla_con_sanitarios.getModel();
-
+        tableModel.getDataVector().removeAllElements();
+        
         for (int i = 0; i < sanitarios.size(); i++){
             SanitarioDTO sanitario = sanitarios.get(i);
             tableModel.addRow(sanitario.toArray());
@@ -594,7 +642,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @param _indexSanitarioSeleccionado
      * @return String
      */
-    private String obtenerDniSanitarioSeleccionado(int _indexSanitarioSeleccionado){
+    public String obtenerDniSanitarioSeleccionado(int _indexSanitarioSeleccionado){
         return  String.valueOf(tabla_con_sanitarios.getValueAt(
                     _indexSanitarioSeleccionado, INDEX_COLUMNA_DNI));
     }
@@ -605,9 +653,12 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @param evt 
      */
     private void b_EliminarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_EliminarSanitarioActionPerformed
-        indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();
+        int indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();
                 
         if (indexSanitarioSeleccionado != INDEX_SANITARIO_NO_SELECCIONADO){
+            /* Permite saber si el usuario actual es el que ha solicitado la operación de eliminar un sanitario */
+            botonEliminarPulsado = true;
+            
             String dniSanitario = obtenerDniSanitarioSeleccionado(indexSanitarioSeleccionado);
 
             oyenteVista.eventoProducido(OyenteVista.Evento.DAR_BAJA_SANITARIO,
@@ -626,7 +677,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * 
      * @param _sanitarioSeleccionado
      */
-    private void modificarNombreSanitario(SanitarioDTO _sanitarioSeleccionado){
+    public void modificarNombreSanitario(SanitarioDTO _sanitarioSeleccionado){
         if (! nombre_input_field.getText().equals(_sanitarioSeleccionado.getNombre())){
             _sanitarioSeleccionado.setNombre(nombre_input_field.getText());
         }
@@ -766,6 +817,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @throws Exception
      */
     private String crearJsonSanitarioEditado() throws Exception{ 
+        int indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();
         SanitarioDTO sanitarioSeleccionado = 
             sanitarios.get(indexSanitarioSeleccionado);
                         
@@ -790,6 +842,9 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             String sanitarioJsonToSend = crearJsonSanitarioEditado();
             
             if (sanitarioJsonToSend != null){
+                /* Permite saber si el usuario actual es el que ha solicitado la operación de modificar datos de un sanitario */
+                botonGuardarCambiosPulsado = true;
+                
                 oyenteVista.eventoProducido(OyenteVista.Evento.EDITAR_SANITARIO, sanitarioJsonToSend); 
                 
                 /* Borra entrada de los campos de la contraseña para la próxima modificación */
@@ -852,7 +907,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      * @param evt 
      */
     private void b_ModificarSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_ModificarSanitarioActionPerformed
-        indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();       
+        int indexSanitarioSeleccionado = tabla_con_sanitarios.getSelectedRow();       
 
         if (indexSanitarioSeleccionado != INDEX_SANITARIO_NO_SELECCIONADO){
             copiarInformaciónSanitarioEnInputFields(indexSanitarioSeleccionado);
@@ -971,6 +1026,32 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private void puesto_comboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_puesto_comboBoxPopupMenuWillBecomeInvisible
         changed();
     }//GEN-LAST:event_puesto_comboBoxPopupMenuWillBecomeInvisible
+
+    /**
+     * Refresca la lista de sanitarios
+     * 
+     * @param evt 
+     */
+    private void b_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_RefreshActionPerformed
+        this.sanitarios = obtenerListaConSanitarios();
+        cargarTablaConSanitarios();
+    }//GEN-LAST:event_b_RefreshActionPerformed
+    
+    /**
+     * Obtener el índice del sanitarioDTO seleccionado en la tabla
+     * 
+     * @param _dniSanitario
+     * @return int
+     */
+    private int obtenerIndexSanitario(String _dniSanitario){
+        System.out.println("idSan " + _dniSanitario);
+        for(SanitarioDTO sanitario: sanitarios){
+            if(sanitario.getDni().equals(_dniSanitario)){
+                return sanitarios.indexOf(sanitario);
+            }
+        }
+        return INDEX_SANITARIO_NO_SELECCIONADO;
+    }
     
     /**
      * Recibe evento dar baja sanitario
@@ -979,9 +1060,12 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
      */
     private void propiedadDarBajaSanitario(PropertyChangeEvent evt){
         String dniSanitario = (String)evt.getNewValue();
+        int indexSanitarioSeleccionado = obtenerIndexSanitario(dniSanitario);
 
-        mensajeDialogo(EXITO_DAR_BAJA_SANITARIO + 
-        dniSanitario, JOptionPane.INFORMATION_MESSAGE);
+        if(botonEliminarPulsado){
+            mensajeDialogo(EXITO_DAR_BAJA_SANITARIO + 
+                dniSanitario, JOptionPane.INFORMATION_MESSAGE);
+        }
 
         sanitarios.remove(indexSanitarioSeleccionado);
         tableModel.removeRow(indexSanitarioSeleccionado);
@@ -995,10 +1079,14 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private void propiedadEditarSanitario(PropertyChangeEvent evt){
         String sanitarioJsonToReceive = (String)evt.getNewValue();
         SanitarioDTO sanitarioDTOReceived = gson.fromJson(
-        sanitarioJsonToReceive, SanitarioDTO.class);
+            sanitarioJsonToReceive, SanitarioDTO.class);
+        int indexSanitarioSeleccionado = obtenerIndexSanitario(sanitarioDTOReceived.getDni());
 
-        mensajeDialogo(EXITO_EDITAR_SANITARIO + 
-        sanitarioDTOReceived.getDni(), JOptionPane.INFORMATION_MESSAGE);
+        if(botonGuardarCambiosPulsado){
+            mensajeDialogo(EXITO_EDITAR_SANITARIO + 
+                sanitarioDTOReceived.getDni(), JOptionPane.INFORMATION_MESSAGE);
+            botonGuardarCambiosPulsado = false;
+        }
 
         /* Muestra los datos modificados en el sanitario de la tabla*/
         for (int i = 0; i < sanitarioDTOReceived.toArray().length; i++){
@@ -1035,6 +1123,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private javax.swing.JButton b_EliminarSanitario;
     private javax.swing.JButton b_GuardarCambios;
     private javax.swing.JButton b_ModificarSanitario;
+    private javax.swing.JButton b_Refresh;
     private javax.swing.JButton b_connecter;
     private javax.swing.JTextField correo_input_field;
     private javax.swing.JLabel correo_label;

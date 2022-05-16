@@ -1,7 +1,7 @@
 /**
  * Config.java
  * Adnana Catrinel Dragut
- * v1.0 28/03/2022.
+ * v2.0 28/03/2022.
  * 
  */
 

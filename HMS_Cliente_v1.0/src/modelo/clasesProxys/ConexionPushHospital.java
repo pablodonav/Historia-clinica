@@ -58,12 +58,12 @@ public class ConexionPushHospital {
         socket.setSoTimeout(tiempoEspera);
 
         entrada = new BufferedReader(new InputStreamReader(
-                socket.getInputStream()));
+                socket.getInputStream(), "UTF-8"));
 
         // Autoflush!!
         salida = new PrintWriter(new BufferedWriter(
                 new OutputStreamWriter(
-                        socket.getOutputStream())), true);
+                        socket.getOutputStream(), "UTF-8")), true);
 
         salida.println(solicitud.toString());
 

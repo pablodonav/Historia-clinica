@@ -1,7 +1,7 @@
 /**
  * WelcomeVista.java
  * Adnana Catrinel Dragut
- * v1.0 04/04/2022.
+ * v2.0 04/04/2022.
  * 
  */
 

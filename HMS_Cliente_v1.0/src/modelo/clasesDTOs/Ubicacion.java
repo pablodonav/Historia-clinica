@@ -1,7 +1,7 @@
 /**
  * Ubicacion.java
  * Adnana Catrinel Dragut
- * v1.0 29/04/2022.
+ * v2.0 29/04/2022.
  * 
  */
 package modelo.clasesDTOs;

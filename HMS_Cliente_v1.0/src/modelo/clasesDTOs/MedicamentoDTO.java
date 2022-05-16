@@ -1,7 +1,7 @@
 /**
  * MedicamentoDTO.java
  * Adnana Catrinel Dragut
- * v1.0 07/04/2022.
+ * v2.0 07/04/2022.
  * 
  */
 package modelo.clasesDTOs;
