@@ -34,10 +34,6 @@ Leyenda de colores:
 - ![](https://via.placeholder.com/15/CD4C4C/000000?text=+) `SubTareas realizadas por Adnana Dragut.`
 - ![](https://via.placeholder.com/15/CEE35C/000000?text=+) `SubTareas realizadas por Pablo Doñate.`
 
-<details closed>
-    <summary> <b> Versión inicial de la planificación: </b> </summary>
-    <ul>
-      <h5> Planificación v1.0 </h5>
       <img src="https://github.com/800710/ProyectoSoftware21-22/blob/main/Planificacion/planificacionv1.0.png">
       <p align="right">Realizado con <a href="https://prod.teamgantt.com">TeamGantt</a> a fecha de 28/02/2022.</p>
     </ul> 
