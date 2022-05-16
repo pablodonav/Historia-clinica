@@ -52,7 +52,9 @@ public class TestAñadirMedicVacunEpCit {
         
         Date fecha = f. parse(string_date);
         
-        EpisodioAtencionDTO episodio = new EpisodioAtencionDTO(10, fecha, "Alejandro ha acudido en consecuencia de dolor de cabeza.", "El paciente ha sido positivo en COVID-19");
+        EpisodioAtencionDTO episodio = new EpisodioAtencionDTO(10, fecha, 
+                "Alejandro ha acudido en consecuencia de dolor de cabeza.", 
+                "El paciente ha sido positivo en COVID-19");
         assertTrue(true == database.nuevoEpisodio(episodio, "256047A"));
     }
     
@@ -74,8 +76,10 @@ public class TestAñadirMedicVacunEpCit {
         Date fecha = f. parse(string_date);
         Date hora = h.parse(string_hora);
         
-        UbicacionDTO ubicacion = new UbicacionDTO("Teruel", "Hospital Obispo Polanco", "14A");
-        CitaDTO cita = new CitaDTO(10, "18123598X", ubicacion, fecha, hora, "El paciente tiene cita con su médico de cabecera.");
+        UbicacionDTO ubicacion = new UbicacionDTO("Teruel", 
+                "Hospital Obispo Polanco", "14A");
+        CitaDTO cita = new CitaDTO(10, "18123598X", ubicacion, fecha, hora, 
+                "El paciente tiene cita con su médico de cabecera.");
         
         assertTrue(true == database.nuevaCita(cita, "256047A"));
     }
@@ -97,11 +101,12 @@ public class TestAñadirMedicVacunEpCit {
         Date fechaFin = f. parse(string_date_2);
         
         MedicamentoDTO medicamento = new MedicamentoDTO(1, "Paracetamol");
-        MedicamentoPacienteDTO medicamentoPaciente = new MedicamentoPacienteDTO(10, medicamento, fechaInicio, fechaFin);
+        MedicamentoPacienteDTO medicamentoPaciente = 
+                new MedicamentoPacienteDTO(10, medicamento, fechaInicio, fechaFin);
         assertTrue(true == database.añadirMedicamentoAPaciente(medicamentoPaciente, "256047A"));
     }
     
-     /**
+    /**
      * Función que verifica la inserción de una vacuna
      * en la historia del paciente creado en una función de test anterior.
      * 

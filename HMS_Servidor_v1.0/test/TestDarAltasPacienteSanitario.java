@@ -43,12 +43,17 @@ public class TestDarAltasPacienteSanitario {
      */
     @Test
     public void testVerificarUsuario() throws SQLException, ClassNotFoundException {
-        UsuarioDTO usuarioCorrectoSan = new UsuarioDTO("123456789X", "antlopg@gmail.com", "81dc9bdb52d04dc20036dbd8313ed055");
-        UsuarioDTO usuarioCorrectoAdm = new UsuarioDTO("987987987A", "admin@hsw.com", "81dc9bdb52d04dc20036dbd8313ed055");
-        UsuarioDTO usuarioIncorrectoSan = new UsuarioDTO("12345678", "ant@gmail.com", "123456789");
+        UsuarioDTO usuarioCorrectoSan = new UsuarioDTO("123456789X", "antlopg@gmail.com", 
+                "81dc9bdb52d04dc20036dbd8313ed055");
+        UsuarioDTO usuarioCorrectoAdm = new UsuarioDTO("987987987A", "admin@hsw.com", 
+                "81dc9bdb52d04dc20036dbd8313ed055");
+        UsuarioDTO usuarioIncorrectoSan = new UsuarioDTO("12345678", "ant@gmail.com", 
+                "123456789");
         
-        assertTrue("UsuarioDTO{correoElectronico=antlopg@gmail.com,contraseña=81dc9bdb52d04dc20036dbd8313ed055, admin=false}".equals(database.verificarUsuario(usuarioCorrectoSan).toString()));
-        assertTrue("UsuarioDTO{correoElectronico=admin@hsw.com,contraseña=81dc9bdb52d04dc20036dbd8313ed055, admin=true}".equals(database.verificarUsuario(usuarioCorrectoAdm).toString()));
+        assertTrue("UsuarioDTO{correoElectronico=antlopg@gmail.com,contraseña=81dc9bdb52d04dc20036dbd8313ed055, admin=false}"
+                .equals(database.verificarUsuario(usuarioCorrectoSan).toString()));
+        assertTrue("UsuarioDTO{correoElectronico=admin@hsw.com,contraseña=81dc9bdb52d04dc20036dbd8313ed055, admin=true}"
+                .equals(database.verificarUsuario(usuarioCorrectoAdm).toString()));
         assertTrue(null == database.verificarUsuario(usuarioIncorrectoSan));
     }
     
@@ -61,9 +66,11 @@ public class TestDarAltasPacienteSanitario {
      */
     @Test
     public void testAñadirNuevoSanitario() throws SQLException {
-        SanitarioDTO sanitario = new SanitarioDTO("Manolo", "García", "Martínez", "18123598X", 625174985, "manologar@gmail.com", "154876", "Médico");
+        SanitarioDTO sanitario = new SanitarioDTO("Manolo", "García", "Martínez", 
+                "18123598X", 625174985, "manologar@gmail.com", "154876", "Médico");
        
-        assertTrue(true == database.addUsuario(sanitario.getDni(), sanitario.getEmail(), sanitario.getContraseña()));
+        assertTrue(true == database.addUsuario(sanitario.getDni(), sanitario.getEmail(), 
+                sanitario.getContraseña()));
         assertTrue(true == database.addSanitario(sanitario));
     }
     
@@ -76,7 +83,8 @@ public class TestDarAltasPacienteSanitario {
      */
     @Test
     public void testEditarSanitarioExistente() throws SQLException {
-        SanitarioDTO sanitarioModif = new SanitarioDTO("Manolo", "Pérez", "Martínez", "18123598X", 625174985, "manologar@gmail.com", "154876", "Médico");
+        SanitarioDTO sanitarioModif = new SanitarioDTO("Manolo", "Pérez", "Martínez", 
+                "18123598X", 625174985, "manologar@gmail.com", "154876", "Médico");
         assertTrue(true == database.editarSanitario(sanitarioModif));
     }
     
@@ -87,7 +95,8 @@ public class TestDarAltasPacienteSanitario {
      */
     @Test
     public void testAñadirNuevoPaciente() throws SQLException {
-        PacienteDTO paciente = new PacienteDTO("256047A", "Alejandro", "Domingo", "Navarro", "Ácido clavulánico", 18, 1.87, 78.53);
+        PacienteDTO paciente = new PacienteDTO("256047A", "Alejandro", "Domingo", 
+                "Navarro", "Ácido clavulánico", 18, 1.87, 78.53);
         assertTrue(true == database.addPaciente(paciente));
     }
 }

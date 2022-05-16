@@ -61,16 +61,22 @@ public class TestObtenerHistoriaCompleta {
         Date fechaFin = f. parse(string_date_med_2);
         Date fechaVac = f. parse(string_date_vac);
         
-        EpisodioAtencionDTO[] episodios = new EpisodioAtencionDTO[] {new EpisodioAtencionDTO(10, fechaEp, "Alejandro ha acudido en consecuencia de dolor de cabeza.", "El paciente ha sido positivo en COVID-19")};
+        EpisodioAtencionDTO[] episodios = new EpisodioAtencionDTO[] 
+            {new EpisodioAtencionDTO(10, fechaEp, "Alejandro ha acudido en consecuencia de dolor de cabeza.", 
+                    "El paciente ha sido positivo en COVID-19")};
         
         MedicamentoDTO medicamento = new MedicamentoDTO(1, "Paracetamol");
-        MedicamentoPacienteDTO[] medicamentos = new MedicamentoPacienteDTO[] {new MedicamentoPacienteDTO(10, medicamento, fechaInicio, fechaFin)};
+        MedicamentoPacienteDTO[] medicamentos = new MedicamentoPacienteDTO[] 
+            {new MedicamentoPacienteDTO(10, medicamento, fechaInicio, fechaFin)};
         
         VacunaDTO vacuna = new VacunaDTO(1, "Hepatitis B");
-        VacunaPacienteDTO[] vacunas = new VacunaPacienteDTO[] {new VacunaPacienteDTO(10, vacuna, fechaVac)};
+        VacunaPacienteDTO[] vacunas = new VacunaPacienteDTO[] 
+            {new VacunaPacienteDTO(10, vacuna, fechaVac)};
         
-        HistoriaPacienteDTO historia = new HistoriaPacienteDTO(Arrays.asList(episodios), Arrays.asList(medicamentos), Arrays.asList(vacunas));
-        HistoriaPacienteDTO historiaRecibida = gson.fromJson(database.obtenerHistoriaPaciente("256047A"), HistoriaPacienteDTO.class);
+        HistoriaPacienteDTO historia = new HistoriaPacienteDTO(Arrays.asList(episodios), 
+                Arrays.asList(medicamentos), Arrays.asList(vacunas));
+        HistoriaPacienteDTO historiaRecibida = 
+                gson.fromJson(database.obtenerHistoriaPaciente("256047A"), HistoriaPacienteDTO.class);
         
         assertTrue(historia.toJson().equals(historiaRecibida.toJson()));
     }
