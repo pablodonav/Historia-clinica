@@ -2,17 +2,17 @@
 
 :mag_right: Análisis de requisitos:
 ---
-<p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-analisis.pdf"> aquí </a> se accederá al mismo.</p>
+<p> El documento de análisis de requisitos y riesgos ha sido elaborado y publicado, donde pulsando <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/01_documento_análisis.pdf"> aquí </a> se accederá al mismo.</p>
 <p align="right"> Realizado por Pablo Doñate y Adnana Dragut a fecha de 04/03/2022.</p>
 
 :computer: Diseño de la aplicación:
 ---
-<p> El documento de diseño, que contiene los diagramas de clases, algunos diagramas de actividades, un diagrama de despliegue, y el prototipado de la aplicación, puede encontrarse <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-diseño.pdf"> aquí </a>.</p>
+<p> El documento de diseño, que contiene los diagramas de clases, algunos diagramas de actividades, un diagrama de despliegue, y el prototipado de la aplicación, puede encontrarse <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/03_documento_diseño.pdf"> aquí </a>.</p>
 <p align="right"> Realizado por Pablo Doñate y Adnana Dragut a fecha de 19/03/2022.</p>
 
 :moneybag: Estimación de costes:
 ---
-<p> El documento de estimación de costes, tanto para la aplicación cliente como la aplicación servidor, puede encontrase  <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/documento-estimacion-costes.pdf"> aquí </a>.</p>
+<p> El documento de estimación de costes, tanto para la aplicación cliente como la aplicación servidor, puede encontrase  <a href="https://github.com/800710/ProyectoSoftware21-22/blob/main/Documentacion/04_documento_estimacion_costes.pdf"> aquí </a>.</p>
 <p align="right"> Realizado por Pablo Doñate y Adnana Dragut a fecha de 03/05/2022.</p>
 
 :calendar: Planificación
