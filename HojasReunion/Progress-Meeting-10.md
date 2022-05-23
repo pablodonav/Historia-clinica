@@ -8,7 +8,8 @@
   1. Actualización de la planificación
   2. Realización de pruebas 
   3. Corrección de errores y nuevas mejoras
-  4. Otros (Ruegos y preguntas)
+  4. Objetivos
+  5. Otros (Ruegos y preguntas)
  --- 
   1. Actualización de la planificación.
      * Se ha modificado el porcentaje de progreso de las actividades asociadas a la implementación en función del avance de cada miembro.
@@ -21,6 +22,11 @@
   3. Corrección de errores y nuevas mejoras
      * Se han corregido los errores visuales detectados en las pruebas realizadas.
      * Se han aportado mejoras para la interfaz de la aplicación cliente.
+
+  4. Objetivos
+     <p>Para la próxima reunión se ha establecido la realización de los siguientes issues:
+  
+      * Issue #19 --> Implementación: pruebas software
  
-  4. Otros (Ruegos y preguntas).
+  5. Otros (Ruegos y preguntas).
 
