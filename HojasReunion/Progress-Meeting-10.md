@@ -29,4 +29,4 @@
       * Issue #19 --> Implementación: pruebas software
  
   5. Otros (Ruegos y preguntas).
-
+     <p>Los miembros del equipo han establecido la próxima reunión en la que se realizarán las pruebas software de la aplicación cliente y de la aplicación                     servidor.
