@@ -71,9 +71,13 @@ public class NuevoEpisodioVista extends javax.swing.JFrame implements PropertyCh
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_paciente_label.setLocation(310, 100);
         
         /* Subraya el texto "Datos Episodio" */
         datos_episodio_label.setText("<HTML><U>Datos Episodio</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_episodio_label.setLocation(320, 180);
         
         b_Guardar.setEnabled(false);
     }

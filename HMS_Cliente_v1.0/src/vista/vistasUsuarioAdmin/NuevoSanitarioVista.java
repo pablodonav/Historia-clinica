@@ -72,6 +72,11 @@ public class NuevoSanitarioVista extends javax.swing.JFrame implements PropertyC
         pack();   // ajusta ventana y sus componentes
         setLocationRelativeTo(null);  // centra en la pantalla
         habilitarBotonConectado(_idConexion);
+        
+        /* Subraya el texto "Datos" */
+        datos_label.setText("<HTML><U>Datos</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_label.setLocation(350, 100);
                     
         b_Guardar.setEnabled(false);
     }

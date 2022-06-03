@@ -85,9 +85,12 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        jPanel1.setLayout(null);
+        datos_paciente_label.setLocation(285, 100);
         
         /* Subraya el texto "Lista Citas" */
         lista_de_citas_label.setText("<HTML><U>Lista Citas</U></HTML>");
+        lista_de_citas_label.setLocation(300, 170);
         
         b_AnularCita.setEnabled(false);
     }
@@ -178,9 +181,8 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
 
         datos_paciente_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         datos_paciente_label.setForeground(new java.awt.Color(0, 153, 153));
-        datos_paciente_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datos_paciente_label.setText("Datos Paciente ");
-        datos_paciente_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        datos_paciente_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         nombre_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         nombre_label.setText("Nombre");
@@ -204,9 +206,8 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
 
         lista_de_citas_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         lista_de_citas_label.setForeground(new java.awt.Color(0, 153, 153));
-        lista_de_citas_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lista_de_citas_label.setText("Lista de Citas");
-        lista_de_citas_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lista_de_citas_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         tabla_con_citas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -291,18 +292,27 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(b_Refresh)
+                                .addGap(216, 216, 216)
+                                .addComponent(datos_paciente_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(283, 283, 283))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(nombre_label)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(b_AnularCita, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(apellido1_label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(lista_de_citas_label))
+                                    .addComponent(lista_de_citas_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(apellido1_input_field)
                                         .addGap(12, 12, 12)
@@ -312,19 +322,8 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                                 .addGap(18, 18, 18)
                                 .addComponent(edad_label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edad_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(b_AnularCita, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(b_Refresh)
-                                .addGap(233, 233, 233)
-                                .addComponent(datos_paciente_label)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(edad_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -337,8 +336,8 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datos_paciente_label)
-                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datos_paciente_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
@@ -352,7 +351,7 @@ public class CitasPacienteVista extends javax.swing.JFrame implements PropertyCh
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lista_de_citas_label)
+                        .addComponent(lista_de_citas_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(116, 116, 116)
                         .addComponent(b_AnularCita, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 42, Short.MAX_VALUE))

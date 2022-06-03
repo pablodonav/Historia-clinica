@@ -61,7 +61,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                                  <Component id="lista_de_vacunas_label1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lista_de_vacunas_label" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
@@ -155,7 +155,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lista_de_vacunas_label1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lista_de_vacunas_label" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
@@ -350,7 +350,7 @@
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lista_de_vacunas_label1">
+        <Component class="javax.swing.JLabel" name="lista_de_vacunas_label">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Berlin Sans FB" size="18" style="1"/>

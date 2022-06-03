@@ -96,6 +96,16 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_paciente_label.setLocation(320, 100);
+        
+        /* Subraya el texto "Lista De Vacunas" */
+        lista_de_vacunas_label.setText("<HTML><U>Lista Vacunas</U></HTML>");
+        lista_de_vacunas_label.setLocation(120, 170);
+        
+        /* Subraya el texto "Nueva Vacuna" */
+        nueva_vacuna_label.setText("<HTML><U>Nueva Vacuna</U></HTML>");
+        nueva_vacuna_label.setLocation(500, 170);
         
         b_AnyadirVacuna.setEnabled(false);
     }
@@ -123,7 +133,7 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
         nss_input_field = new javax.swing.JTextField();
         edad_label = new javax.swing.JLabel();
         edad_input_field = new javax.swing.JTextField();
-        lista_de_vacunas_label1 = new javax.swing.JLabel();
+        lista_de_vacunas_label = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_con_vacunas = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -218,11 +228,11 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
 
         edad_input_field.setEditable(false);
 
-        lista_de_vacunas_label1.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        lista_de_vacunas_label1.setForeground(new java.awt.Color(0, 153, 153));
-        lista_de_vacunas_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lista_de_vacunas_label1.setText("Lista de Vacunas");
-        lista_de_vacunas_label1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lista_de_vacunas_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        lista_de_vacunas_label.setForeground(new java.awt.Color(0, 153, 153));
+        lista_de_vacunas_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lista_de_vacunas_label.setText("Lista de Vacunas");
+        lista_de_vacunas_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         tabla_con_vacunas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -337,7 +347,7 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_principalLayout.createSequentialGroup()
                                 .addGap(125, 125, 125)
-                                .addComponent(lista_de_vacunas_label1)))
+                                .addComponent(lista_de_vacunas_label)))
                         .addGap(138, 138, 138)
                         .addComponent(nueva_vacuna_label))
                     .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -409,7 +419,7 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
                 .addGap(18, 18, 18)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(lista_de_vacunas_label1)
+                        .addComponent(lista_de_vacunas_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -751,7 +761,7 @@ public class RegistroVacunacionVista extends javax.swing.JFrame implements Prope
     private javax.swing.JLabel hospital_icon;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lista_de_vacunas_label1;
+    private javax.swing.JLabel lista_de_vacunas_label;
     private javax.swing.JTextField nombre_input_field;
     private javax.swing.JLabel nombre_label;
     private javax.swing.JTextField nss_input_field;

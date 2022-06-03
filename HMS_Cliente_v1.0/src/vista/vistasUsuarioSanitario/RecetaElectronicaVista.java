@@ -102,6 +102,18 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_paciente_label.setLocation(320, 100);
+        
+        /* Subraya el texto "Nuevo Medicamento" */
+        nuevo_medicamento_label.setText("<HTML><U>Nuevo Medicamento</U></HTML>");
+        panel_principal.setLayout(null);
+        nuevo_medicamento_label.setLocation(12, 170);
+        
+        /* Subraya el texto "Lista De Medicamentos" */
+        lista_de_medicamentos_label.setText("<HTML><U>Lista Medicamentos</U></HTML>");
+        panel_principal.setLayout(null);
+        lista_de_medicamentos_label.setLocation(12, 280);
         
         b_AnyadirMedicamento.setEnabled(false);
         b_EliminarMedicamento.setEnabled(false);
@@ -146,7 +158,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         asterisco_label_fecha_fin = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_con_medicamentos = new javax.swing.JTable();
-        nuevo_medicamento_label1 = new javax.swing.JLabel();
+        lista_de_medicamentos_label = new javax.swing.JLabel();
         b_AnyadirMedicamento = new javax.swing.JButton();
         b_EliminarMedicamento = new javax.swing.JButton();
         b_Atrás = new javax.swing.JButton();
@@ -308,11 +320,11 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
         });
         jScrollPane2.setViewportView(tabla_con_medicamentos);
 
-        nuevo_medicamento_label1.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        nuevo_medicamento_label1.setForeground(new java.awt.Color(0, 153, 153));
-        nuevo_medicamento_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nuevo_medicamento_label1.setText("Lista De Medicamentos");
-        nuevo_medicamento_label1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lista_de_medicamentos_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        lista_de_medicamentos_label.setForeground(new java.awt.Color(0, 153, 153));
+        lista_de_medicamentos_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lista_de_medicamentos_label.setText("Lista De Medicamentos");
+        lista_de_medicamentos_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         b_AnyadirMedicamento.setBackground(new java.awt.Color(204, 204, 204));
         b_AnyadirMedicamento.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
@@ -367,7 +379,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
                 .addContainerGap()
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_principalLayout.createSequentialGroup()
-                        .addComponent(nuevo_medicamento_label1)
+                        .addComponent(lista_de_medicamentos_label)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_principalLayout.createSequentialGroup()
                         .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -460,7 +472,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
                 .addGap(18, 18, 18)
                 .addComponent(b_AnyadirMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(nuevo_medicamento_label1)
+                .addComponent(lista_de_medicamentos_label)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -906,6 +918,7 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     private javax.swing.JLabel fecha_inicio_label;
     private javax.swing.JLabel hospital_icon;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lista_de_medicamentos_label;
     private javax.swing.JComboBox<String> medicamento_comboBox;
     private javax.swing.JLabel medicamento_label;
     private javax.swing.JTextField nombre_input_field;
@@ -913,7 +926,6 @@ public class RecetaElectronicaVista extends javax.swing.JFrame implements Proper
     private javax.swing.JTextField nss_input_field;
     private javax.swing.JLabel nss_label;
     private javax.swing.JLabel nuevo_medicamento_label;
-    private javax.swing.JLabel nuevo_medicamento_label1;
     private javax.swing.JPanel panel_principal;
     private javax.swing.JPanel paner_superior;
     private javax.swing.JLabel registroVacunacion_label;

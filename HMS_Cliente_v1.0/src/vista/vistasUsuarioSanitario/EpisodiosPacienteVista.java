@@ -88,26 +88,52 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        panelPrincipal.setLayout(null);
+        datos_paciente_label.setLocation(300, 100);
         
         /* Subraya el texto "Lista de Episodios" */
-        lista_de_episodios_label.setText("<HTML><U>Lista De Episodios</U></HTML>");
+        lista_de_episodios_label.setText("<HTML><U>Lista Episodios</U></HTML>");
+        lista_de_episodios_label.setLocation(300, 175);
         
+        /* Subraya el texto "Episodio Seleccionado" */
+        episodio_seleccionado_label.setText("<HTML><U>Episodio Seleccionado</U></HTML>");
+        episodio_seleccionado_label.setLocation(12, 360);
+                
         b_AnyadirDiagnostico.setEnabled(false);
         b_GuardarCambios.setEnabled(false);
     }
     
+    /**
+     * Crea un EpisodioPacienteVista vacío para realizar los tests con JUnit.
+     * 
+     */
     public EpisodiosPacienteVista(){
         
     }
 
+    /**
+     * Asigna una tabla con episodios para realizar tests con JUnit.
+     * 
+     * @param tabla_con_episodios 
+     */
     public void setTabla_con_episodios(JTable tabla_con_episodios) {
         this.tabla_con_episodios = tabla_con_episodios;
     }
 
+    /**
+     * Asigna una lista con episodios para realizar tests con JUnit.
+     * 
+     * @param episodios 
+     */
     public void setEpisodios(List<EpisodioDeAtencionDTO> episodios) {
         this.episodios = episodios;
     }
 
+    /**
+     * Asigna el campo diagnostico para realizar tests con JUnit.
+     * 
+     * @param diagnostico_input_field 
+     */
     public void setDiagnostico_input_field(JTextField diagnostico_input_field) {
         this.diagnostico_input_field = diagnostico_input_field;
     }
@@ -208,9 +234,8 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
 
         datos_paciente_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         datos_paciente_label.setForeground(new java.awt.Color(0, 153, 153));
-        datos_paciente_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datos_paciente_label.setText("Datos Paciente ");
-        datos_paciente_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        datos_paciente_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         nombre_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         nombre_label.setText("Nombre");
@@ -234,9 +259,8 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
 
         lista_de_episodios_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         lista_de_episodios_label.setForeground(new java.awt.Color(0, 153, 153));
-        lista_de_episodios_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lista_de_episodios_label.setText("Lista de Episodios");
-        lista_de_episodios_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lista_de_episodios_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         tabla_con_episodios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -362,58 +386,60 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(episodio_seleccionado_label)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(id_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(id_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(fecha_label, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fecha_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(motivo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(324, 348, Short.MAX_VALUE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(nombre_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(apellido1_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(nss_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nss_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(edad_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(edad_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(diagnostico_label, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(diagnostico_label, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                    .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(414, 414, 414)
-                                    .addComponent(b_GuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(diagnostico_input_field)
-                                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(episodio_seleccionado_label)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(b_AnyadirDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
-                                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(id_label)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(id_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(fecha_label, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(fecha_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(motivo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(motivo_input_field))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lista_de_episodios_label)
-                        .addGap(279, 279, 279))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(b_Refresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(datos_paciente_label)
-                        .addGap(288, 288, 288))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(b_AnyadirDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(diagnostico_input_field)
+                            .addComponent(motivo_input_field)
+                            .addComponent(jScrollPane2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(b_Atrás, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(414, 414, 414)
+                                .addComponent(b_GuardarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(b_Refresh)
+                                .addGap(229, 229, 229)
+                                .addComponent(datos_paciente_label)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(nombre_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(apellido1_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(apellido1_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(nss_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nss_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(edad_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(edad_input_field)))
+                        .addContainerGap())))
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(lista_de_episodios_label)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,8 +447,8 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
                 .addComponent(paner_superior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datos_paciente_label)
-                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datos_paciente_label, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
@@ -434,7 +460,7 @@ public class EpisodiosPacienteVista extends javax.swing.JFrame implements Proper
                     .addComponent(nombre_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edad_input_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lista_de_episodios_label)
+                .addComponent(lista_de_episodios_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

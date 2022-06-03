@@ -93,9 +93,12 @@ public class NuevaCitaVista extends javax.swing.JFrame implements PropertyChange
         
         /* Subraya el texto "Datos Paciente" */
         datos_paciente_label.setText("<HTML><U>Datos Paciente</U></HTML>");
+        jPanel1.setLayout(null);
+        datos_paciente_label.setLocation(340, 100);
         
         /* Subraya el texto "Datos Cita" */
         datos_cita_label.setText("<HTML><U>Datos Cita</U></HTML>");
+        datos_cita_label.setLocation(350, 170);
         
         b_Guardar.setEnabled(false);
     }

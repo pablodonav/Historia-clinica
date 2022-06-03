@@ -64,6 +64,8 @@ public class NuevoPacienteVista extends javax.swing.JFrame implements PropertyCh
         
         /* Subraya el texto "Datos" */
         datos_label.setText("<HTML><U>Datos</U></HTML>");
+        panel_principal.setLayout(null);
+        datos_label.setLocation(340, 100);
                     
         b_Guardar.setEnabled(false);
     }

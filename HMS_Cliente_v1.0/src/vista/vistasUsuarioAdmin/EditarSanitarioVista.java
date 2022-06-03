@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import static javax.swing.SwingConstants.LEFT;
 import javax.swing.table.DefaultTableModel;
 import modelo.clasesDTOs.SanitarioDTO;
 import modelo.clasesProxys.Comms;
@@ -93,8 +94,14 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         habilitarBotonConectado(_idConexion);
         cargarTablaConSanitarios();
         
+        /* Subraya el texto "Lista Sanitarios" */
+        lista_de_sanitarios_label.setText("<HTML><U>Lista Sanitarios</U></HTML>");
+        panel_principal.setLayout(null);
+        lista_de_sanitarios_label.setLocation(300, 100);
+        
         /* Subraya el texto "Sanitario Seleccionado" */
-        sanitario_id_label.setText("<HTML><U>Sanitario Seleccionado </U></HTML>");
+        sanitario_seleccionado_label.setText("<HTML><U>Sanitario Seleccionado </U></HTML>");
+        sanitario_seleccionado_label.setHorizontalAlignment(LEFT);
         
         b_ModificarSanitario.setEnabled(false);
         b_EliminarSanitario.setEnabled(false);
@@ -141,7 +148,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
         tabla_con_sanitarios = new javax.swing.JTable();
         b_GuardarCambios = new javax.swing.JButton();
         b_EliminarSanitario = new javax.swing.JButton();
-        sanitario_id_label = new javax.swing.JLabel();
+        sanitario_seleccionado_label = new javax.swing.JLabel();
         nueva_contraseña_label = new javax.swing.JLabel();
         b_ModificarSanitario = new javax.swing.JButton();
         pwd1_input_field = new javax.swing.JPasswordField();
@@ -235,12 +242,12 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
             }
         });
 
-        sanitario_id_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
-        sanitario_id_label.setForeground(new java.awt.Color(0, 153, 153));
-        sanitario_id_label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        sanitario_id_label.setText("Sanitario Seleccionado ");
-        sanitario_id_label.setToolTipText("");
-        sanitario_id_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        sanitario_seleccionado_label.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        sanitario_seleccionado_label.setForeground(new java.awt.Color(0, 153, 153));
+        sanitario_seleccionado_label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sanitario_seleccionado_label.setText("Sanitario Seleccionado ");
+        sanitario_seleccionado_label.setToolTipText("");
+        sanitario_seleccionado_label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         nueva_contraseña_label.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         nueva_contraseña_label.setText("Nueva Contraseña");
@@ -433,7 +440,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
                                 .addComponent(b_EliminarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
                                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sanitario_id_label, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sanitario_seleccionado_label, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_principalLayout.createSequentialGroup()
                                         .addComponent(nombre_label)
                                         .addGap(18, 18, 18)
@@ -502,7 +509,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
                     .addComponent(b_EliminarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_ModificarSanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(sanitario_id_label)
+                .addComponent(sanitario_seleccionado_label)
                 .addGap(18, 18, 18)
                 .addGroup(panel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_label)
@@ -1143,7 +1150,7 @@ public class EditarSanitarioVista extends javax.swing.JFrame implements Property
     private javax.swing.JPasswordField pwd1_input_field;
     private javax.swing.JPasswordField pwd2_input_field;
     private javax.swing.JLabel repita_contraseña_label;
-    private javax.swing.JLabel sanitario_id_label;
+    private javax.swing.JLabel sanitario_seleccionado_label;
     private javax.swing.JTable tabla_con_sanitarios;
     private javax.swing.JTextField tlfn_input_field;
     private javax.swing.JLabel tlfn_label;
