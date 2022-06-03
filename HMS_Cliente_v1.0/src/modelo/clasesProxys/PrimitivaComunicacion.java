@@ -1,6 +1,7 @@
 /**
  * PrimitivaComunicacion.java
- * Pablo Doñate y Adnana Dragut (05/2021). 
+ * Adnana Catrinel Dragut
+ * v2.0 02/04/2022.
  *   
  */
 
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 
 
 /**
- *  Primitiva de comunicación cliente-servidor.
+ * Clase que contiene las primitivas de comunicación entre cliente-servidor.
  * 
  */
 public enum PrimitivaComunicacion {  

@@ -7,11 +7,9 @@
 
 package modelo.clasesProxys;
 
-import com.google.gson.Gson;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.clasesDTOs.UsuarioDTO;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
@@ -68,24 +66,6 @@ public class ProxyUsuario extends Comms{
             return null;
         } else {
             return resultados.get(0);
-        }
-    }
-    
-    public String verificarUsuarioTest(String _jsonUsuario) throws Exception{        
-        String respuestaJson = "";
-        Gson gson = new Gson();
-        
-        System.out.println(_jsonUsuario);
-        UsuarioDTO userTest = gson.fromJson(_jsonUsuario, UsuarioDTO.class);
-        userTest.setAdmin(false);
-        
-        respuestaJson = userTest.toJson();
-        System.out.println(respuestaJson);
-
-        if (respuestaJson.isEmpty()){
-            return null;
-        } else {
-            return respuestaJson;
         }
     }
 }

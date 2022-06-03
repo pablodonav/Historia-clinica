@@ -6,10 +6,8 @@
  */
 package modelo.clasesProxys;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.clasesDTOs.VacunaDTO;
 import static modelo.clasesProxys.Comms.conectado;
 
 /**
@@ -56,30 +54,6 @@ public class ProxyVacuna extends Comms {
             return null;
         } else {
             return resultados.get(0);
-        }
-    }
-    
-    public String obtenerVacunasDisponiblesTest() throws Exception{
-        String respuestaJson = "";
-        Gson gson = new Gson();
-        
-        List<VacunaDTO> vacunas = new ArrayList();
-        VacunaDTO vacuna1 = new VacunaDTO(554436, "FENDRIX");
-        VacunaDTO vacuna2 = new VacunaDTO(112223, "PFIZER");
-        vacunas.add(vacuna1);
-        vacunas.add(vacuna2);
-        String vacunasToSend = gson.toJson(vacunas);
-    
-        System.out.println("Vacunas disponibles enviadas: " + vacunasToSend);
-        
-        for(VacunaDTO vacuna: vacunas){
-            System.out.println(vacuna.toString());
-        }
-        
-        if (vacunasToSend.isEmpty()){
-            return null;
-        } else {
-            return vacunasToSend;
         }
     }
     

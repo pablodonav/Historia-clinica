@@ -1,12 +1,12 @@
 /**
  * Tupla.java
- * Pablo Doñate y Adnana Dragut (05/2021). 
- *   
+ * Adnana Catrinel Dragut 
+ * v2.0 21/04/2022.
  */
 package modelo.clasesDTOs;
 
 /**
- *  Tupla genérica de dos objetos.
+ * Clase que permite crear una tupla genérica con dos objetos de cualquier tipo de clase.
  * 
  */
 public class Tupla<A, B> {

@@ -1,6 +1,7 @@
 /**
  * OyenteServidor.java
- * Pablo Doñate y Adnana Dragut (05/2021). 
+ * Adnana Catrinel Dragut
+ * v2.0 02/04/2022.
  *   
  */
 package modelo.clasesProxys;

@@ -6,10 +6,8 @@
  */
 package modelo.clasesProxys;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.clasesDTOs.MedicamentoDTO;
 import static modelo.clasesProxys.Comms.conectado;
 
 /**
@@ -57,30 +55,6 @@ public class ProxyMedicamento extends Comms {
             return null;
         } else {
             return resultados.get(0);
-        }
-    }
-    
-    public String obtenerMedicamentosDisponiblesTest() throws Exception{
-        String respuestaJson = "";
-        Gson gson = new Gson();
-        
-        List<MedicamentoDTO> medicamentos = new ArrayList();
-        MedicamentoDTO medicamento1 = new MedicamentoDTO(1112233, "Prueba1");
-        MedicamentoDTO medicamento2 = new MedicamentoDTO(2223334, "Prueba2");
-        medicamentos.add(medicamento1);
-        medicamentos.add(medicamento2);
-        String medicamentosToSend = gson.toJson(medicamentos);
-    
-        System.out.println("Medicamentos disponibles enviados: " + medicamentosToSend);
-        
-        for(MedicamentoDTO medicamento: medicamentos){
-            System.out.println(medicamento.toString());
-        }
-        
-        if (medicamentosToSend.isEmpty()){
-            return null;
-        } else {
-            return medicamentosToSend;
         }
     }
     

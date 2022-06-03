@@ -1,19 +1,17 @@
 /**
  * Comms.java
- * Pablo Doñate y Adnana Dragut (05/2021). 
+ * Adnana Catrinel Dragut 
+ * v2.0 02/04/2022. 
  *   
  */
 
 package modelo.clasesProxys;
 
-import com.google.gson.Gson;
 import control.Config;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.List;
-import modelo.clasesDTOs.EpisodioDeAtencionDTO;
-import modelo.clasesDTOs.SanitarioDTO;
 
 /**
  * Clase que contiene los métodos para conectarse-desconectarse
@@ -419,152 +417,6 @@ public class Comms implements OyenteServidor{
 
         observadores.firePropertyChange(_propiedad, null, idMedicamentoToReceive);  
         return true;
-    }
-    
-    public void darAltaSanitarioTest(String _jsonSanitario) throws Exception{               
-        if (_jsonSanitario == null ||
-            _jsonSanitario.isBlank() ||
-            _jsonSanitario.isEmpty()) {
-            return;
-        }
-        
-        observadores.firePropertyChange(ProxySanitario.PROPIEDAD_DAR_ALTA_SANITARIO, null, _jsonSanitario);  
-        return;
-    }
-    
-    public void darBajaSanitarioTest(String _dniSanitario) throws Exception{        
-            if (_dniSanitario == null ||
-                _dniSanitario.isBlank() ||
-                _dniSanitario.isEmpty()) {
-                return;
-            }
-
-            System.out.println("Dni sanitario seleccionado: " + _dniSanitario);
-            observadores.firePropertyChange(ProxySanitario.PROPIEDAD_DAR_BAJA_SANITARIO, null, _dniSanitario);  
-            return;
-    }
-    
-    public void editarSanitarioTest(String _jsonSanitario) throws Exception{        
-            if (_jsonSanitario == null ||
-                _jsonSanitario.isBlank() ||
-                _jsonSanitario.isEmpty()) {
-                return;
-            }
-            Gson gson = new Gson();
-            SanitarioDTO userTest = gson.fromJson(_jsonSanitario, SanitarioDTO.class);
-            
-            System.out.println("Sanitario editado: " + userTest);
-            observadores.firePropertyChange(ProxySanitario.PROPIEDAD_EDITAR_SANITARIO, null, _jsonSanitario);  
-            return;
-    }
-    
-    public void registrarNuevoPacienteTest(String _jsonPaciente) throws Exception{  
-        if (_jsonPaciente == null ||
-            _jsonPaciente.isBlank() ||
-            _jsonPaciente.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonPaciente);
-        observadores.firePropertyChange(ProxyPaciente.PROPIEDAD_NUEVO_PACIENTE, null, _jsonPaciente);  
-        return;
-    }
-    
-    public void registrarNuevoEpisodioTest(String _jsonNuevoEpisodio, String idPaciente) throws Exception{  
-        if (_jsonNuevoEpisodio == null ||
-            _jsonNuevoEpisodio.isBlank() ||
-            _jsonNuevoEpisodio.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonNuevoEpisodio);
-        Gson gson = new Gson();
-        EpisodioDeAtencionDTO episodioDTO = gson.fromJson(_jsonNuevoEpisodio, EpisodioDeAtencionDTO.class);
-        episodioDTO.setId(1);
-        _jsonNuevoEpisodio = episodioDTO.toJson();
-        
-        observadores.firePropertyChange(ProxyEpisodio.PROPIEDAD_NUEVO_EPISODIO, null, _jsonNuevoEpisodio);  
-        return;
-    }
-    
-    public void anyadirDiagnosticoTest(String _jsonEpisodioConDiagnostico, String idPaciente) throws Exception{  
-        if (_jsonEpisodioConDiagnostico == null ||
-            _jsonEpisodioConDiagnostico.isBlank() ||
-            _jsonEpisodioConDiagnostico.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonEpisodioConDiagnostico);
-        
-        observadores.firePropertyChange(ProxyEpisodio.PROPIEDAD_NUEVO_DIAGNOSTICO, null, _jsonEpisodioConDiagnostico);  
-        return;
-    }
-    
-    public void anyadirCitaPacienteTest(String _jsonNuevaCita, String idPaciente) throws Exception{  
-        if (_jsonNuevaCita == null ||
-            _jsonNuevaCita.isBlank() ||
-            _jsonNuevaCita.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonNuevaCita);
-        
-        observadores.firePropertyChange(ProxyCitaPaciente.PROPIEDAD_NUEVA_CITA, null, _jsonNuevaCita);  
-        return;
-    }
-    
-    public void eliminarCitaPacienteTest(String _idCita, String _idPaciente) throws Exception{  
-        if (_idCita == null ||
-            _idCita.isBlank() ||
-            _idCita.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("idCita:" + _idCita);
-        System.out.println("idPaciente:" + _idPaciente);
-        
-        observadores.firePropertyChange(ProxyCitaPaciente.PROPIEDAD_ELIMINAR_CITA, null, _idCita);  
-        return;
-    }
-    
-    public void anyadirVacunaPacienteTest(String _jsonNuevaVacuna, String idPaciente) throws Exception{  
-        if (_jsonNuevaVacuna == null ||
-            _jsonNuevaVacuna.isBlank() ||
-            _jsonNuevaVacuna.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonNuevaVacuna);
-        
-        observadores.firePropertyChange(ProxyVacuna.PROPIEDAD_NUEVA_VACUNA, null, _jsonNuevaVacuna);  
-        return;
-    }
-    
-    public void anyadirMedicamentoPacienteTest(String _jsonNuevoMedicamento, String idPaciente) throws Exception{  
-        if (_jsonNuevoMedicamento == null ||
-            _jsonNuevoMedicamento.isBlank() ||
-            _jsonNuevoMedicamento.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("jsonRecibido:" + _jsonNuevoMedicamento);
-        
-        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_NUEVO_MEDICAMENTO, null, _jsonNuevoMedicamento);  
-        return;
-    }
-    
-    public void eliminarMedicamentoDePacienteTest(String _idMedicamento, String _idPaciente) throws Exception{  
-        if (_idMedicamento == null ||
-            _idMedicamento.isBlank() ||
-            _idMedicamento.isEmpty()) {
-            return;
-        }
-        
-        System.out.println("codigoMedicamento:" + _idMedicamento);
-        System.out.println("idPaciente:" + _idPaciente);
-        
-        observadores.firePropertyChange(ProxyMedicamento.PROPIEDAD_ELIMINAR_MEDICAMENTO, null, _idMedicamento);  
-        return;
     }
     
     /**

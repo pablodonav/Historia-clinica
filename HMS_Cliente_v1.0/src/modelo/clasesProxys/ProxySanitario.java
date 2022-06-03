@@ -7,10 +7,8 @@
 
 package modelo.clasesProxys;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.clasesDTOs.SanitarioDTO;
 
 /**
  * Clase que contiene los métodos para enviar solicitudes 
@@ -122,29 +120,5 @@ public class ProxySanitario extends Comms{
         } else {
             return resultados.get(0);
         }
-    }
-    
-    public String obtenerSanitariosTest() throws Exception{
-        String respuestaJson = "";
-        Gson gson = new Gson();
-        
-        List<SanitarioDTO> sanitarios = new ArrayList();
-        sanitarios.add(new SanitarioDTO("Ana", "Prueba1", "Prueba1", "x1111", 1111, "a@gmail.com", "1234", "Médico"));
-        sanitarios.add(new SanitarioDTO("Borja", "Prueba2", "Prueba2", "x2222", 2222, "a@gmail.com", "1234", "otros"));
-        sanitarios.add(new SanitarioDTO("Maria", "Prueba3", "Prueba3", "x1234", 1234, "a@gmail.com", "1234", "Médico"));
-        
-        String sanitariosToSend = gson.toJson(sanitarios);
-    
-        System.out.println("Enviados sanitarios: " + sanitariosToSend);
-        
-        for(SanitarioDTO sanitario: sanitarios){
-            System.out.println(sanitario.toString());
-        }
-        
-        if (sanitariosToSend.isEmpty()){
-            return null;
-        } else {
-            return sanitariosToSend;
-        }
-    }
+    }   
 }

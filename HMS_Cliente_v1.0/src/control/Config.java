@@ -14,7 +14,8 @@ import java.util.Properties;
 
 /**
  * Clase que contiene los métodos para cargar y
- * guardar información de un fichero.
+ * guardar información del fichero de configuración, necesarias para 
+ * establecer la conexión con el servidor.
  * 
  */
 public class Config {
